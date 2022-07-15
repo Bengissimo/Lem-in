@@ -6,17 +6,17 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 14:15:56 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/07/15 10:20:24 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/07/15 10:44:37 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
 
-static char *link_room_names(const char *room1, const char *room2)
+static char	*link_room_names(const char *room1, const char *room2)
 {
-	char *temp;
-	char *dst;
-	
+	char	*temp;
+	char	*dst;
+
 	temp = ft_strjoin(room1, "-");
 	dst = ft_strjoin(temp, room2);
 	ft_strdel(&temp);
@@ -24,11 +24,11 @@ static char *link_room_names(const char *room1, const char *room2)
 }
 
 /*did it for list but we can update the struct later*/
-int is_link_valid(t_list *rooms, char *line)
+int	is_link_valid(t_list *rooms, char *line)
 {
-	t_list *i;
-	t_list *j;
-	char *check;
+	t_list	*i;
+	t_list	*j;
+	char	*check;
 
 	i = rooms;
 	while (i)
