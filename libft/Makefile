@@ -6,7 +6,7 @@
 #    By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/02 23:20:01 by ykot              #+#    #+#              #
-#    Updated: 2022/07/14 19:41:55 by bkandemi         ###   ########.fr        #
+#    Updated: 2022/07/17 22:20:46 by bkandemi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,7 +83,7 @@ SRC = 		ft_atoi.c \
 			ft_demtobase.c \
 			get_next_line.c
 
-#SRC_PF = 	ft_printf.c \
+SRC_PF = 	ft_printf.c \
 			print_conversion.c \
 			conversion_specification.c \
 			print_decimal.c \
@@ -100,20 +100,20 @@ SRC = 		ft_atoi.c \
 			rounding.c
 
 OBJ = $(SRC:.c=.o)
-#OBJ_PF = $(SRC_PF:.c=.o)
+OBJ_PF = $(SRC_PF:.c=.o)
 NAME = libft.a
 CFLAGS = -c -Wall -Werror -Wextra
-#FT_PRINTF_PATH = ft_printf/
+FT_PRINTF_PATH = ft_printf/
 
 
 all: $(NAME)
 
 $(NAME):
-	@gcc $(CFLAGS) $(SRC)
-	@ar rc $(NAME) $(OBJ)
+	@gcc $(CFLAGS) $(SRC) $(addprefix $(FT_PRINTF_PATH), $(SRC_PF))
+	@ar rc $(NAME) $(OBJ) $(OBJ_PF)
 
 clean:
-	@rm -f $(OBJ)
+	@rm -f $(OBJ) $(OBJ_PF)
 
 fclean: clean
 	@rm -f $(NAME)
