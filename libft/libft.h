@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 20:10:34 by ykot              #+#    #+#             */
-/*   Updated: 2022/03/17 11:21:17 by ykot             ###   ########.fr       */
+/*   Updated: 2022/07/17 22:10:24 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <string.h>
 # define BUFF_SIZE 1024
 # define MAX_FD 10
+# define TRUE 1
+# define FALSE 0
 
 typedef struct s_list
 {
@@ -59,7 +61,7 @@ void		ft_strtoup(char *str);
 void		ft_strrev(char *str);
 
 /*
-**	Memmory
+**	Memory
 */
 
 void		*ft_memset(void *b, int c, size_t len);

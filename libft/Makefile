@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+         #
+#    By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/02 23:20:01 by ykot              #+#    #+#              #
-#    Updated: 2022/03/15 16:16:27 by ykot             ###   ########.fr        #
+#    Updated: 2022/07/14 19:41:55 by bkandemi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,7 +83,7 @@ SRC = 		ft_atoi.c \
 			ft_demtobase.c \
 			get_next_line.c
 
-SRC_PF = 	ft_printf.c \
+#SRC_PF = 	ft_printf.c \
 			print_conversion.c \
 			conversion_specification.c \
 			print_decimal.c \
@@ -100,20 +100,20 @@ SRC_PF = 	ft_printf.c \
 			rounding.c
 
 OBJ = $(SRC:.c=.o)
-OBJ_PF = $(SRC_PF:.c=.o)
+#OBJ_PF = $(SRC_PF:.c=.o)
 NAME = libft.a
 CFLAGS = -c -Wall -Werror -Wextra
-FT_PRINTF_PATH = ft_printf/
+#FT_PRINTF_PATH = ft_printf/
 
 
 all: $(NAME)
 
 $(NAME):
-	@gcc $(CFLAGS) $(SRC) $(addprefix $(FT_PRINTF_PATH), $(SRC_PF)) -I
-	@ar rc $(NAME) $(OBJ) $(OBJ_PF)
+	@gcc $(CFLAGS) $(SRC)
+	@ar rc $(NAME) $(OBJ)
 
 clean:
-	@rm -f $(OBJ) $(OBJ_PF)
+	@rm -f $(OBJ)
 
 fclean: clean
 	@rm -f $(NAME)
