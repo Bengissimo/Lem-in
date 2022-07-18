@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 14:43:14 by ykot              #+#    #+#             */
-/*   Updated: 2022/07/16 17:12:44 by ykot             ###   ########.fr       */
+/*   Updated: 2022/07/18 19:51:17 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	del_links(void *content, size_t size)
 
 static void	del_rooms(void *content, size_t size)
 {
-	ft_strdel(&((t_room *)content)->name);
+	//ft_strdel(&((t_room *)content)->name);  //this was giving a double-free error with fsanitize
 	ft_memdel(&content);
 	(void *)size;
 }

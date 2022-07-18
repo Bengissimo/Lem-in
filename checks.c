@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 15:17:15 by ykot              #+#    #+#             */
-/*   Updated: 2022/07/18 10:11:43 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/07/18 20:08:02 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	is_link_valid(t_list *rooms, char *line)
 				if (ft_strequ(check, line))
 				{
 					ft_strdel(&check);
-					return (1);
+					return (TRUE);
 				}
 				ft_strdel(&check);
 			}
@@ -99,5 +99,5 @@ int	is_link_valid(t_list *rooms, char *line)
 		}
 		i = i->next;
 	}
-	return (0);
+	return (FALSE);
 }

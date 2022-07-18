@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:25:04 by ykot              #+#    #+#             */
-/*   Updated: 2022/07/18 10:10:12 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/07/18 20:08:38 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,9 @@ static void	get_ant_num(t_farm *farm)
 	{
 		if (get_next_line(0, &line) != 1)
 			error(farm);
-		/*if line is comment
-		{
-			ft_strdel(&line);
-			continue;
-		}*/
 		if (is_comment(line))
 		{
-			//ft_strdel(&line);
+			ft_strdel(&line);
 			continue;
 		}
 		if (check_int(line) == 0)
@@ -65,14 +60,11 @@ static void	error_free_split_line(t_farm *farm, char ***str, char **line)
 static int get_link(t_farm *farm, char **line)
 {
 	t_list	*temp;
-
-	t_room *room = farm->rooms->content;
 	
 	if (!is_link_valid(farm->rooms, *line))
 	{
-		/*ft_strdel(line);
-		error(farm);*/
-		return (0);
+		ft_strdel(line);
+		error(farm);
 	}
 	temp = ft_lstnew(*line, sizeof(*line));
 	if (temp == NULL)
@@ -103,33 +95,42 @@ static int	is_char_in_str(char c, char *str)
 	return (found);
 }
 
+static int	add_start_end_to_room_list(t_farm *farm)
+{
+	t_list *temp_start;
+	t_list *temp_end;
+
+	temp_end = ft_lstnew(&farm->end, sizeof(farm->end));
+	if (temp_end == NULL)
+		return (0);
+	ft_lstadd(&farm->rooms, temp_end);
+	temp_start = ft_lstnew(&farm->start, sizeof(farm->start));
+	if (temp_start == NULL)
+		return (0);
+	ft_lstadd(&farm->rooms, temp_start);
+	return (1);
+	
+}
+
 static int	get_room(t_farm *farm, char **line)
 {
 	t_room	room;
 	t_list	*temp;
-	t_list *temp_start;
-	t_list *temp_end;
 	char	**str;
 	
 	str = ft_strsplit(*line, ' ');
 	if (str == NULL)
 		error_free_split_line(farm, &str, line);
-	/* if (check_name_room(str[0])) */
 	if (!is_room_name_valid(*line))
 		error_free_split_line(farm, &str, line);
 	if (!str[1] && is_char_in_str('-', str[0]))  //might be link, after link no rooms
 	{
-		//add start to head
-		temp_start = ft_lstnew(&farm->start, sizeof(farm->start));
-		/*if (temp_start == NULL)
-			error_free_split_line(farm, &str, line);*/
-		ft_lstadd(&farm->rooms, temp_start);
-		//append end to last  OR we can make start first end second
-		temp_end = ft_lstnew(&farm->end, sizeof(farm->end));
-		/*if (temp_end == NULL)
-			error_free_split_line(farm, &str, line);*/
-		ft_lstappend(&farm->rooms, temp_end);
+		/* add start and end to the rooms list */
+		if (!add_start_end_to_room_list(farm))
+			error_free_split_line(farm, &str, line);
 		get_link(farm, line);
+		free_split(&str);
+		ft_strdel(line);
 		return (0);
 	}
 	if (!(check_int(str[1]) && check_int(str[2]) && !str[3]))
@@ -146,20 +147,6 @@ static int	get_room(t_farm *farm, char **line)
 	return (1);
 }
 
-
-
-static int check_result(t_farm *farm, int result)
-{
-	if (result == -1)
-		error(farm);
-	if (result == 0 && farm->start.name && farm->end.name)
-		return (1);
-	if (result == 0)
-		error(farm);
-	return (0);
-}
-
-
 static void	get_command(t_farm *farm, char **line, int start_flag)
 {
 	char	**str;
@@ -167,7 +154,6 @@ static void	get_command(t_farm *farm, char **line, int start_flag)
 	str = ft_strsplit(*line, ' ');
 	if (str == NULL)
 		error_free_split_line(farm, &str, line);
-	/* if (check_name_room(str[0])) */
 	if (!is_room_name_valid(*line))
 		error_free_split_line(farm, &str, line);
 	if (!(check_int(str[1]) && check_int(str[2]) && !str[3]))
@@ -206,6 +192,17 @@ static int	check_command(t_farm *farm, char **line)
 	return (1);
 }
 
+static int check_result(t_farm *farm, int result)
+{
+	if (result == -1)
+		error(farm);
+	if (result == 0 && farm->start.name && farm->end.name)
+		return (1);
+	if (result == 0)
+		error(farm);
+	return (0);
+}
+
 static void	get_rooms_link(t_farm *farm)
 {
 	char	*line;
@@ -218,10 +215,8 @@ static void	get_rooms_link(t_farm *farm)
 		result = get_next_line(0, &line);
 		if (check_result(farm, result))
 			return ;
-		/*if line is comment
-			continue;*/
 		if (is_comment(line))
-			continue;
+			continue ;
 		if (check_command(farm, &line))
 			continue ;
 		if (get_room(farm, &line))
