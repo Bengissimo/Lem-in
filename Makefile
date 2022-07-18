@@ -6,7 +6,7 @@
 #    By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/24 17:18:57 by bkandemi          #+#    #+#              #
-#    Updated: 2022/07/17 22:07:45 by bkandemi         ###   ########.fr        #
+#    Updated: 2022/07/17 23:03:49 by bkandemi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,14 +21,14 @@ CC = gcc
 
 CC_DEBUG = gcc -g -fsanitize=address
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra 
 
 all : $(NAME)
 
 $(NAME):
 	@make -C libft/ fclean && make -C libft/
-	@$(CC) $(FLAGS) -c $(C_FILES)
-	@$(CC) $(FLAGS) $(O_FILES) libft/libft.a -o $(NAME)
+	@$(CC) $(CFLAGS) -c $(C_FILES)
+	@$(CC) $(CFLAGS) $(O_FILES) libft/libft.a -o $(NAME)
 
 clean:
 	@rm -f $(O_FILES)
@@ -40,7 +40,7 @@ fclean: clean
 
 debug:
 	@make -C libft/ fclean && make -C libft/
-	@$(CC_DEBUG) $(FLAGS) -c $(C_FILES)
-	@$(CC_DEBUG) $(FLAGS) $(O_FILES) libft/libft.a -o $(NAME)
+	@$(CC_DEBUG) $(CFLAGS) -c $(C_FILES)
+	@$(CC_DEBUG) $(CFLAGS) $(O_FILES) libft/libft.a -o $(NAME)
 
 re:	fclean all

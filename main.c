@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:22:20 by ykot              #+#    #+#             */
-/*   Updated: 2022/07/17 22:40:53 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/07/17 23:11:59 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	main(int argc, char **argv)
 	t_farm	farm;
 
 	if (argc != 1)
-		error(&farm);
+		error(&farm);  //this fn leads to a bus error and aborts program. we can simply return (1) instead
 	(void *)argv;
 	ft_bzero(&farm, sizeof(farm));
 	read_input(&farm);

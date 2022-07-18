@@ -6,14 +6,15 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/07/17 22:08:30 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/07/18 00:10:52 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEM_IN_H
 # define LEM_IN_H
 # include "libft/libft.h"
-# include <stdio.h>
+# include <stdio.h> // DONT FORGET TO DEL BEFORE SUBMIT
+
 
 typedef struct	s_coord
 {
@@ -41,6 +42,10 @@ void	read_input(t_farm *farm);
 void	free_farm(t_farm *farm);
 void	error(t_farm *farm);
 int		check_int(const char *str);
+int		is_comment(char *line);
+int		is_room_name_valid(char *line);
+int	is_link_valid(t_list *rooms, char *line);
+
 void    print_farm(t_farm farm);
 
 #endif
