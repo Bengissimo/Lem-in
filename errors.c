@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 14:43:14 by ykot              #+#    #+#             */
-/*   Updated: 2022/07/19 12:09:24 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/07/19 12:23:55 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ void free_farm(t_farm *farm)
 
 void	error(t_farm *farm)
 {
-	free_farm(farm);
+	if (farm)
+		free_farm(farm);
 	ft_putendl_fd("Error", 2);
 	exit(1);
 }
