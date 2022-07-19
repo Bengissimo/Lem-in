@@ -3,50 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   reading.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:25:04 by ykot              #+#    #+#             */
-/*   Updated: 2022/07/19 12:09:43 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/07/19 12:39:04 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem-in.h"
 
-static void	get_ant_num(t_farm *farm)
-{
-	char	*line;
-
-	line = NULL;
-	while (TRUE)
-	{
-		if (get_next_line(0, &line) != 1)
-			error(farm);
-		if (is_comment(line))
-		{
-			ft_strdel(&line);
-			continue;
-		}
-		if (check_int(line) == 0)
-		{
-			ft_strdel(&line);
-			error(farm);
-		}
-		farm->num_ants = ft_atoi(line);
-		ft_strdel(&line);
-		return ;
-	}
-}
-
 static void	free_split(char ***str)
 {
 	size_t	i;
 
-	i = 0;
-	while ((*str)[i])
-	{
+	i = -1;
+	while ((*str)[++i])
 		ft_strdel(&((*str)[i]));
-		++i;
-	}
 	ft_memdel((void *)str);
 }
 
@@ -55,25 +27,6 @@ static void	error_free_split_line(t_farm *farm, char ***str, char **line)
 	free_split(str);
 	ft_strdel(line);
 	error(farm);	
-}
-
-static int get_link(t_farm *farm, char **line)
-{
-	t_list	*temp;
-	
-	if (!is_link_valid(farm->rooms, *line))
-	{
-		ft_strdel(line);
-		error(farm);
-	}
-	temp = ft_lstnew(*line, sizeof(*line));
-	if (temp == NULL)
-	{
-		ft_strdel(line);
-		error(farm);
-	}
-	ft_lstappend(&farm->links, temp);
-	return (1);
 }
 
 static int	is_char_in_str(char c, char *str)
@@ -93,6 +46,35 @@ static int	is_char_in_str(char c, char *str)
 		i++;
 	}
 	return (found);
+}
+
+static void	get_ant_num(t_farm *farm, char **line)
+{
+	while (TRUE)
+	{
+		ft_strdel(line);
+		if (get_next_line(0, line) != 1)
+			error(farm);
+		if (is_comment(*line))
+			continue;
+		if (check_int(*line) == 0)
+			error_free_split_line(farm, NULL, line);
+		farm->num_ants = ft_atoi(*line);
+		return ;
+	}
+}
+
+static int get_link(t_farm *farm, char **line)
+{
+	t_list	*temp;
+	
+	if (!is_link_valid(farm->rooms, *line))
+		error_free_split_line(farm, NULL, line);
+	temp = ft_lstnew(*line, sizeof(*line));
+	if (temp == NULL)
+		error_free_split_line(farm, NULL, line);
+	ft_lstappend(&farm->links, temp);
+	return (1);
 }
 
 static int	add_start_end_to_room_list(t_farm *farm)
@@ -204,12 +186,13 @@ static int check_result(t_farm *farm, int result)
 	return (0);
 }
 
-static void	get_rooms_link(t_farm *farm)
+void	read_input(t_farm *farm)
 {
 	char	*line;
 	int		result;
 	
 	line = NULL;
+	get_ant_num(farm, &line);
 	while (TRUE)
 	{
 		ft_strdel(&line);
@@ -225,10 +208,4 @@ static void	get_rooms_link(t_farm *farm)
 		/*if (get_link(farm, &line))
 			continue ;*/
 	}
-}
-
-void	read_input(t_farm *farm)
-{
-	get_ant_num(farm);
-	get_rooms_link(farm);
 }

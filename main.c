@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:22:20 by ykot              #+#    #+#             */
-/*   Updated: 2022/07/19 12:24:40 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/07/19 15:25:25 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,8 @@ int	main(int argc, char **argv)
 	t_farm	farm;
 
 	ft_bzero(&farm, sizeof(farm));
-	if (argc != 1)
+	if (argc != 1 && argv)
 		error(&farm);
-	(void *)argv;
 	read_input(&farm);
 	/* algo */
 	print_farm(farm);

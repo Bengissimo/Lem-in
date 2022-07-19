@@ -3,18 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   lem-in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/07/18 00:10:52 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/07/19 16:04:17 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEM_IN_H
 # define LEM_IN_H
 # include "libft/libft.h"
-# include <stdio.h> // DONT FORGET TO DEL BEFORE SUBMIT
-
 
 typedef struct	s_coord
 {
@@ -25,8 +23,8 @@ typedef struct	s_coord
 typedef struct	s_room
 {
 	char	*name;
-	int		occupied;
 	t_coord	coord;
+	t_list *link;
 }				t_room;
 
 typedef struct	s_farm
@@ -44,7 +42,7 @@ void	error(t_farm *farm);
 int		check_int(const char *str);
 int		is_comment(char *line);
 int		is_room_name_valid(char *line);
-int	is_link_valid(t_list *rooms, char *line);
+int		is_link_valid(t_list *rooms, char *line);
 
 void    print_farm(t_farm farm);
 
