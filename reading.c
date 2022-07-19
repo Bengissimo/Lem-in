@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:25:04 by ykot              #+#    #+#             */
-/*   Updated: 2022/07/18 20:08:38 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/07/18 20:10:49 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,6 @@ static int	add_start_end_to_room_list(t_farm *farm)
 		return (0);
 	ft_lstadd(&farm->rooms, temp_start);
 	return (1);
-	
 }
 
 static int	get_room(t_farm *farm, char **line)
