@@ -6,7 +6,7 @@
 #    By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/24 17:18:57 by bkandemi          #+#    #+#              #
-#    Updated: 2022/07/17 23:03:49 by bkandemi         ###   ########.fr        #
+#    Updated: 2022/07/19 09:57:38 by bkandemi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ C_FILES = *.c
 
 O_FILES = $(C_FILES:.c=.o)
 
-CC = gcc
+CC = gcc -g
 
 CC_DEBUG = gcc -g -fsanitize=address
 

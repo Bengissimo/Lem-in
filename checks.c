@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 15:17:15 by ykot              #+#    #+#             */
-/*   Updated: 2022/07/18 20:08:02 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/07/19 12:18:14 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	is_comment(char *line)
 
 int	is_room_name_valid(char *line)
 {
-	if (line[0] == 'L' || line[0] == '#')
+	if (line[0] == 'L')
 		return (FALSE);
 	return (TRUE);
 }

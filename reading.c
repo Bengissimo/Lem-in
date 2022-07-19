@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:25:04 by ykot              #+#    #+#             */
-/*   Updated: 2022/07/18 20:10:49 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/07/19 12:09:43 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,8 @@ static int	get_room(t_farm *farm, char **line)
 	t_list	*temp;
 	char	**str;
 	
+	if (ft_strlen(*line) == 0)   //this solved the seg fault in empty line
+		error(farm);
 	str = ft_strsplit(*line, ' ');
 	if (str == NULL)
 		error_free_split_line(farm, &str, line);
