@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 14:43:14 by ykot              #+#    #+#             */
-/*   Updated: 2022/07/26 10:37:52 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/07/27 20:06:11 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,15 @@ void	free_split(char ***str)
 {
 	size_t	i;
 
-	i = -1;
-	while ((*str)[++i])
+	i = 0;
+	
+	if (!str || !*str)
+		return ;
+	while ((*str)[i])
+	{
 		ft_strdel(&((*str)[i]));
+		i++;
+	}
 	ft_memdel((void *)str);
 }
 
