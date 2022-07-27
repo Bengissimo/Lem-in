@@ -1,27 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   get_links.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/14 13:22:20 by ykot              #+#    #+#             */
-/*   Updated: 2022/07/27 18:36:22 by bkandemi         ###   ########.fr       */
+/*   Created: 2022/07/27 10:50:17 by bkandemi          #+#    #+#             */
+/*   Updated: 2022/07/27 10:50:33 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem-in.h"
 
-int	main(int argc, char **argv)
+static int	append_link_name(t_farm *farm, char *line)
 {
-	t_farm	farm;
+	t_list *link_name;
+	
+	link_name = ft_lstnew(line, sizeof(line));
+	if (!link_name)
+		return (0);
+	ft_lstappend(&farm->links, link_name);
+	return (1);
+}
 
-	ft_bzero(&farm, sizeof(farm));
-	if (argc != 1 && argv)
-		error(&farm);
-	read_input(&farm);
-	/* algo */
-	print_farm(farm);
-	free_farm(&farm);
-	return (0);
+int get_link(t_farm *farm, char **line)
+{
+	if (!is_link_valid(farm->rooms, *line))
+		return (0);
+	append_link_name(farm, *line);
+	make_adj_list(farm, line);
+	return (1);
 }

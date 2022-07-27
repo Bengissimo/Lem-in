@@ -6,13 +6,13 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 15:17:15 by ykot              #+#    #+#             */
-/*   Updated: 2022/07/19 12:18:14 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/07/27 10:51:22 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem-in.h"
 
-int	check_int(const char *str) //name suggestion: is_int
+int	check_int(const char *str)
 {
 	size_t	i;
 	size_t	len;
@@ -39,24 +39,6 @@ int	check_int(const char *str) //name suggestion: is_int
 	return (1);
 }
 
-int	is_comment(char *line)
-{
-	if (line[0] == '#')
-	{
-		if (ft_strequ(line, "##start") || ft_strequ(line, "##end"))
-			return (FALSE);
-		return (TRUE);
-	}
-	return (FALSE);
-}
-
-int	is_room_name_valid(char *line)
-{
-	if (line[0] == 'L')
-		return (FALSE);
-	return (TRUE);
-}
-
 static char	*link_room_names(const char *room1, const char *room2)
 {
 	char	*temp;
@@ -68,7 +50,6 @@ static char	*link_room_names(const char *room1, const char *room2)
 	return (dst);
 }
 
-/*did it for list but we can update the struct later*/
 int	is_link_valid(t_list *rooms, char *line)
 {
 	t_list	*i;
@@ -100,4 +81,23 @@ int	is_link_valid(t_list *rooms, char *line)
 		i = i->next;
 	}
 	return (FALSE);
+}
+
+int	is_char_in_str(char c, char *str)
+{
+	int	i;
+	int	found;
+
+	found = FALSE;
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (c == str[i])
+		{
+			found = TRUE;
+			break ;
+		}
+		i++;
+	}
+	return (found);
 }

@@ -3,36 +3,77 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 13:05:24 by ykot              #+#    #+#             */
-/*   Updated: 2022/07/19 12:31:18 by ykot             ###   ########.fr       */
+/*   Updated: 2022/07/26 15:56:26 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem-in.h"
 
-void    print_farm(t_farm farm)
+static void	print_rooms(t_farm farm)
 {
-    t_list *temp;
-    
-    ft_printf("%d\n", farm.num_ants);
-    ft_putendl("##start");
-    ft_printf("%s %d %d\n", farm.start.name, farm.start.coord.x, farm.start.coord.y);
-    ft_putendl("##end");
-    ft_printf("%s %d %d\n", farm.end.name, farm.end.coord.x, farm.end.coord.y);
-    temp = farm.rooms;
-    while (temp)
+	t_list	*rooms;
+	t_room	*the_room;
+
+	rooms = farm.rooms;
+	while (rooms)
+	{
+		the_room = rooms->content;
+		if (ft_strequ(farm.start->name, the_room->name))
+		{
+			ft_putendl("##start");
+		}
+		else if (ft_strequ(farm.end->name, the_room->name))
+		{
+			ft_putendl("##end");
+		}
+		printf("%s %d %d\n", the_room->name, the_room->coord.x, the_room->coord.y);
+		rooms = rooms->next;
+	}
+}
+
+static void	print_links(t_farm farm)
+{
+	t_list	*links;
+
+	links = farm.links;
+	while (links)
     {
-        ft_printf("%s %d %d\n", ((t_room *)temp->content)->name, \
-        ((t_room *)temp->content)->coord.x, ((t_room *)temp->content)->coord.y);
-        temp = temp->next;
+        ft_putendl((char *)links->content);
+        links = links->next;
     }
-    temp = farm.links;
-    while (temp)
-    {
-        ft_putendl((char *)temp->content);
-        temp = temp->next;
-    }
-    ft_putendl("");
+}
+
+static void print_links_in_adj_list(t_farm farm) //just to see what we have in adj_list, will be removed later
+{
+	t_list	*rooms;
+	t_room	*the_room;
+	t_list	*links;
+	t_room	*the_linked_room;
+
+	rooms = farm.rooms;
+	while (rooms)
+	{
+		the_room = rooms->content;
+		links = the_room->linked_rooms;
+		while (links)
+		{
+			the_linked_room = links->content;
+			printf("%s-%s\n",the_room->name, the_linked_room->name);
+			links = links->next;
+		}
+		rooms = rooms->next;
+	}
+}
+
+void	print_farm(t_farm farm)
+{
+	ft_printf("%d\n", farm.num_ants);
+	print_rooms(farm);
+	print_links(farm);
+	ft_putendl("---");
+	print_links_in_adj_list(farm);
+	ft_putendl("");
 }
