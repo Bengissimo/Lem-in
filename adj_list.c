@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 23:03:54 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/07/26 15:07:19 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/07/28 14:25:26 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static t_room	*find_room(t_farm *farm, char *name)
 		room = curr->content;
 		if (ft_strequ(room->name, name))
 			return (room);
-		curr =curr->next;
+		curr = curr->next;
 	}
 	return (NULL);
 }
@@ -34,8 +34,12 @@ static int	append_link(t_room *room0, t_room *room1)
 
 	link = ft_lstnew(room1, sizeof(room1));
 	if (!link)
+	{
+		ft_memdel((void **)&link);
 		return (0);
+	}
 	ft_lstappend(&room0->linked_rooms, link);
+	//ft_memdel((void **)&link);
 	return (1);
 }
 
@@ -58,4 +62,5 @@ void	make_adj_list(t_farm *farm, char **line)
 		error_free_split_line(farm, &names, line);
 	if (!append_link(room1, room0))
 		error_free_split_line(farm, &names, line);
+	free_split(&names);
 }

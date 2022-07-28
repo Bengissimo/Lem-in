@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 10:00:16 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/07/27 20:10:30 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/07/28 11:42:35 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,16 @@ char **get_room(char *line)
 	str = ft_strsplit(line, ' ');
 	if (str == NULL)
 		return (NULL);
-	if (!is_room_name_valid(str[0]))  //now we are doing name and coord checks inside this function
+	if (!is_room_name_valid(str[0]))
+	{
+		free_split(&str);
 		return (NULL);
+	}
 	if (!(check_int(str[1]) && check_int(str[2]) && !str[3]))
+	{
+		free_split(&str);
 		return (NULL);
+	}
 	return (str);
 }
 
@@ -47,6 +53,7 @@ t_room	*create_room(char **str)
 	room->name = ft_strdup(str[0]);
 	room->coord.x = ft_atoi(str[1]);
 	room->coord.y = ft_atoi(str[2]);
+	free_split(&str);
 	return (room);
 }
 

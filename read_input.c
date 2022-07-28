@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:25:04 by ykot              #+#    #+#             */
-/*   Updated: 2022/07/27 20:11:22 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/07/28 14:01:41 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,15 @@ static int check_gnl(t_farm *farm, int gnl)
 int	get_rooms_links(t_farm *farm, char *line)
 {
 	char	**room_line;
+	t_room *room;
 
 	room_line = get_room(line);
 	if (room_line && !farm->rooms_done)
 	{
-		append_room_to_list(farm, create_room(room_line));
+		room = create_room(room_line);
+		append_room_to_list(farm, room); //free room
 		farm->num_rooms++;
+		ft_memdel((void **)&room);
 		return (1) ;
 	}
 	else if (is_char_in_str('-', line))

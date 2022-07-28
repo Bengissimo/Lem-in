@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 14:43:14 by ykot              #+#    #+#             */
-/*   Updated: 2022/07/27 20:06:11 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/07/28 14:45:31 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	del_rooms(void *content, size_t size)
 	size++;
 }
 
-void free_farm(t_farm *farm)
+void	free_farm(t_farm *farm)
 {
 	ft_lstdel(&farm->rooms, del_rooms);
 }

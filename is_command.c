@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 10:49:49 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/07/27 20:01:38 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/07/28 11:27:38 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,20 @@ static void	get_command(t_farm *farm, char **line, int start_flag)
 	char	**str;
 	t_room *room;
 
-	str = get_room(*line);
+	str = get_room(*line);  
 	if (!str)
 		error_free_split_line(farm, NULL, line);
-	room = create_room(str);
+	room = create_room(str);  //free room when when you are done 
 	if (!room)
-		error_free_split_line(farm, &str, line);
+		error_free_split_line(farm, NULL, line);
 	farm->num_rooms++;
 	if (start_flag)
 		farm->start = room;
 	else
 		farm->end = room;
 	if (!append_room_to_list(farm, room))
-		error_free_split_line(farm, &str, line);
-	free_split(&str);
+		error_free_split_line(farm, NULL, line);
+	//free_split(&str);
 }
 
 int	is_command(t_farm *farm, char **line)
