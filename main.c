@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:22:20 by ykot              #+#    #+#             */
-/*   Updated: 2022/07/29 10:11:31 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/07/29 10:26:07 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@ int	main(int argc, char **argv)
 	/* algo */
 	print_farm(farm);
 	free_farm(&farm);
-	system("leaks lem-in"); //do not run this with make debug, if you do so, first call make fclean and call make re
+	system("leaks lem-in"); //do not run this with make debug or with valgrind, if you do so, first call make fclean and call make re
 	return (0);
 }
