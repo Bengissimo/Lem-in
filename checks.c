@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 15:17:15 by ykot              #+#    #+#             */
-/*   Updated: 2022/07/27 10:51:22 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/07/29 16:02:57 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	check_int(const char *str)
 	return (1);
 }
 
-static char	*link_room_names(const char *room1, const char *room2)
+/*static char	*link_room_names(const char *room1, const char *room2)
 {
 	char	*temp;
 	char	*dst;
@@ -48,9 +48,9 @@ static char	*link_room_names(const char *room1, const char *room2)
 	dst = ft_strjoin(temp, room2);
 	ft_strdel(&temp);
 	return (dst);
-}
+}*/
 
-int	is_link_valid(t_list *rooms, char *line)
+/*int	is_link_valid(t_list *rooms, char *line)
 {
 	t_list	*i;
 	t_list	*j;
@@ -79,6 +79,54 @@ int	is_link_valid(t_list *rooms, char *line)
 			j = j->next;
 		}
 		i = i->next;
+	}
+	return (FALSE);
+}*/
+static int	append_link(t_room *room0, t_room *room1)
+{
+	t_list	*link;
+
+	link = lstnew_pointer(room1);
+	if (!link)
+	{
+		ft_memdel((void **)&link);
+		return (0);
+	}
+	ft_lstappend(&room0->linked_rooms, link);
+	return (1);
+}
+
+int is_link_OK(t_farm *farm, char *line)
+{
+	size_t i;
+	char *first;
+	char *second;
+	t_room *room1;
+	t_room *room2;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == '-')
+		{
+			first = ft_memalloc(i + 1);
+			ft_strncpy(first, line, i);
+			second = line + i + 1;
+			printf("first %s second %s\n", first, second);
+			room1 = find_room_in_hashmap(farm, first);
+			room2 = find_room_in_hashmap(farm, second);
+			if (room1 && room2)
+			{
+				if (!append_link(room1, room2))
+					return (FALSE);
+				if (!append_link(room2, room1))
+					return (FALSE);
+				ft_strdel(&first);
+				return (TRUE);
+			}
+			ft_strdel(&first);
+		}
+		i++;
 	}
 	return (FALSE);
 }

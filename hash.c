@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   hash.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/14 13:22:20 by ykot              #+#    #+#             */
-/*   Updated: 2022/07/29 14:54:09 by bkandemi         ###   ########.fr       */
+/*   Created: 2022/07/29 12:28:34 by bkandemi          #+#    #+#             */
+/*   Updated: 2022/07/29 16:04:24 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem-in.h"
 
-int	main(int argc, char **argv)
+unsigned long hash(const char *s, unsigned long m)
 {
-	t_farm	farm;
-
-	ft_bzero(&farm, sizeof(farm));
-	farm.hashmap = ft_memalloc(128 * sizeof(t_list *));
-	if (argc != 1 && argv)
-		error(&farm);
-	read_input(&farm);
-	/* algo */
-	print_farm(farm);
-	free_farm(&farm);
-	//system("leaks lem-in"); //do not run this with make debug or with valgrind, if you do so, first call make fclean and call make re
-	return (0);
+	unsigned long	h;
+	unsigned const char	*us;
+	/* cast s to unsigned const char * */
+	/* this ensures that elements of s will be treated as having values >= 0 */
+	us = (unsigned const char *) s;
+	h = 0;
+	while(*us != '\0') {
+		h = (h * 256 + *us) % m;
+		us++;
+	}
+	return h;
 }

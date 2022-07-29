@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/07/29 09:51:36 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/07/29 15:04:21 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct	s_room
 	//int		*visited;
 }				t_room;
 
+
 typedef struct	s_farm
 {
 	int		num_ants;
@@ -38,6 +39,7 @@ typedef struct	s_farm
 	t_room	*end;
 	int		rooms_done; //this flag is 1, once we start reading links, else 0
 	int		num_rooms; //will be needed at some point I guess
+	t_list	**hashmap;
 }				t_farm;
 
 
@@ -56,7 +58,9 @@ void	make_adj_list(t_farm *farm, char **line);
 
 /* checks */
 int		check_int(const char *str);
-int		is_link_valid(t_list *rooms, char *line);
+//int		is_link_valid(t_list *rooms, char *line);
+int	is_link_OK(t_farm *farm, char *line);
+
 int		is_char_in_str(char c, char *str);
 
 
@@ -65,10 +69,20 @@ void	free_farm(t_farm *farm);
 void	error(t_farm *farm);
 void	free_split(char ***str);
 void	error_free_split_line(t_farm *farm, char ***str, char **line);
+void free_hashmap(t_farm *farm);
+
 
 /* print */
 void	print_farm(t_farm farm);
 
 t_list	*lstnew_pointer(void *content);
+
+unsigned long hash(const char *s, unsigned long m);
+
+t_room *find_room_in_hashmap(t_farm *farm, char *name);
+int is_link_OK(t_farm *farm, char *line);
+
+
+
 
 #endif

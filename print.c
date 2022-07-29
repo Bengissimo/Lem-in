@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 13:05:24 by ykot              #+#    #+#             */
-/*   Updated: 2022/07/28 14:17:19 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/07/29 15:07:12 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	print_rooms(t_farm farm)
 		{
 			ft_putendl("##end");
 		}
-		printf("%s %d %d\n", the_room->name, the_room->coord.x, the_room->coord.y);
+		printf("%s %d %d %lu\n", the_room->name, the_room->coord.x, the_room->coord.y, hash(the_room->name, 128));
 		rooms = rooms->next;
 	}
 }
