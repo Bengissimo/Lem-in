@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_links.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 10:50:17 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/07/29 09:56:44 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/07/29 17:04:04 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	append_link_name(t_farm *farm, char *line)
 {
 	t_list *link_name;
 	
-	link_name = ft_lstnew(line, ft_strlen(line));
+	link_name = ft_lstnew(line, ft_strlen(line) + 1);
 	if (!link_name)
 		return (0);
 	ft_lstappend(&farm->links, link_name);
