@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 14:43:14 by ykot              #+#    #+#             */
-/*   Updated: 2022/07/28 14:45:31 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/07/29 10:21:29 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,10 @@ static void	lstdel(t_list **alst)
 	while (curr)
 	{
 		next = curr->next;
+		if (curr->content_size)
+			free(curr->content);
 		free(curr);
 		curr = next;
-		
 	}
 	*alst = NULL;
 }
@@ -44,6 +45,7 @@ static void	del_rooms(void *content, size_t size)
 void	free_farm(t_farm *farm)
 {
 	ft_lstdel(&farm->rooms, del_rooms);
+	lstdel(&farm->links);
 }
 
 void	error(t_farm *farm)

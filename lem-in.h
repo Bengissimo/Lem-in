@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/07/27 18:30:18 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/07/29 09:51:36 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,7 @@ void	error_free_split_line(t_farm *farm, char ***str, char **line);
 
 /* print */
 void	print_farm(t_farm farm);
+
+t_list	*lstnew_pointer(void *content);
 
 #endif
