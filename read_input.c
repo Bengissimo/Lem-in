@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:25:04 by ykot              #+#    #+#             */
-/*   Updated: 2022/07/28 14:01:41 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/07/29 09:33:14 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,8 @@ int	get_rooms_links(t_farm *farm, char *line)
 	if (room_line && !farm->rooms_done)
 	{
 		room = create_room(room_line);
-		append_room_to_list(farm, room); //free room
+		append_room_to_list(farm, room);
 		farm->num_rooms++;
-		ft_memdel((void **)&room);
 		return (1) ;
 	}
 	else if (is_char_in_str('-', line))

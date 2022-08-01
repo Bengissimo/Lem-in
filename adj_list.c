@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 23:03:54 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/07/28 14:48:32 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/07/29 10:17:53 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	append_link(t_room *room0, t_room *room1)
 {
 	t_list	*link;
 
-	link = ft_lstnew(room1, sizeof(room1));
+	link = lstnew_pointer(room1);
 	if (!link)
 	{
 		ft_memdel((void **)&link);
