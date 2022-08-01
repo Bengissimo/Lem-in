@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 15:17:15 by ykot              #+#    #+#             */
-/*   Updated: 2022/07/29 16:58:53 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/01 11:31:18 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,8 @@ int is_link_OK(t_farm *farm, char *line)
 			ft_strncpy(first, line, i);
 			second = line + i + 1;
 			//printf("first %s second %s\n", first, second);
-			room1 = find_room_in_hashmap(farm, first);
-			room2 = find_room_in_hashmap(farm, second);
+			room1 = hashmap_get(farm, first);
+			room2 = hashmap_get(farm, second);
 			if (room1 && room2)
 			{
 				if (!append_link(room1, room2))

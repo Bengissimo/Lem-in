@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 12:28:34 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/01 11:24:05 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/01 11:31:18 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,22 @@ int hashmap_set(t_farm *farm, t_room *room)
 		return (0);
 	ft_lstappend(&farm->hashmap[key], new);
 	return (1);
+}
+
+t_room *hashmap_get(t_farm *farm, char *name)
+{
+	unsigned long key;
+	t_list *curr;
+	t_room *the_room;
+	
+	key = hash(name, 128);
+	curr = farm->hashmap[key];
+	while (curr)
+	{
+		the_room = curr->content;
+		if (ft_strequ(the_room->name, name))
+			return (the_room);
+		curr = curr->next;
+	}
+	return (NULL);
 }

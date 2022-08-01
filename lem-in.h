@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/01 11:20:37 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/01 11:31:18 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ t_list	*lstnew_pointer(void *content);
 
 unsigned long hash(const char *s, unsigned long m);
 
-t_room *find_room_in_hashmap(t_farm *farm, char *name);
+t_room *hashmap_get(t_farm *farm, char *name);
 int hashmap_set(t_farm *farm, t_room *room);
 
 int is_link_OK(t_farm *farm, char *line);

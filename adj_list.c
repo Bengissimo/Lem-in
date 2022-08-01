@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 23:03:54 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/07/29 16:03:06 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/01 11:31:18 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 	return (NULL);
 }*/
 
-/*static t_room *find_room_in_hashmap(t_farm *farm, char *name)
+/*static t_room *hashmap_get(t_farm *farm, char *name)
 {
 	unsigned long key;
 	t_list *curr;
@@ -70,11 +70,11 @@
 	if (!names)
 		error_free_split_line(farm, &names, line);
 	//room0 = find_room(farm, names[0]);
-	room0 = find_room_in_hashmap(farm, names[0]);
+	room0 = hashmap_get(farm, names[0]);
 	if (!room0)
 		error_free_split_line(farm, &names, line);
 	//room1 = find_room(farm, names[1]); //to do if there is dash in room names
-	room1 = find_room_in_hashmap(farm, names[1]);
+	room1 = hashmap_get(farm, names[1]);
 	if (!room1)
 		error_free_split_line(farm, &names, line);
 	if (!append_link(room0, room1))
