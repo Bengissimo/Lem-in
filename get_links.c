@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 10:50:17 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/07/29 16:02:07 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/01 11:38:03 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	append_link_name(t_farm *farm, char *line)
 {
 	t_list *link_name;
 	
-	link_name = ft_lstnew(line, ft_strlen(line));
+	link_name = ft_lstnew(line, ft_strlen(line) + 1);
 	if (!link_name)
 		return (0);
 	ft_lstappend(&farm->links, link_name);
