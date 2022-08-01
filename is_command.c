@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 10:49:49 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/01 11:35:52 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/01 11:52:54 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	get_command(t_farm *farm, char **line, int start_flag)
 		farm->start = room;
 	else
 		farm->end = room;
-	if (!append_room_to_list(farm, room))
+	if (!append_room(farm, room))
 		error_free_split_line(farm, NULL, line);
 }
 

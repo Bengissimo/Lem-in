@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/01 11:39:56 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/01 11:52:54 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct	s_farm
 int		is_command(t_farm *farm, char **line);
 char	**get_room_lines(char *line);
 t_room	*create_room(char **str);
-int		append_room_to_list(t_farm *farm, t_room *room);
+int		append_room(t_farm *farm, t_room *room);
 int		get_link(t_farm *farm, char **line);
 int	get_rooms_links(t_farm *farm, char *line);
 
