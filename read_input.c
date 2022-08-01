@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:25:04 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/01 11:17:46 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/01 11:35:32 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	get_rooms_links(t_farm *farm, char *line)
 	char	**room_lines;
 	t_room	*room;
 
-	room_lines = get_room(line);
+	room_lines = get_room_lines(line);
 	if (room_lines && !farm->rooms_done)
 	{
 		room = create_room(room_lines);

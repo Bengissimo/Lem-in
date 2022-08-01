@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 10:00:16 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/01 11:29:52 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/01 11:34:56 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	is_room_name_valid(char *line)
 	return (TRUE);
 }
 
-char **get_room(char *line)
+char **get_room_lines(char *line)
 {
 	char **str;
 
