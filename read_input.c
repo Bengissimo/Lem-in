@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:25:04 by ykot              #+#    #+#             */
-/*   Updated: 2022/07/29 09:33:14 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/01 11:16:52 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	get_ant_num(t_farm *farm, char **line)
 		if (get_next_line(0, line) != 1)
 			error(farm);
 		if (is_comment(*line))
-			continue;
+			continue ;
 		if (check_int(*line) == 0)
 			error_free_split_line(farm, NULL, line);
 		farm->num_ants = ft_atoi(*line);
@@ -39,7 +39,7 @@ static void	get_ant_num(t_farm *farm, char **line)
 	}
 }
 
-static int check_gnl(t_farm *farm, int gnl)
+static int	check_gnl(t_farm *farm, int gnl)
 {
 	if (gnl == -1)
 		error(farm);
@@ -52,16 +52,16 @@ static int check_gnl(t_farm *farm, int gnl)
 
 int	get_rooms_links(t_farm *farm, char *line)
 {
-	char	**room_line;
-	t_room *room;
+	char	**room_lines;
+	t_room	*room;
 
-	room_line = get_room(line);
-	if (room_line && !farm->rooms_done)
+	room_lines = get_room(line);
+	if (room_lines && !farm->rooms_done)
 	{
-		room = create_room(room_line);
+		room = create_room(room_lines);
 		append_room_to_list(farm, room);
 		farm->num_rooms++;
-		return (1) ;
+		return (1);
 	}
 	else if (is_char_in_str('-', line))
 	{
@@ -76,7 +76,7 @@ void	read_input(t_farm *farm)
 {
 	char	*line;
 	int		gnl;
-	
+
 	line = NULL;
 	get_ant_num(farm, &line);
 	while (TRUE)
