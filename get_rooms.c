@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 10:00:16 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/01 11:52:54 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/01 12:22:30 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ static int	is_room_name_valid(char *line)
 	return (TRUE);
 }
 
-char **get_room_lines(char *line)
+char	**get_room_lines(char *line)
 {
-	char **str;
+	char	**str;
 
 	if (ft_strlen(line) == 0)
 		return (NULL);
@@ -41,7 +41,7 @@ char **get_room_lines(char *line)
 	return (str);
 }
 
-t_list	*lstnew_pointer(void *content)
+t_list	*lstnew_pointer(void *content)  //where to put this fn, we are using this in checks.c get_rooms.c and hash.c
 {
 	t_list	*lstnew;
 
@@ -65,10 +65,10 @@ t_list	*lstnew_pointer(void *content)
 
 t_room	*create_room(char **str)
 {
-	t_room *room;
-	
+	t_room	*room;
+
 	if (!str)
-		return (NULL);;
+		return (NULL);
 	room = ft_memalloc(sizeof(*room));
 	if (!room)
 		return (NULL);
@@ -81,7 +81,7 @@ t_room	*create_room(char **str)
 
 int	append_room(t_farm *farm, t_room *room)
 {
-	t_list *new;
+	t_list	*new;
 
 	new = lstnew_pointer((void *)room);
 	if (!new)
@@ -91,5 +91,3 @@ int	append_room(t_farm *farm, t_room *room)
 		return (0);
 	return (1);
 }
-
-

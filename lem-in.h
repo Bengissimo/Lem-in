@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/01 11:52:54 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/01 13:43:57 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	read_input(t_farm *farm);
 /* checks */
 int		check_int(const char *str);
 //int		is_link_valid(t_list *rooms, char *line);
-int	is_link_OK(t_farm *farm, char *line);
+int	parse_links(t_farm *farm, char *line);
 
 int		is_char_in_str(char c, char *str);
 
@@ -79,7 +79,7 @@ unsigned long hash(const char *s, unsigned long m);
 t_room *hashmap_get(t_farm *farm, char *name);
 int hashmap_set(t_farm *farm, t_room *room);
 
-int is_link_OK(t_farm *farm, char *line);
+int parse_links(t_farm *farm, char *line);
 
 
 

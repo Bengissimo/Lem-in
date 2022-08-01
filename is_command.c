@@ -6,11 +6,13 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 10:49:49 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/01 11:52:54 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/01 12:14:05 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem-in.h"
+
+// might be organised better, to do later
 
 static void	get_command(t_farm *farm, char **line, int start_flag)
 {
