@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 10:00:16 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/07/29 12:46:22 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/01 11:24:01 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,20 +82,18 @@ t_room	*create_room(char **str)
 int	append_room_to_list(t_farm *farm, t_room *room)
 {
 	t_list *new;
-	unsigned long key;
 
 	new = lstnew_pointer((void *)room);
 	if (!new)
 		return (0);
 	ft_lstappend(&farm->rooms, new);
-	
-	key = hash(room->name, 128);
-	new = lstnew_pointer((void *)room);
-	if (!new)
+	if (!hashmap_set(farm, room))
 		return (0);
-	ft_lstappend(&farm->hashmap[key], new);
 	return (1);
 }
+
+
+
 
 t_room *find_room_in_hashmap(t_farm *farm, char *name)
 {

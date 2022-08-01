@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 12:28:34 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/07/29 16:52:21 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/01 11:24:05 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,17 @@ unsigned long hash(const char *s, unsigned long m)
 		us++;
 	}
 	return h;
+}
+
+int hashmap_set(t_farm *farm, t_room *room)
+{
+	t_list *new;
+	unsigned long key;
+
+	key = hash(room->name, 128);
+	new = lstnew_pointer((void *)room);
+	if (!new)
+		return (0);
+	ft_lstappend(&farm->hashmap[key], new);
+	return (1);
 }
