@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 10:00:16 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/01 11:24:01 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/01 11:27:05 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,6 @@ int	append_room_to_list(t_farm *farm, t_room *room)
 		return (0);
 	return (1);
 }
-
-
-
 
 t_room *find_room_in_hashmap(t_farm *farm, char *name)
 {
