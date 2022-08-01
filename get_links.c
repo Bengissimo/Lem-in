@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 10:50:17 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/01 11:38:03 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/01 11:39:00 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int get_link(t_farm *farm, char **line)
 {
 	if (!is_link_OK(farm, *line))
 	{
-		printf("islink OK\n");	
+		printf("islink OK\n"); //remove later
 		return (0);
 	}
 	append_link_name(farm, *line);

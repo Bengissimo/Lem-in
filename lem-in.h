@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/01 11:35:05 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/01 11:39:56 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,6 @@ int		get_link(t_farm *farm, char **line);
 int	get_rooms_links(t_farm *farm, char *line);
 
 void	read_input(t_farm *farm);
-
-/* adj_list */
-void	make_adj_list(t_farm *farm, char **line);
 
 /* checks */
 int		check_int(const char *str);
