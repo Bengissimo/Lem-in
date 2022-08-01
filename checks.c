@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 15:17:15 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/01 11:31:18 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/01 11:51:27 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,60 +39,17 @@ int	check_int(const char *str)
 	return (1);
 }
 
-/*static char	*link_room_names(const char *room1, const char *room2)
-{
-	char	*temp;
-	char	*dst;
-
-	temp = ft_strjoin(room1, "-");
-	dst = ft_strjoin(temp, room2);
-	ft_strdel(&temp);
-	return (dst);
-}*/
-
-/*int	is_link_valid(t_list *rooms, char *line)
-{
-	t_list	*i;
-	t_list	*j;
-	char	*check;
-	t_room *room_i;
-	t_room *room_j;
-	
-	i = rooms;
-	while (i)
-	{
-		j = rooms;
-		while (j)
-		{
-			if (i != j)
-			{
-				room_i = i->content;
-				room_j = j->content;
-				check = link_room_names(room_i->name, room_j->name);
-				if (ft_strequ(check, line))
-				{
-					ft_strdel(&check);
-					return (TRUE);
-				}
-				ft_strdel(&check);
-			}
-			j = j->next;
-		}
-		i = i->next;
-	}
-	return (FALSE);
-}*/
-static int	append_link(t_room *room0, t_room *room1)
+static int	make_adj_list(t_room *room1, t_room *room2)
 {
 	t_list	*link;
 
-	link = lstnew_pointer(room1);
+	link = lstnew_pointer(room2);
 	if (!link)
 	{
 		ft_memdel((void **)&link);
 		return (0);
 	}
-	ft_lstappend(&room0->linked_rooms, link);
+	ft_lstappend(&room1->linked_rooms, link);
 	return (1);
 }
 
@@ -117,9 +74,9 @@ int is_link_OK(t_farm *farm, char *line)
 			room2 = hashmap_get(farm, second);
 			if (room1 && room2)
 			{
-				if (!append_link(room1, room2))
+				if (!make_adj_list(room1, room2))
 					return (FALSE);
-				if (!append_link(room2, room1))
+				if (!make_adj_list(room2, room1))
 					return (FALSE);
 				ft_strdel(&first);
 				return (TRUE);
