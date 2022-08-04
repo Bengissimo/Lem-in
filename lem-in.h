@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/04 10:51:38 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/04 14:32:42 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ typedef struct	s_room
 	char	*name;
 	t_coord	coord;
 	t_list	*linked_rooms;
-	//int		*visited;
+	struct s_room *parent;
+	int		visited;
 }				t_room;
 
 
@@ -83,6 +84,8 @@ int hashmap_set(t_farm *farm, t_room *room);
 int parse_links(t_farm *farm, char *line);
 
 void	lstdel(t_list **alst);
+
+void bfs(t_farm *farm);
 
 
 
