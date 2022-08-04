@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/07/31 23:12:00 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/04 10:16:39 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,24 @@ q_push(queue, start_room);
 while (queue)
 {
 	q_pop(queue);
-	// when the_room poped add it to the path ??? this part depends on the algo
-	while (the_room->linked_rooms && the_linked_room is not visited)
+	the_room = 
+
+	if (the_room == end_room)
 	{
-		q_push(the_room->linked_rooms->content);
+		found true;
+		break ;
+	}
+	// when the_room poped add it to the path ??? this part depends on the algo
+	while (the_room->linked_rooms)
+	{
+		child_room = the_room->linked_rooms->content;
+		child_room->parent = the_room;
+		q_push(queue, child_room);
 	}
 	
+	
 }
+if found == false
+	error 
+
 */
