@@ -6,18 +6,20 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 10:49:49 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/07/28 14:52:22 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/01 12:14:05 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem-in.h"
+
+// might be organised better, to do later
 
 static void	get_command(t_farm *farm, char **line, int start_flag)
 {
 	char	**str;
 	t_room *room;
 
-	str = get_room(*line);  
+	str = get_room_lines(*line);  
 	if (!str)
 		error_free_split_line(farm, NULL, line);
 	room = create_room(str);
@@ -28,7 +30,7 @@ static void	get_command(t_farm *farm, char **line, int start_flag)
 		farm->start = room;
 	else
 		farm->end = room;
-	if (!append_room_to_list(farm, room))
+	if (!append_room(farm, room))
 		error_free_split_line(farm, NULL, line);
 }
 

@@ -6,13 +6,13 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 14:43:14 by ykot              #+#    #+#             */
-/*   Updated: 2022/07/29 10:21:29 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/04 10:51:28 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem-in.h"
 
-static void	lstdel(t_list **alst)
+void	lstdel(t_list **alst)
 {
 	t_list	*curr;
 	t_list	*next;
@@ -46,6 +46,7 @@ void	free_farm(t_farm *farm)
 {
 	ft_lstdel(&farm->rooms, del_rooms);
 	lstdel(&farm->links);
+	free_hashmap(farm);
 }
 
 void	error(t_farm *farm)

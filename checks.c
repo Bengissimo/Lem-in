@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 15:17:15 by ykot              #+#    #+#             */
-/*   Updated: 2022/07/27 10:51:22 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/01 13:58:59 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,50 +37,6 @@ int	check_int(const char *str)
 		if (str[i] < '0' || str[i] > '9')
 			return (0);
 	return (1);
-}
-
-static char	*link_room_names(const char *room1, const char *room2)
-{
-	char	*temp;
-	char	*dst;
-
-	temp = ft_strjoin(room1, "-");
-	dst = ft_strjoin(temp, room2);
-	ft_strdel(&temp);
-	return (dst);
-}
-
-int	is_link_valid(t_list *rooms, char *line)
-{
-	t_list	*i;
-	t_list	*j;
-	char	*check;
-	t_room *room_i;
-	t_room *room_j;
-	
-	i = rooms;
-	while (i)
-	{
-		j = rooms;
-		while (j)
-		{
-			if (i != j)
-			{
-				room_i = i->content;
-				room_j = j->content;
-				check = link_room_names(room_i->name, room_j->name);
-				if (ft_strequ(check, line))
-				{
-					ft_strdel(&check);
-					return (TRUE);
-				}
-				ft_strdel(&check);
-			}
-			j = j->next;
-		}
-		i = i->next;
-	}
-	return (FALSE);
 }
 
 int	is_char_in_str(char c, char *str)
