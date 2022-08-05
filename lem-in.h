@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem-in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/04 10:51:38 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/05 11:05:01 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,11 @@ typedef struct	s_room
 	//int		*visited;
 }				t_room;
 
+typedef struct	s_ant
+{
+    int     name;
+    t_list  *pathptr;
+}				t_ant;
 
 typedef struct	s_farm
 {
@@ -84,6 +89,13 @@ int parse_links(t_farm *farm, char *line);
 
 void	lstdel(t_list **alst);
 
+/* send_ants */
 
+t_ant	*new_ant(t_list *pathptr);
+void    move_ant(t_ant *ant);
+void	print_ant(t_ant ant);
+void    send_ants(int num_ants, t_list **paths);
+void    ant_push(t_list *path_ptr, t_list **queue);
+void   ant_pop(t_list ***queue, t_list **moving_ants, int size, int *cur_ant_num);
 
 #endif
