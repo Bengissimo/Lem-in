@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/04 20:56:54 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/08 20:19:50 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,10 @@ static void del_fn(void *content, size_t size)
 void q_push(t_list **queue, t_room *the_room)
 {
 	t_list *to_push;
-	//t_room *temp;
-	//printf("q_push\n");
 	to_push = lstnew_pointer(the_room);
-	if (!to_push){
-		//printf("q_push null\n");
+	if (!to_push)
 		return ;
-	}
 	ft_lstappend(queue, to_push);
-	//temp = queue->content;
-	//printf("queue: %s\n", temp->name);
 }
 
 t_room *q_pop(t_list **queue)
@@ -49,8 +43,6 @@ static void print_shortest_path(t_farm *farm)
 	t_room *the_room;
 
 	the_room = farm->end;
-	//printf("parent of the room %s\n", the_room->parent->name);
-	//printf("the room %s\n", the_room->name);
 	while (the_room)
 	{
 		printf("%s - ", the_room->name);
@@ -93,7 +85,7 @@ void bfs(t_farm *farm)
 	}
 	print_shortest_path(farm);
 	/*if (the_end == FALSE)
-		retunr (error);
+		return (error);
 	*/
 }
 
@@ -124,4 +116,16 @@ while (queue)
 if found == false
 	error 
 
+*/
+
+
+/*
+FordFulkerson(Graph G, Node s, Node t):
+    Initialize flow of all edges e to 0.
+    while(there is augmenting path(P) from s to t 
+    in the residual graph):
+        Find augmenting path between s and t.
+        Update the residual graph.
+        Increase the flow.
+    return
 */

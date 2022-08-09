@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/04 14:32:42 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/08 10:00:45 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LEM_IN_H
 # include "libft/libft.h"
 # include <stdio.h> //DELETE LATER
+
 
 typedef struct	s_coord
 {
@@ -30,18 +31,24 @@ typedef struct	s_room
 	int		visited;
 }				t_room;
 
+typdef struct	s_edge
+{
+	t_room	*from;
+	t_room	*to;
+	int		capacity;
+}			t_edge;
 
 typedef struct	s_farm
 {
 	int		num_ants;
 	t_list	*rooms;
-	t_list	*links;
+	t_list	*links;  // just linked room names to print
 	t_room	*start;
 	t_room	*end;
 	int		rooms_done; //this flag is 1, once we start reading links, else 0
-	int		num_rooms; //will be needed at some point I guess, perhaps not needed :)
 	t_list	**hashmap;
 	t_list	*queue;  //for bfs
+	t_list	*edges;
 }				t_farm;
 
 
