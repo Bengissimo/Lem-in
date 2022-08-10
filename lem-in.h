@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/09 14:24:46 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/10 10:59:29 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,22 @@ typedef struct	s_coord
 	int	y;
 }				t_coord;
 
+/*typedef struct	s_room
+{
+	char	*name;
+	t_coord	coord;
+}				t_room;*/
+
+
 typedef struct	s_room
 {
 	char	*name;
 	t_coord	coord;
 	t_list	*linked_rooms;
-	//int		*visited;
+	struct s_room *parent;
+	int		visited;
 }				t_room;
+
 
 typedef struct	s_ant
 {
@@ -46,6 +55,29 @@ typedef struct	s_farm
 	t_list	**hashmap;
 	t_list	*queue;  //for bfs
 }				t_farm;
+
+typedef struct	s_node   // or vertex  or  adj_list
+{
+	t_room		*room;
+	struct		s_node *parent;
+	int			visited;
+}				t_node;
+
+typedef struct	s_edge  // or link 
+{
+	t_room			*from;
+	t_room			*to;
+	int				flow;  // 1 or zero, at first it should be 1 but the reverse should be 0
+	struct s_edge	*reverse;
+}				t_edge;
+
+typedef struct	s_algo  // alternative name s_algo
+{
+	t_list	*rooms;
+	t_list	*edges;
+	t_list	*queue;
+}				t_graph;
+
 
 
 /* read input */
@@ -89,5 +121,8 @@ void	ant_pop(t_list ***queue, t_list **moving_ants, int size, int *cur_ant_num);
 /* other */
 t_list	*lstnew_pointer(void *content);
 void	lstdel(t_list **alst);
+
+/* algo */
+void bfs(t_farm *farm);
 
 #endif
