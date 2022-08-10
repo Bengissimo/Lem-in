@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 10:00:16 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/01 12:22:30 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/10 13:12:06 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ t_room	*create_room(char **str)
 	room->name = ft_strdup(str[0]);
 	room->coord.x = ft_atoi(str[1]);
 	room->coord.y = ft_atoi(str[2]);
-	free_split(&str);
+	//free_split(&str);
 	return (room);
 }
 
@@ -89,5 +89,33 @@ int	append_room(t_farm *farm, t_room *room)
 	ft_lstappend(&farm->rooms, new);
 	if (!hashmap_set(farm, room))
 		return (0);
+	return (1);
+}
+
+t_node	*create_node(char **str, int in_out)  //if 1 in, if 0 out, start or end 2
+{
+	t_node *node;
+	if (!str)
+		return (NULL);
+	node = ft_memalloc(sizeof(*node));
+	if (in_out == 1)
+		node->name = ft_strjoin(str[0], "_in"); // TO DO: free
+	else if (in_out == 0)
+		node->name = ft_strjoin(str[0], "_out");
+	else
+		node->name = ft_strdup(str[0]);
+	printf("node name %s\n", node->name);
+	//free_split(&str);
+	return (node);
+}
+
+int append_node(t_list	**adj_list, t_node *node)
+{
+	t_list *new;
+
+	new = lstnew_pointer((void *)node);
+	if (!node)
+		return (0);
+	ft_lstappend(adj_list, new);
 	return (1);
 }

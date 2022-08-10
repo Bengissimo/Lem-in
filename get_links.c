@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 10:50:17 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/04 10:49:17 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/10 13:54:48 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	append_link_name(t_farm *farm, char *line)
 	return (1);
 }
 
-static int	append_to_adj_list(t_room *room1, t_room *room2)
+static int	append_to_adj_list(t_room *room1, t_room *room2)  // rooms will be changed to nodes here
 {
 	t_list	*link;
 
@@ -34,7 +34,7 @@ static int	append_to_adj_list(t_room *room1, t_room *room2)
 	return (1);
 }
 
-static int	make_adj_list(t_room *room1, t_room *room2)
+static int	make_adj_list(t_room *room1, t_room *room2) // modify this to put room_in room_out links
 {
 	if (!append_to_adj_list(room1, room2))
 		return (FALSE);

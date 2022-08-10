@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:22:20 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/10 10:59:52 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/10 12:48:38 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,14 @@
 int	main(int argc, char **argv)
 {
 	t_farm	farm;
+	t_algo	algo;
 
 	ft_bzero(&farm, sizeof(farm));
+	ft_bzero(&algo, sizeof(algo));
 	farm.hashmap = ft_memalloc(128 * sizeof(t_list *));
 	if (argc != 1 && argv)
 		error(&farm);
-	read_input(&farm);
+	read_input(&farm, &algo);
 	/* algo */
 	print_farm(farm);
 	bfs(&farm);

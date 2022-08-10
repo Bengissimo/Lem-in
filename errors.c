@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 14:43:14 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/04 10:51:28 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/10 12:57:05 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	free_farm(t_farm *farm)
 
 void	error(t_farm *farm)
 {
+	//free_algo
 	free_farm(farm);
 	ft_putendl_fd("Error", 2);
 	exit(1);
@@ -61,7 +62,6 @@ void	free_split(char ***str)
 	size_t	i;
 
 	i = 0;
-	
 	if (!str || !*str)
 		return ;
 	while ((*str)[i])

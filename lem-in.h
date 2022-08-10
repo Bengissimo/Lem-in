@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/10 10:59:29 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/10 13:02:02 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ typedef struct	s_coord
 	t_coord	coord;
 }				t_room;*/
 
-
 typedef struct	s_room
 {
 	char	*name;
@@ -36,7 +35,6 @@ typedef struct	s_room
 	struct s_room *parent;
 	int		visited;
 }				t_room;
-
 
 typedef struct	s_ant
 {
@@ -58,36 +56,40 @@ typedef struct	s_farm
 
 typedef struct	s_node   // or vertex  or  adj_list
 {
-	t_room		*room;
+	char		*name;
 	struct		s_node *parent;
-	int			visited;
+	//int			visited;  // might not be needed, probably flow info in the edges will be enough to q_push or not to q_push
+	t_list		*edges;
 }				t_node;
 
-typedef struct	s_edge  // or link 
+typedef struct	s_edge
 {
-	t_room			*from;
+	//t_room		*from;  // no need this becasue it will already be connected to the node in the adj_list
 	t_room			*to;
 	int				flow;  // 1 or zero, at first it should be 1 but the reverse should be 0
 	struct s_edge	*reverse;
 }				t_edge;
 
-typedef struct	s_algo  // alternative name s_algo
+typedef struct	s_algo
 {
-	t_list	*rooms;
-	t_list	*edges;
+	t_list	*adj_list;  // the content of this list will be node struct which includes edge list
 	t_list	*queue;
-}				t_graph;
-
-
+}				t_algo;
 
 /* read input */
-int		is_command(t_farm *farm, char **line);
+//int		is_command(t_farm *farm, char **line);
+int	is_command(t_farm *farm, char **line, t_algo *algo);
+
 char	**get_room_lines(char *line);
 t_room	*create_room(char **str);
 int		append_room(t_farm *farm, t_room *room);
 int		get_link(t_farm *farm, char **line);
-int		get_rooms_links(t_farm *farm, char *line);
-void	read_input(t_farm *farm);
+//int		get_rooms_links(t_farm *farm, char *line);
+int	get_rooms_links(t_farm *farm, char *line, t_algo *algo);
+
+//void	read_input(t_farm *farm);
+void	read_input(t_farm *farm, t_algo *algo);
+
 
 /* checks */
 int		check_int(const char *str);
@@ -124,5 +126,8 @@ void	lstdel(t_list **alst);
 
 /* algo */
 void bfs(t_farm *farm);
+t_node	*create_node(char **str, int in);
+int append_node(t_list	**adj_list, t_node *node);
+
 
 #endif
