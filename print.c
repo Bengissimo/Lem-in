@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 13:05:24 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/11 12:33:30 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/11 14:51:00 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static void	print_links(t_farm farm)
 	}
 }*/
 
-static void print_edges_in_adj_list(t_list *adj_list) //just to see what we have in adj_list, will be removed later
+static void print_adj_list(t_list *adj_list) //just to see what we have in adj_list, will be removed later
 {
 	t_node *the_node;
 	t_list	*edges;
@@ -77,13 +77,15 @@ static void print_edges_in_adj_list(t_list *adj_list) //just to see what we have
 	while (adj_list)
 	{
 		the_node = adj_list->content;
+		printf("%10s:", the_node->name);
 		edges = the_node->edges;
 		while (edges)
 		{
 			the_edge = edges->content;
-			printf("%s - %s\n",the_node->name, the_edge->to->name);
+			printf(" - %s ", the_edge->to->name);
 			edges = edges->next;
 		}
+		printf("\n");
 		adj_list = adj_list->next;
 	}
 }
@@ -96,6 +98,6 @@ void	print_farm(t_farm farm, t_algo algo)
 	print_rooms(farm);
 	print_links(farm);
 	ft_putendl("---");
-	print_edges_in_adj_list(algo.adj_list);
+	print_adj_list(algo.adj_list);
 	ft_putendl("");
 }
