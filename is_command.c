@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 10:49:49 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/10 13:04:42 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/11 09:28:56 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,15 @@ static void	get_command(t_farm *farm, char **line, int start_flag, t_algo *algo)
 	if (!room || !node)
 		error_free_split_line(farm, NULL, line);
 	if (start_flag)
+	{
 		farm->start = room;
+		room->out = node;
+	}
 	else
+	{
 		farm->end = room;
+		room->in = node;
+	}
 	if (!append_room(farm, room))
 		error_free_split_line(farm, NULL, line);
 	if (!append_node(&algo->adj_list, node))

@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 10:50:17 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/10 13:54:48 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/11 14:25:08 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	append_link_name(t_farm *farm, char *line)
 	return (1);
 }
 
-static int	append_to_adj_list(t_room *room1, t_room *room2)  // rooms will be changed to nodes here
+/*static int	append_edge(t_room *room1, t_room *room2)  // rooms will be changed to nodes here
 {
 	t_list	*link;
 
@@ -32,14 +32,52 @@ static int	append_to_adj_list(t_room *room1, t_room *room2)  // rooms will be ch
 		return (0);
 	ft_lstappend(&room1->linked_rooms, link);
 	return (1);
+}*/
+
+int	append_edge(t_node *node, t_edge *edge)  // rooms will be changed to nodes here
+{
+	t_list	*new;
+
+	new = lstnew_pointer(edge);
+	if (!new)
+		return (0); //TO DO: error exit 
+	ft_lstappend(&node->edges, new);
+	return (1);
 }
+
+/*
+	A_in	B_in
+      |  \ /
+	  |   X
+	  v  / \
+	A_out	B_out
+*/
 
 static int	make_adj_list(t_room *room1, t_room *room2) // modify this to put room_in room_out links
 {
-	if (!append_to_adj_list(room1, room2))
-		return (FALSE);
-	if (!append_to_adj_list(room2, room1))
-		return (FALSE);
+	t_edge *edge1_in;
+	//t_edge *edge1_out;
+	t_edge *edge2_in;
+	//t_edge *edge2_out;
+
+	edge1_in = NULL;
+	//edge1_out = NULL;
+	edge2_in = NULL;
+	//edge2_out = NULL;
+	if (room1->in)
+		edge1_in = create_edge(room1->in);
+	if (room2->in)
+		edge2_in = create_edge(room2->in);
+	if (room1->out && edge2_in)
+	{
+		if (!append_edge(room1->out, edge2_in))
+			return (FALSE);
+	}
+	if (room2->out && edge1_in)
+	{
+		if (!append_edge(room2->out, edge1_in))
+			return (FALSE);
+	}
 	return (TRUE);
 }
 
@@ -79,3 +117,33 @@ int	get_link(t_farm *farm, char **line)
 	append_link_name(farm, *line);
 	return (1);
 }
+
+t_edge *create_edge(t_node *node)
+{
+	t_edge *edge;
+
+	if (!node)
+		return (NULL);
+	edge = ft_memalloc(sizeof(*edge));
+	if (!edge)
+		return (NULL); // to do error exit
+	edge->to = node;
+	return (edge);
+}
+
+/*void create_edges(t_room *room1, t_room *room2)
+{
+	t_edge *edge1_in;
+	t_edge *edge1_out;
+	t_edge *edge2_in;
+	t_edge *edge2_out;
+
+	if (room1->in)
+		edge1_in = create_edge(room1->in);
+	if (room1->out)
+		edge1_out = create_edge(room1->out);
+	if (room2->in)
+		edge2_in = create_edge(room2->in);
+	if (room2->out)
+		edge2_out = create_edge(room2->out);
+}*/

@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 13:05:24 by ykot              #+#    #+#             */
-/*   Updated: 2022/07/29 15:07:12 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/11 12:33:30 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	print_links(t_farm farm)
     }
 }
 
-static void print_links_in_adj_list(t_farm farm) //just to see what we have in adj_list, will be removed later
+/*static void print_links_in_adj_list(t_farm farm) //just to see what we have in adj_list, will be removed later
 {
 	t_list	*rooms;
 	t_room	*the_room;
@@ -66,14 +66,36 @@ static void print_links_in_adj_list(t_farm farm) //just to see what we have in a
 		}
 		rooms = rooms->next;
 	}
+}*/
+
+static void print_edges_in_adj_list(t_list *adj_list) //just to see what we have in adj_list, will be removed later
+{
+	t_node *the_node;
+	t_list	*edges;
+	t_edge	*the_edge;
+
+	while (adj_list)
+	{
+		the_node = adj_list->content;
+		edges = the_node->edges;
+		while (edges)
+		{
+			the_edge = edges->content;
+			printf("%s - %s\n",the_node->name, the_edge->to->name);
+			edges = edges->next;
+		}
+		adj_list = adj_list->next;
+	}
 }
 
-void	print_farm(t_farm farm)
+
+
+void	print_farm(t_farm farm, t_algo algo)
 {
 	ft_printf("%d\n", farm.num_ants);
 	print_rooms(farm);
 	print_links(farm);
 	ft_putendl("---");
-	print_links_in_adj_list(farm);
+	print_edges_in_adj_list(algo.adj_list);
 	ft_putendl("");
 }

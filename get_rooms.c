@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 10:00:16 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/10 13:12:06 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/11 14:42:08 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ t_node	*create_node(char **str, int in_out)  //if 1 in, if 0 out, start or end 2
 		node->name = ft_strjoin(str[0], "_out");
 	else
 		node->name = ft_strdup(str[0]);
-	printf("node name %s\n", node->name);
+	//printf("node name %s\n", node->name);
 	//free_split(&str);
 	return (node);
 }

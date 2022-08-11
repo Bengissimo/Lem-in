@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/10 13:02:02 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/11 14:22:20 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,14 @@ typedef struct	s_coord
 	t_coord	coord;
 }				t_room;*/
 
+typedef struct	s_node   // or vertex  or  adj_list
+{
+	char		*name;
+	struct		s_node *parent;
+	//int			visited;  // might not be needed, probably flow info in the edges will be enough to q_push or not to q_push
+	t_list		*edges;
+}				t_node;
+
 typedef struct	s_room
 {
 	char	*name;
@@ -34,6 +42,8 @@ typedef struct	s_room
 	t_list	*linked_rooms;
 	struct s_room *parent;
 	int		visited;
+	t_node *in;
+	t_node *out;
 }				t_room;
 
 typedef struct	s_ant
@@ -54,18 +64,11 @@ typedef struct	s_farm
 	t_list	*queue;  //for bfs
 }				t_farm;
 
-typedef struct	s_node   // or vertex  or  adj_list
-{
-	char		*name;
-	struct		s_node *parent;
-	//int			visited;  // might not be needed, probably flow info in the edges will be enough to q_push or not to q_push
-	t_list		*edges;
-}				t_node;
 
 typedef struct	s_edge
 {
-	//t_room		*from;  // no need this becasue it will already be connected to the node in the adj_list
-	t_room			*to;
+	//t_node		*from;  // no need this becasue it will already be connected to the node in the adj_list
+	t_node			*to;
 	int				flow;  // 1 or zero, at first it should be 1 but the reverse should be 0
 	struct s_edge	*reverse;
 }				t_edge;
@@ -103,7 +106,9 @@ void	free_split(char ***str);
 void	error_free_split_line(t_farm *farm, char ***str, char **line);
 
 /* print */
-void			print_farm(t_farm farm);
+//void			print_farm(t_farm farm);
+void	print_farm(t_farm farm, t_algo algo);
+
 
 /* hashmap */
 unsigned long	hash(const char *s, unsigned long m);
@@ -128,6 +133,14 @@ void	lstdel(t_list **alst);
 void bfs(t_farm *farm);
 t_node	*create_node(char **str, int in);
 int append_node(t_list	**adj_list, t_node *node);
+
+t_edge *create_edge(t_node *node);
+
+
+int	append_edge(t_node *node, t_edge *edge);
+
+
+
 
 
 #endif
