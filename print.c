@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 13:05:24 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/11 14:58:45 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/11 15:13:15 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static void print_adj_list(t_list *adj_list) //just to see what we have in adj_l
 		while (edges)
 		{
 			the_edge = edges->content;
-			printf(" - %s ", the_edge->to->name);
+			printf("- %s (flow: %d) ", the_edge->to->name, the_edge->flow);
 			edges = edges->next;
 		}
 		printf("\n");

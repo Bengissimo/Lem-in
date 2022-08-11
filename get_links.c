@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 10:50:17 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/11 14:25:08 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/11 15:18:18 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,24 +46,19 @@ int	append_edge(t_node *node, t_edge *edge)  // rooms will be changed to nodes h
 }
 
 /*
-	A_in	B_in
-      |  \ /
-	  |   X
-	  v  / \
-	A_out	B_out
+	1_in --> 1_out --> 2_in --> 2_out
+	 ^							  |
+	 |							  |
+	  -----------------------------
 */
 
 static int	make_adj_list(t_room *room1, t_room *room2) // modify this to put room_in room_out links
 {
 	t_edge *edge1_in;
-	//t_edge *edge1_out;
 	t_edge *edge2_in;
-	//t_edge *edge2_out;
 
 	edge1_in = NULL;
-	//edge1_out = NULL;
 	edge2_in = NULL;
-	//edge2_out = NULL;
 	if (room1->in)
 		edge1_in = create_edge(room1->in);
 	if (room2->in)
@@ -128,22 +123,6 @@ t_edge *create_edge(t_node *node)
 	if (!edge)
 		return (NULL); // to do error exit
 	edge->to = node;
+	edge->flow = 1; 
 	return (edge);
 }
-
-/*void create_edges(t_room *room1, t_room *room2)
-{
-	t_edge *edge1_in;
-	t_edge *edge1_out;
-	t_edge *edge2_in;
-	t_edge *edge2_out;
-
-	if (room1->in)
-		edge1_in = create_edge(room1->in);
-	if (room1->out)
-		edge1_out = create_edge(room1->out);
-	if (room2->in)
-		edge2_in = create_edge(room2->in);
-	if (room2->out)
-		edge2_out = create_edge(room2->out);
-}*/
