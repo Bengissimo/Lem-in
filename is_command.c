@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 10:49:49 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/11 09:28:56 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/12 12:17:05 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // might be organised better, to do later
 
-static void	get_command(t_farm *farm, char **line, int start_flag, t_algo *algo)
+static void	get_command(t_farm *farm, char **line, int start_flag)
 {
 	char	**str;
 	t_room *room;
@@ -31,20 +31,20 @@ static void	get_command(t_farm *farm, char **line, int start_flag, t_algo *algo)
 	if (start_flag)
 	{
 		farm->start = room;
-		room->out = node;
+		room->out = node; // start room has just out node
 	}
 	else
 	{
 		farm->end = room;
-		room->in = node;
+		room->in = node; //end room has just in node
 	}
 	if (!append_room(farm, room))
 		error_free_split_line(farm, NULL, line);
-	if (!append_node(&algo->adj_list, node))
-		error_free_split_line(farm, NULL, line);
+	//if (!append_node(&algo->adj_list, node))
+		//error_free_split_line(farm, NULL, line);
 }
 
-int	is_command(t_farm *farm, char **line, t_algo *algo)
+int	is_command(t_farm *farm, char **line)
 {
 	int	start_flag;
 
@@ -59,6 +59,6 @@ int	is_command(t_farm *farm, char **line, t_algo *algo)
 	ft_strdel(line);
 	if (get_next_line(0, line) != 1)
 		error_free_split_line(farm, NULL, line);
-	get_command(farm, line, start_flag, algo);
+	get_command(farm, line, start_flag);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/11 14:22:20 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/12 12:17:53 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,15 @@ typedef struct	s_coord
 {
 	char	*name;
 	t_coord	coord;
+	t_node	*in;
+	t_node	*out;
 }				t_room;*/
 
-typedef struct	s_node   // or vertex  or  adj_list
+typedef struct	s_node
 {
 	char		*name;
 	struct		s_node *parent;
-	//int			visited;  // might not be needed, probably flow info in the edges will be enough to q_push or not to q_push
+	int			visited;  // might not be needed, probably flow info in the edges will be enough to q_push or not to q_push
 	t_list		*edges;
 }				t_node;
 
@@ -39,9 +41,8 @@ typedef struct	s_room
 {
 	char	*name;
 	t_coord	coord;
-	t_list	*linked_rooms;
-	struct s_room *parent;
-	int		visited;
+	//struct s_room *parent;
+	//int		visited;
 	t_node *in;
 	t_node *out;
 }				t_room;
@@ -55,43 +56,42 @@ typedef struct	s_ant
 typedef struct	s_farm
 {
 	int		num_ants;
-	t_list	*rooms;
+	t_list	*rooms;   // this is the ONLY adj list !!!!
 	t_list	*links;
 	t_room	*start;
 	t_room	*end;
 	int		rooms_done; //this flag is 1, once we start reading links, else 0
 	t_list	**hashmap;
-	t_list	*queue;  //for bfs
 }				t_farm;
 
 
 typedef struct	s_edge
 {
-	//t_node		*from;  // no need this becasue it will already be connected to the node in the adj_list
 	t_node			*to;
 	int				flow;  // 1 or zero, at first it should be 1 but the reverse should be 0
+	//int				capacity;
 	struct s_edge	*reverse;
 }				t_edge;
 
 typedef struct	s_algo
 {
-	t_list	*adj_list;  // the content of this list will be node struct which includes edge list
+	//t_list	*adj_list;
 	t_list	*queue;
 }				t_algo;
 
 /* read input */
-//int		is_command(t_farm *farm, char **line);
-int	is_command(t_farm *farm, char **line, t_algo *algo);
+int		is_command(t_farm *farm, char **line);
+//int	is_command(t_farm *farm, char **line, t_algo *algo);
 
 char	**get_room_lines(char *line);
 t_room	*create_room(char **str);
 int		append_room(t_farm *farm, t_room *room);
 int		get_link(t_farm *farm, char **line);
-//int		get_rooms_links(t_farm *farm, char *line);
-int	get_rooms_links(t_farm *farm, char *line, t_algo *algo);
+int		get_rooms_links(t_farm *farm, char *line);
+//int	get_rooms_links(t_farm *farm, char *line, t_algo *algo);
 
-//void	read_input(t_farm *farm);
-void	read_input(t_farm *farm, t_algo *algo);
+void	read_input(t_farm *farm);
+//void	read_input(t_farm *farm, t_algo *algo);
 
 
 /* checks */
@@ -106,8 +106,8 @@ void	free_split(char ***str);
 void	error_free_split_line(t_farm *farm, char ***str, char **line);
 
 /* print */
-//void			print_farm(t_farm farm);
-void	print_farm(t_farm farm, t_algo algo);
+void			print_farm(t_farm farm);
+//void	print_farm(t_farm farm, t_algo algo);
 
 
 /* hashmap */
@@ -132,11 +132,8 @@ void	lstdel(t_list **alst);
 /* algo */
 void bfs(t_farm *farm);
 t_node	*create_node(char **str, int in);
-int append_node(t_list	**adj_list, t_node *node);
-
+//int append_node(t_list	**adj_list, t_node *node);
 t_edge *create_edge(t_node *node);
-
-
 int	append_edge(t_node *node, t_edge *edge);
 
 

@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 13:05:24 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/11 15:13:15 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/12 13:17:22 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,34 +68,52 @@ static void	print_links(t_farm farm)
 	}
 }*/
 
-static void print_adj_list(t_list *adj_list) //just to see what we have in adj_list, will be removed later
+static void print_adj_list(t_farm farm) //just to see what we have in adj_list, will be removed later
 {
-	t_node *the_node;
+	t_list *rooms;
+	t_room *the_room;
 	t_list	*edges;
 	t_edge	*the_edge;
 
-	while (adj_list)
+	rooms = farm.rooms;
+	while (rooms)
 	{
-		the_node = adj_list->content;
-		printf("%10s:", the_node->name);
-		edges = the_node->edges;
-		while (edges)
+		the_room = rooms->content;
+		printf("the room %s:\n", the_room->name);
+		if (the_room->in)
 		{
-			the_edge = edges->content;
-			printf("- %s (flow: %d) ", the_edge->to->name, the_edge->flow);
-			edges = edges->next;
+			printf("%s -> ",the_room->in->name);
+			edges = the_room->in->edges;
+			while (edges)
+			{
+				the_edge = edges->content;
+				printf("%s (flow: %d) - ", the_edge->to->name, the_edge->flow);
+				edges = edges->next;
+			}
+			printf("\n");
 		}
-		printf("\n");
-		adj_list = adj_list->next;
+		if (the_room->out)
+		{
+			printf("%s -> ", the_room->out->name);
+			edges = the_room->out->edges;
+			while (edges)
+			{
+				the_edge = edges->content;
+				printf("%s (flow: %d) - ", the_edge->to->name, the_edge->flow);
+				edges = edges->next;
+			}
+			printf("\n");
+		}
+		rooms = rooms->next;
 	}
 }
 
-void	print_farm(t_farm farm, t_algo algo)
+void	print_farm(t_farm farm)
 {
 	ft_printf("%d\n", farm.num_ants);
 	print_rooms(farm);
 	print_links(farm);
 	ft_putendl("---");
-	print_adj_list(algo.adj_list);
+	print_adj_list(farm);
 	ft_putendl("");
 }

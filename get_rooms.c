@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 10:00:16 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/11 14:42:08 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/12 10:30:56 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ t_node	*create_node(char **str, int in_out)  //if 1 in, if 0 out, start or end 2
 	return (node);
 }
 
-int append_node(t_list	**adj_list, t_node *node)
+/*int append_node(t_list	**adj_list, t_node *node)
 {
 	t_list *new;
 
@@ -118,4 +118,4 @@ int append_node(t_list	**adj_list, t_node *node)
 		return (0);
 	ft_lstappend(adj_list, new);
 	return (1);
-}
+}*/

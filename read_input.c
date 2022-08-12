@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:25:04 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/11 14:41:33 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/12 12:16:46 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	check_gnl(t_farm *farm, int gnl)
 	return (0);
 }
 
-int	get_rooms_links(t_farm *farm, char *line, t_algo *algo)
+int	get_rooms_links(t_farm *farm, char *line)
 {
 	char	**room_lines;
 	t_room	*room;
@@ -62,8 +62,8 @@ int	get_rooms_links(t_farm *farm, char *line, t_algo *algo)
 		room->in = create_node(room_lines, 1); //create room_in
 		room->out = create_node(room_lines, 0); // create room_out
 		append_room(farm, room);
-		append_node(&algo->adj_list, room->in);
-		append_node(&algo->adj_list, room->out);
+		//append_node(&algo->adj_list, room->in);
+		//append_node(&algo->adj_list, room->out);
 		append_edge(room->in, create_edge(room->out)); // create the forward edge within the room
 		free_split(&room_lines);
 		return (1);
@@ -77,7 +77,7 @@ int	get_rooms_links(t_farm *farm, char *line, t_algo *algo)
 	return (0);
 }
 
-void	read_input(t_farm *farm, t_algo *algo)
+void	read_input(t_farm *farm)
 {
 	char	*line;
 	int		gnl;
@@ -92,9 +92,9 @@ void	read_input(t_farm *farm, t_algo *algo)
 			return ;
 		if (is_comment(line))
 			continue ;
-		if (is_command(farm, &line, algo))
+		if (is_command(farm, &line))
 			continue ;
-		if (get_rooms_links(farm, line, algo))
+		if (get_rooms_links(farm, line))
 			continue ;
 		error(farm);
 	}
