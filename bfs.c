@@ -6,89 +6,85 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/12 12:30:25 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/12 16:07:06 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem-in.h"
 
-/*static void del_fn(void *content, size_t size)
+static void del_fn(void *content, size_t size)
 {
 	content = NULL;
 	size = 0;
 }
 
-void q_push(t_list **queue, t_room *the_room)
+void q_push(t_list **queue, t_node *the_node)
 {
 	t_list *to_push;
-	to_push = lstnew_pointer(the_room);
+	to_push = lstnew_pointer(the_node);
 	if (!to_push)
 		return ;
 	ft_lstappend(queue, to_push);
 }
 
-t_room *q_pop(t_list **queue)
+t_node *q_pop(t_list **queue)
 {
-	t_room *the_room;
+	t_node *the_node;
 
 	if (!queue)
 		return (NULL);
-	the_room = (*queue)->content;
+	the_node = (*queue)->content;
 	ft_lstdelelem(queue, 0, del_fn);
-	return (the_room);
+	return (the_node);
 }
 
-static void print_shortest_path(t_farm *farm, t_algo *algo)
+static void print_shortest_path(t_room *end)
 {
 	t_node *the_node;
 
-	the_node = farm->end->in;
+	the_node = end->in;
 	while (the_node)
 	{
 		printf("%s - ", the_node->name);
-		the_node = (algo->adj_list)->content->parent;
+		the_node = the_node->parent;
 	}
 	printf("\n\n");
-}*/
+}
 
-/*
-void bfs(t_farm *farm, t_algo *algo)
+
+int bfs(t_farm *farm)  // if it reaches to end return 1, else 0
 {
 	t_node *the_node;
-	t_list *edges;
 	t_node *child;
-	t_edge *the_edge;
-	int the_end;
+	//t_edge *the_edge;
+	t_list *queue;
 
-	q_push(&algo->queue, farm->start);
+	queue = NULL;
+	q_push(&queue, farm->start->out);
 	farm->start->out->visited = TRUE;
-	while (algo->queue)
+	while (queue)
 	{
-		the_node = q_pop(&algo->queue);
+		the_node = q_pop(&queue);
 		if (the_node == farm->end->in)
 		{
-			the_end = TRUE;
-			break ;
+			print_shortest_path(farm->end);
+			return (1);
 		}
-		edges = the_node->edges;
-		while (edges)
+		while (the_node->edges)
 		{
-			the_edge = edges->content;
-			child = the_edge->to;
+			//the_edge = the_node->edges->content;
+			child = ((t_edge *)(the_node->edges->content))->to;
 			if (!child->visited)
 			{
 				child->parent = the_node;
-				q_push (&algo->queue, child);
+				q_push (&queue, child);
 				child->visited = TRUE;
 			}
-			edges = edges->next;
+			the_node->edges = the_node->edges->next;
 		}
 	}
-	print_shortest_path(farm);
-	if (the_end == FALSE)
-		return (error);
-	
-}*/
+	return (0);
+}
 
 /*
 FordFulkerson(Graph G, Node s, Node t):

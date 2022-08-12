@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/12 12:17:53 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/12 16:00:19 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct	s_farm
 	t_room	*end;
 	int		rooms_done; //this flag is 1, once we start reading links, else 0
 	t_list	**hashmap;
+	//t_list *queue;
 }				t_farm;
 
 
@@ -130,7 +131,7 @@ t_list	*lstnew_pointer(void *content);
 void	lstdel(t_list **alst);
 
 /* algo */
-void bfs(t_farm *farm);
+int bfs(t_farm *farm);
 t_node	*create_node(char **str, int in);
 //int append_node(t_list	**adj_list, t_node *node);
 t_edge *create_edge(t_node *node);
