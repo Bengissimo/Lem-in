@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/14 21:35:54 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/14 22:05:34 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,16 +111,50 @@ void update_res_graph(t_room *end)
 	}
 }
 
-void edmonds_karp(t_farm *farm)
+static void print_paths(t_list **paths, size_t flow)
 {
+	size_t i;
+	t_node *the_node;
+	t_list *list;
+
+	i = 0;
+	while (i < flow)
+	{
+		list = paths[i];
+		while (list)
+		{
+			the_node = list->content;
+			printf("%s > ", the_node->name);
+			list = list->next;
+		}
+		printf("\n\n");
+		i++;
+	}
+}
+
+t_list **edmonds_karp(t_farm *farm)
+{
+	size_t flow;
+	size_t i;
+	t_list **paths;
+
+	flow = 0;
 	while (bfs(farm))
 	{
+		flow++;
 		update_res_graph(farm->end);
 	}
+	paths = ft_memalloc(flow * sizeof(t_list *));
+	if (!paths)
+		return (NULL); // or exit (1)
+	i = 0;
 	while (bfs_path(farm))
 	{
-		update_path_graph(farm->end);
+		paths[i] = update_path_graph(farm->end);
+		i++;
 	}
+	print_paths(paths, flow);
+	return (paths);
 }
 
 int bfs_path(t_farm *farm)
@@ -162,14 +196,16 @@ int bfs_path(t_farm *farm)
 	return (0);
 }
 
-void update_path_graph(t_room *end)
+t_list *update_path_graph(t_room *end)
 {
 	t_node *the_node;
 	t_edge *the_edge;
 	t_list *edges;
+	t_list *the_path;
 
 	the_node = end->in;
 	edges = NULL;
+	the_path = NULL;
 	while (the_node)
 	{
 		edges = the_node->edges;
@@ -183,9 +219,11 @@ void update_path_graph(t_room *end)
 			}
 			edges = edges->next;
 		}
-		printf("%s > ", the_node->name);
+		ft_lstadd(&the_path, lstnew_pointer(the_node));
+		//printf("%s > ", the_node->name);
 		the_node = the_node->parent;
 	}
-	printf("\n");
+	//printf("\n");
+	return (the_path);
 }
 
