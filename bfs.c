@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bfs.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/15 17:31:00 by ykot             ###   ########.fr       */
+/*   Updated: 2022/08/15 19:59:17 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,7 +185,7 @@ int bfs_path(t_farm *farm)
 		{
 			the_edge = edges->content;
 			child = the_edge->to;
-			if (the_edge->flow == 1 && the_edge->reverse->flow == 0 && !hashmap_node_get(hashmap_node, child->name))
+			if (((the_edge->flow == 1 && the_edge->reverse->flow == 0) || (the_edge->flow == 0 && !the_edge->reverse)) && !hashmap_node_get(hashmap_node, child->name))
 			{
 				child->parent = the_node;
 				q_push (&queue, child);
