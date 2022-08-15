@@ -6,7 +6,7 @@
 /*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 17:40:39 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/05 11:08:32 by ykot             ###   ########.fr       */
+/*   Updated: 2022/08/15 17:31:28 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,16 +112,14 @@ static void    move_all_ants(t_list **moving_ants)
     }
 }
 
-void    send_ants(int num_ants, t_list **paths)
+void    send_ants(int num_ants, t_list **paths, int size)
 {
     t_list  **queue;
     t_list  *moving_ants;
-    int     size;
     int     cur_ant_num;
     
     moving_ants = NULL;
     cur_ant_num = 1;
-    size = ft_lstsize((t_list *)paths);
     queue = make_queue(num_ants, paths, size);
     ant_pop(&queue, &moving_ants, size, &cur_ant_num);
     while (moving_ants)
@@ -130,10 +128,4 @@ void    send_ants(int num_ants, t_list **paths)
         ant_pop(&queue, &moving_ants, size, &cur_ant_num);
     }
     free(queue);
-    while (size)
-    {
-        ft_lstdel(&(paths[--size]), del);
-        free(paths[size]);
-    }
-    free(paths);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bfs.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/15 14:52:20 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/15 17:31:00 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ static void print_paths(t_list **paths, size_t flow)
 	}
 }
 
-t_list **edmonds_karp(t_farm *farm)
+t_list **edmonds_karp(t_farm *farm, int *size)
 {
 	size_t flow;
 	size_t i;
@@ -144,6 +144,7 @@ t_list **edmonds_karp(t_farm *farm)
 		flow++;
 		update_res_graph(farm->end);
 	}
+	*size = flow;
 	paths = ft_memalloc(flow * sizeof(t_list *));
 	if (!paths)
 		return (NULL); // or exit (1)

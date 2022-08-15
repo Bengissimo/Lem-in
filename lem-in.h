@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem-in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/15 11:15:10 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/15 17:30:32 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void			free_hashmap(t_list **hashmap);
 t_ant	*new_ant(t_list *pathptr);
 void	move_ant(t_ant *ant);
 void	print_ant(t_ant ant);
-void	send_ants(int num_ants, t_list **paths);
+void	send_ants(int num_ants, t_list **paths, int size);
 void	ant_push(t_list *path_ptr, t_list **queue);
 void	ant_pop(t_list ***queue, t_list **moving_ants, int size, int *cur_ant_num);
 
@@ -111,7 +111,7 @@ int	append_edge(t_node *node, t_edge *edge);
 
 int bfs(t_farm *farm);
 void update_res_graph(t_room *end);
-t_list **edmonds_karp(t_farm *farm);
+t_list **edmonds_karp(t_farm *farm, int *size);
 
 
 int bfs_path(t_farm *farm);
