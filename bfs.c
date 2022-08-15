@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/15 10:12:24 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/15 11:37:16 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int bfs(t_farm *farm)  // if it reaches to end return 1, else 0
 		the_node = q_pop(&queue);
 		if (the_node == farm->end->in)
 		{
-			free_hashmap_node(hashmap_node);
+			free_hashmap(hashmap_node);
 			return (1);
 		}
 		hashmap_node_set(hashmap_node, the_node);
@@ -72,7 +72,7 @@ int bfs(t_farm *farm)  // if it reaches to end return 1, else 0
 			edges = edges->next;
 		}
 	}
-	free_hashmap_node(hashmap_node);
+	free_hashmap(hashmap_node);
 	return (0);
 }
 
@@ -114,7 +114,7 @@ void update_res_graph(t_room *end)
 static void print_paths(t_list **paths, size_t flow)
 {
 	size_t i;
-	t_room *the_room;
+	char *the_room;
 	t_list *list;
 
 	i = 0;
@@ -124,7 +124,7 @@ static void print_paths(t_list **paths, size_t flow)
 		while (list)
 		{
 			the_room = list->content;
-			printf("%s > ", the_room->name);
+			printf("%s > ", the_room);
 			list = list->next;
 		}
 		printf("\n\n");
@@ -175,7 +175,7 @@ int bfs_path(t_farm *farm)
 		the_node = q_pop(&queue);
 		if (the_node == farm->end->in)
 		{
-			free_hashmap_node(hashmap_node);
+			free_hashmap(hashmap_node);
 			return (1);
 		}
 		hashmap_node_set(hashmap_node, the_node);
@@ -192,7 +192,7 @@ int bfs_path(t_farm *farm)
 			edges = edges->next;
 		}
 	}
-	free_hashmap_node(hashmap_node);
+	free_hashmap(hashmap_node);
 	return (0);
 }
 
@@ -220,7 +220,7 @@ t_list *update_path_graph(t_farm *farm)
 			edges = edges->next;
 		}
 		if (the_node->source != farm->start && the_node->source != the_node->parent->source)
-			ft_lstadd(&the_path, lstnew_pointer(the_node->source));
+			ft_lstadd(&the_path, lstnew_pointer(the_node->source->name));
 		the_node = the_node->parent;
 	}
 	return (the_path);

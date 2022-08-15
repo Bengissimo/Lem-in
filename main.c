@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:22:20 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/15 09:37:56 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/15 11:57:12 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(int argc, char **argv)
 	read_input(&farm);
 	/* algo */
 	print_farm(farm);
-	edmonds_karp(&farm);
+	edmonds_karp(&farm);  //this fn returns t_list **paths
 	free_farm(&farm);
 	//system("leaks lem-in"); //do not run this with make debug or with valgrind, if you do so, first call make fclean and call make re
 	return (0);

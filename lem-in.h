@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/15 09:54:09 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/15 11:15:10 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ unsigned long	hash(const char *s, unsigned long m);
 t_room			*hashmap_get(t_farm *farm, char *name);
 int				hashmap_set(t_farm *farm, t_room *room);
 int				parse_links(t_farm *farm, char *line);
-void			free_hashmap(t_farm *farm);
+void			free_hashmap(t_list **hashmap);
 
 /* send_ants */
 t_ant	*new_ant(t_list *pathptr);
@@ -119,7 +119,6 @@ t_list *update_path_graph(t_farm *farm);
 
 int	hashmap_node_set(t_list **hashmap_node, t_node *node);
 t_node	*hashmap_node_get(t_list **hashmap_node, char *name);
-void	free_hashmap_node(t_list **hashmap_node);
 
 
 

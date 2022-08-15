@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 14:43:14 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/12 12:58:18 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/15 11:14:03 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	free_farm(t_farm *farm)
 {
 	ft_lstdel(&farm->rooms, del_rooms);
 	lstdel(&farm->links);
-	free_hashmap(farm);
+	free_hashmap(farm->hashmap);
 }
 
 void	error(t_farm *farm)
