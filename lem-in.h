@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/14 21:55:42 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/15 09:39:19 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,10 @@ typedef struct	s_coord
 	int	y;
 }				t_coord;
 
-/*typedef struct	s_room
-{
-	char	*name;
-	t_coord	coord;
-	t_node	*in;
-	t_node	*out;
-}				t_room;*/
-
 typedef struct	s_node
 {
 	char		*name;
 	struct		s_node *parent;
-	int			visited;  // might not be needed, probably flow info in the edges will be enough to q_push or not to q_push
 	t_list		*edges;
 }				t_node;
 
@@ -41,8 +32,6 @@ typedef struct	s_room
 {
 	char	*name;
 	t_coord	coord;
-	//struct s_room *parent;
-	//int		visited;
 	t_node *in;
 	t_node *out;
 }				t_room;
@@ -61,8 +50,8 @@ typedef struct	s_farm
 	t_room	*start;
 	t_room	*end;
 	int		rooms_done; //this flag is 1, once we start reading links, else 0
-	t_list	**hashmap;
-	t_list **hashmap_node;
+	t_list	**hashmap; // remove this
+	//t_list **hashmap_node;
 	//t_list *queue;
 }				t_farm;
 
@@ -75,26 +64,14 @@ typedef struct	s_edge
 	struct s_edge	*reverse;
 }				t_edge;
 
-typedef struct	s_algo
-{
-	//t_list	*adj_list;
-	t_list	*queue;
-}				t_algo;
-
 /* read input */
 int		is_command(t_farm *farm, char **line);
-//int	is_command(t_farm *farm, char **line, t_algo *algo);
-
 char	**get_room_lines(char *line);
 t_room	*create_room(char **str);
 int		append_room(t_farm *farm, t_room *room);
 int		get_link(t_farm *farm, char **line);
 int		get_rooms_links(t_farm *farm, char *line);
-//int	get_rooms_links(t_farm *farm, char *line, t_algo *algo);
-
 void	read_input(t_farm *farm);
-//void	read_input(t_farm *farm, t_algo *algo);
-
 
 /* checks */
 int		check_int(const char *str);
@@ -109,8 +86,6 @@ void	error_free_split_line(t_farm *farm, char ***str, char **line);
 
 /* print */
 void			print_farm(t_farm farm);
-//void	print_farm(t_farm farm, t_algo algo);
-
 
 /* hashmap */
 unsigned long	hash(const char *s, unsigned long m);
@@ -132,12 +107,11 @@ t_list	*lstnew_pointer(void *content);
 void	lstdel(t_list **alst);
 
 /* algo */
-int bfs(t_farm *farm);
 t_node	*create_node(char **str, int in);
-//int append_node(t_list	**adj_list, t_node *node);
 t_edge *create_edge(t_node *node);
 int	append_edge(t_node *node, t_edge *edge);
 
+int bfs(t_farm *farm);
 void update_res_graph(t_room *end);
 t_list **edmonds_karp(t_farm *farm);
 

@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:25:04 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/12 12:16:46 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/15 09:38:06 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,6 @@ int	get_rooms_links(t_farm *farm, char *line)
 		room->in = create_node(room_lines, 1); //create room_in
 		room->out = create_node(room_lines, 0); // create room_out
 		append_room(farm, room);
-		//append_node(&algo->adj_list, room->in);
-		//append_node(&algo->adj_list, room->out);
 		append_edge(room->in, create_edge(room->out)); // create the forward edge within the room
 		free_split(&room_lines);
 		return (1);
