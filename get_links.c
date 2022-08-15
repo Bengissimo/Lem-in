@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 10:50:17 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/12 12:17:33 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/15 15:04:37 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,6 @@ static int	append_link_name(t_farm *farm, char *line)
 	ft_lstappend(&farm->links, link_name);
 	return (1);
 }
-
-/*static int	append_edge(t_room *room1, t_room *room2)  // rooms will be changed to nodes here
-{
-	t_list	*link;
-
-	link = lstnew_pointer(room2);
-	if (!link)
-		return (0);
-	ft_lstappend(&room1->linked_rooms, link);
-	return (1);
-}*/
 
 int	append_edge(t_node *node, t_edge *edge)  // rooms will be changed to nodes here
 {
@@ -123,6 +112,5 @@ t_edge *create_edge(t_node *node)
 	if (!edge)
 		return (NULL); // to do error exit
 	edge->to = node;
-	//edge->capacity = 1; 
 	return (edge);
 }

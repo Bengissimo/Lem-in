@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/15 11:37:16 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/15 14:52:20 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,8 @@ void update_res_graph(t_room *end)
 	{
 		if (the_node->parent)
 			edges = the_node->parent->edges;
-		else
-			edges = NULL;
+		/*else
+			edges = NULL;*/
 		while (edges)
 		{
 			the_edge = edges->content;
