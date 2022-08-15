@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/14 22:05:34 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/15 10:12:24 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void update_res_graph(t_room *end)
 static void print_paths(t_list **paths, size_t flow)
 {
 	size_t i;
-	t_node *the_node;
+	t_room *the_room;
 	t_list *list;
 
 	i = 0;
@@ -123,8 +123,8 @@ static void print_paths(t_list **paths, size_t flow)
 		list = paths[i];
 		while (list)
 		{
-			the_node = list->content;
-			printf("%s > ", the_node->name);
+			the_room = list->content;
+			printf("%s > ", the_room->name);
 			list = list->next;
 		}
 		printf("\n\n");
@@ -150,7 +150,7 @@ t_list **edmonds_karp(t_farm *farm)
 	i = 0;
 	while (bfs_path(farm))
 	{
-		paths[i] = update_path_graph(farm->end);
+		paths[i] = update_path_graph(farm);
 		i++;
 	}
 	print_paths(paths, flow);
@@ -196,14 +196,14 @@ int bfs_path(t_farm *farm)
 	return (0);
 }
 
-t_list *update_path_graph(t_room *end)
+t_list *update_path_graph(t_farm *farm)
 {
 	t_node *the_node;
 	t_edge *the_edge;
 	t_list *edges;
 	t_list *the_path;
 
-	the_node = end->in;
+	the_node = farm->end->in;
 	edges = NULL;
 	the_path = NULL;
 	while (the_node)
@@ -219,11 +219,10 @@ t_list *update_path_graph(t_room *end)
 			}
 			edges = edges->next;
 		}
-		ft_lstadd(&the_path, lstnew_pointer(the_node));
-		//printf("%s > ", the_node->name);
+		if (the_node->source != farm->start && the_node->source != the_node->parent->source)
+			ft_lstadd(&the_path, lstnew_pointer(the_node->source));
 		the_node = the_node->parent;
 	}
-	//printf("\n");
 	return (the_path);
 }
 

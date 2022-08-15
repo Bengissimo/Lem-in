@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/15 09:39:19 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/15 09:54:09 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct	s_node
 	char		*name;
 	struct		s_node *parent;
 	t_list		*edges;
+	struct		s_room *source;
 }				t_node;
 
 typedef struct	s_room
@@ -51,8 +52,6 @@ typedef struct	s_farm
 	t_room	*end;
 	int		rooms_done; //this flag is 1, once we start reading links, else 0
 	t_list	**hashmap; // remove this
-	//t_list **hashmap_node;
-	//t_list *queue;
 }				t_farm;
 
 
@@ -60,7 +59,6 @@ typedef struct	s_edge
 {
 	t_node			*to;
 	int				flow;  // 1 or zero, at first it should be 1 but the reverse should be 0
-	//int				capacity;
 	struct s_edge	*reverse;
 }				t_edge;
 
@@ -117,7 +115,7 @@ t_list **edmonds_karp(t_farm *farm);
 
 
 int bfs_path(t_farm *farm);
-t_list *update_path_graph(t_room *end);
+t_list *update_path_graph(t_farm *farm);
 
 int	hashmap_node_set(t_list **hashmap_node, t_node *node);
 t_node	*hashmap_node_get(t_list **hashmap_node, char *name);

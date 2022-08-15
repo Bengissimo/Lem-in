@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 13:05:24 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/12 13:17:22 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/15 10:13:32 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,29 +46,7 @@ static void	print_links(t_farm farm)
     }
 }
 
-/*static void print_links_in_adj_list(t_farm farm) //just to see what we have in adj_list, will be removed later
-{
-	t_list	*rooms;
-	t_room	*the_room;
-	t_list	*links;
-	t_room	*the_linked_room;
-
-	rooms = farm.rooms;
-	while (rooms)
-	{
-		the_room = rooms->content;
-		links = the_room->linked_rooms;
-		while (links)
-		{
-			the_linked_room = links->content;
-			printf("%s-%s\n",the_room->name, the_linked_room->name);
-			links = links->next;
-		}
-		rooms = rooms->next;
-	}
-}*/
-
-static void print_adj_list(t_farm farm) //just to see what we have in adj_list, will be removed later
+/*static void print_adj_list(t_farm farm) //just to see what we have in adj_list, will be removed later
 {
 	t_list *rooms;
 	t_room *the_room;
@@ -106,7 +84,7 @@ static void print_adj_list(t_farm farm) //just to see what we have in adj_list, 
 		}
 		rooms = rooms->next;
 	}
-}
+}*/
 
 void	print_farm(t_farm farm)
 {
@@ -114,6 +92,6 @@ void	print_farm(t_farm farm)
 	print_rooms(farm);
 	print_links(farm);
 	ft_putendl("---");
-	print_adj_list(farm);
+	//print_adj_list(farm);
 	ft_putendl("");
 }

@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 10:49:49 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/15 09:37:43 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/15 09:45:48 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,13 @@ static void	get_command(t_farm *farm, char **line, int start_flag)
 	{
 		farm->start = room;
 		room->out = node; // start room has just out node
+		room->out->source = room;
 	}
 	else
 	{
 		farm->end = room;
 		room->in = node; //end room has just in node
+		room->in->source = room;
 	}
 	if (!append_room(farm, room))
 		error_free_split_line(farm, NULL, line);
