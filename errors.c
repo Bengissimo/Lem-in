@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 14:43:14 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/15 11:14:03 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/16 15:28:38 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,18 @@ static void	del_rooms(void *content, size_t size)
 
 	the_room = content;
 	ft_strdel(&the_room->name);
-	ft_strdel(&the_room->in->name);
-	ft_strdel(&the_room->out->name);
-	//ft_memdel((void **)&the_room->in->edges);
-	//ft_memdel((void **)&the_room->out->edges);
+	if (the_room->in)  //node_in
+	{
+		ft_strdel(&the_room->in->name);
+		lstdel(&the_room->in->edges);
+		ft_memdel((void **)&the_room->in);
+	}
+	if (the_room->out)  //node_out
+	{
+		ft_strdel(&the_room->out->name);
+		lstdel(&the_room->out->edges);
+		ft_memdel((void **)&the_room->out);
+	}
 	ft_memdel((void **)&the_room);
 	size++;
 }

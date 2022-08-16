@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 10:50:17 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/16 10:45:43 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/16 15:00:50 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ void parse_links(t_farm *farm, char *line)
 		error_free_split_line(farm, &split_link, &line);
 	if (!make_adj_list(room1, room2))
 		error_free_split_line(farm, &split_link, &line);
+	free_split(&split_link);
 }
 
 int	get_link(t_farm *farm, char **line)

@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 10:00:16 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/16 10:36:10 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/16 15:26:14 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_list	*lstnew_pointer(void *content)  //where to put this fn, we are using this
 {
 	t_list	*lstnew;
 
-	lstnew = (t_list *)malloc(sizeof(t_list));
+	lstnew = (t_list *)ft_memalloc(sizeof(t_list));
 	if (!lstnew)
 		return (NULL);
 	if (!content)
