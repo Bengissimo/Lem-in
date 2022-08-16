@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 13:05:24 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/15 14:49:06 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/16 11:17:48 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,27 @@ static void	print_links(t_farm farm)
 	}
 }*/
 
+static void print_comments(t_farm farm)
+{
+	t_list	*comments;
+	char	*the_comment;
+
+	comments = farm.comments;
+	while (comments)
+	{
+		the_comment = comments->content;
+		printf("%s\n", the_comment);
+		comments = comments->next;
+	}
+	//free comments list here ?
+}
+
 void	print_farm(t_farm farm)
 {
 	ft_printf("%d\n", farm.num_ants);
 	print_rooms(farm);
 	print_links(farm);
+	print_comments(farm);
 	ft_putendl("---");
 	//print_adj_list(farm);
 	ft_putendl("");

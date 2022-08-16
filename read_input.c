@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:25:04 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/15 09:44:50 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/16 11:11:45 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,10 @@ void	read_input(t_farm *farm)
 		if (check_gnl(farm, gnl))
 			return ;
 		if (is_comment(line))
+		{
+			ft_lstappend(&farm->comments, ft_lstnew(line, ft_strlen(line) + 1));
 			continue ;
+		}
 		if (is_command(farm, &line))
 			continue ;
 		if (get_rooms_links(farm, line))
