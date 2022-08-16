@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/16 20:02:08 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/16 20:31:28 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@ typedef struct	s_farm
 {
 	int		num_ants;
 	t_list	*rooms;   // this is the ONLY adj list !!!!
-	t_list	*links;
+	//t_list	*links;
 	t_room	*start;
 	t_room	*end;
 	int		rooms_done; //this flag is 1, once we start reading links, else 0
 	t_list	**hashmap; // remove this
-	t_list	*comments;
+	t_list	*map_lines;
 }				t_farm;
 
 

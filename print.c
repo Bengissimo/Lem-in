@@ -6,13 +6,13 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 13:05:24 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/16 11:26:42 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/16 20:40:14 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem-in.h"
 
-static void	print_rooms(t_farm farm)
+/*static void	print_rooms(t_farm farm)
 {
 	t_list	*rooms;
 	t_room	*the_room;
@@ -45,7 +45,7 @@ static void	print_links(t_farm farm)
         ft_putendl((char *)links->content);
         links = links->next;
     }
-}
+}*/
 
 /*static void print_adj_list(t_farm farm) //just to see what we have in adj_list, will be removed later
 {
@@ -87,7 +87,7 @@ static void	print_links(t_farm farm)
 	}
 }*/
 
-static void print_comments(t_farm farm)
+/*static void print_comments(t_farm farm)
 {
 	t_list	*comments;
 	char	*the_comment;
@@ -100,14 +100,30 @@ static void print_comments(t_farm farm)
 		comments = comments->next;
 	}
 	//free comments list here ?
+}*/
+
+static void print_map(t_farm farm)
+{
+	t_list	*lines;
+	char	*the_line;
+
+	lines = farm.map_lines;
+	while (lines)
+	{
+		the_line = lines->content;
+		ft_putendl(the_line);
+		lines = lines->next;
+	}
+	ft_lstdel(&farm.map_lines, del_fn);
 }
 
 void	print_farm(t_farm farm)
 {
 	ft_printf("%d\n", farm.num_ants);
-	print_rooms(farm);
+	/*print_rooms(farm);
 	print_links(farm);
-	print_comments(farm);
+	print_comments(farm);*/
+	print_map(farm);
 	ft_putendl("---");
 	//print_adj_list(farm);
 	ft_putendl("");

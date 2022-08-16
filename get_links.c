@@ -6,13 +6,13 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 10:50:17 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/16 20:09:21 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/16 20:41:15 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem-in.h"
 
-static int	append_link_name(t_farm *farm, char *line)
+/*static int	append_link_name(t_farm *farm, char *line)
 {
 	t_list	*link_name;
 
@@ -21,7 +21,7 @@ static int	append_link_name(t_farm *farm, char *line)
 		return (0);
 	ft_lstappend(&farm->links, link_name);
 	return (1);
-}
+}*/
 
 int	append_edge(t_node *node, t_edge *edge)  // rooms will be changed to nodes here
 {
@@ -116,8 +116,8 @@ void parse_links(t_farm *farm, char *line)
 int	get_link(t_farm *farm, char **line)
 {
 	parse_links(farm, *line);  //adj_list is created here now
-	if (!append_link_name(farm, *line))
-		return (0);
+	/*if (!append_link_name(farm, *line))
+		return (0);*/
 	return (1);
 }
 
