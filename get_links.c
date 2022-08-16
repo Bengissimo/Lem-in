@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 10:50:17 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/15 15:04:37 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/16 10:45:43 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int	append_edge(t_node *node, t_edge *edge)  // rooms will be changed to nodes h
 	 |							  |
 	  -----------------------------
 */
-
 static int	make_adj_list(t_room *room1, t_room *room2) // modify this to put room_in room_out links
 {
 	t_edge *edge1_in;
@@ -65,7 +64,9 @@ static int	make_adj_list(t_room *room1, t_room *room2) // modify this to put roo
 	return (TRUE);
 }
 
-int	parse_links(t_farm *farm, char *line)
+
+
+/*int	parse_links(t_farm *farm, char *line)
 {
 	size_t	i;
 	char	*first;
@@ -92,13 +93,36 @@ int	parse_links(t_farm *farm, char *line)
 		i++;
 	}
 	return (FALSE);
+}*/
+
+
+
+void parse_links(t_farm *farm, char *line)
+{
+	char	*first;
+	char	*second;
+	t_room	*room1;
+	t_room	*room2;
+	char **split_link;
+
+	split_link = ft_strsplit(line, '-');
+	if (!split_link[0] || !split_link[1] || split_link[2])
+		error_free_split_line(farm, &split_link, &line);
+	first = split_link[0];
+	second = split_link[1];
+	room1 = hashmap_get(farm, first);
+	room2 = hashmap_get(farm, second);
+	if (!room1 || !room2)
+		error_free_split_line(farm, &split_link, &line);
+	if (!make_adj_list(room1, room2))
+		error_free_split_line(farm, &split_link, &line);
 }
 
 int	get_link(t_farm *farm, char **line)
 {
-	if (!parse_links(farm, *line))  //adj_list is created here now
+	parse_links(farm, *line);  //adj_list is created here now
+	if (!append_link_name(farm, *line))
 		return (0);
-	append_link_name(farm, *line);
 	return (1);
 }
 

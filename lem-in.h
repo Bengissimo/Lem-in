@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem-in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/15 17:30:32 by ykot             ###   ########.fr       */
+/*   Updated: 2022/08/16 10:50:47 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	read_input(t_farm *farm);
 
 /* checks */
 int		check_int(const char *str);
-int		parse_links(t_farm *farm, char *line);
+void		parse_links(t_farm *farm, char *line);
 int		is_char_in_str(char c, char *str);
 
 /* errors */
@@ -89,7 +89,6 @@ void			print_farm(t_farm farm);
 unsigned long	hash(const char *s, unsigned long m);
 t_room			*hashmap_get(t_farm *farm, char *name);
 int				hashmap_set(t_farm *farm, t_room *room);
-int				parse_links(t_farm *farm, char *line);
 void			free_hashmap(t_list **hashmap);
 
 /* send_ants */
@@ -119,8 +118,5 @@ t_list *update_path_graph(t_farm *farm);
 
 int	hashmap_node_set(t_list **hashmap_node, t_node *node);
 t_node	*hashmap_node_get(t_list **hashmap_node, char *name);
-
-
-
 
 #endif

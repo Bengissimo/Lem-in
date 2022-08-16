@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 10:00:16 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/15 11:18:50 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/16 10:36:10 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	**get_room_lines(char *line)
 	return (str);
 }
 
-t_list	*lstnew_pointer(void *content)  //where to put this fn, we are using this in checks.c get_rooms.c and hash.c
+t_list	*lstnew_pointer(void *content)  //where to put this fn, we are using this in checks.c get_rooms.c and hash.c and bfs.c
 {
 	t_list	*lstnew;
 
