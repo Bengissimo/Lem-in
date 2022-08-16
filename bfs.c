@@ -6,13 +6,13 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/15 19:59:17 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/16 20:11:35 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem-in.h"
 
-static void del_fn(void *content, size_t size)
+static void null_fn(void *content, size_t size)
 {
 	content = NULL;
 	size = 0;
@@ -34,7 +34,7 @@ t_node *q_pop(t_list **queue)
 	if (!queue)
 		return (NULL);
 	the_node = (*queue)->content;
-	ft_lstdelelem(queue, 0, del_fn);
+	ft_lstdelelem(queue, 0, null_fn);
 	return (the_node);
 }
 

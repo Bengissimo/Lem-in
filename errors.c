@@ -6,13 +6,13 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 14:43:14 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/16 15:28:38 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/16 20:25:43 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem-in.h"
 
-void	lstdel(t_list **alst)
+/*void	lstdel(t_list **alst) //still need this to free hashmap list?!?!
 {
 	t_list	*curr;
 	t_list	*next;
@@ -29,6 +29,13 @@ void	lstdel(t_list **alst)
 		curr = next;
 	}
 	*alst = NULL;
+}*/
+
+void del_fn(void *content, size_t size)
+{
+	if (content)
+		free(content);
+	size = 0;
 }
 
 static void	del_rooms(void *content, size_t size)
@@ -40,13 +47,13 @@ static void	del_rooms(void *content, size_t size)
 	if (the_room->in)  //node_in
 	{
 		ft_strdel(&the_room->in->name);
-		lstdel(&the_room->in->edges);
+		ft_lstdel(&the_room->in->edges, del_fn);
 		ft_memdel((void **)&the_room->in);
 	}
 	if (the_room->out)  //node_out
 	{
 		ft_strdel(&the_room->out->name);
-		lstdel(&the_room->out->edges);
+		ft_lstdel(&the_room->out->edges, del_fn);
 		ft_memdel((void **)&the_room->out);
 	}
 	ft_memdel((void **)&the_room);
@@ -56,13 +63,12 @@ static void	del_rooms(void *content, size_t size)
 void	free_farm(t_farm *farm)
 {
 	ft_lstdel(&farm->rooms, del_rooms);
-	lstdel(&farm->links);
+	ft_lstdel(&farm->links, del_fn);
 	free_hashmap(farm->hashmap);
 }
 
 void	error(t_farm *farm)
 {
-	//free_algo
 	free_farm(farm);
 	ft_putendl_fd("Error", 2);
 	exit(1);

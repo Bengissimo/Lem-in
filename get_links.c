@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 10:50:17 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/16 15:00:50 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/16 20:09:21 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,24 +47,20 @@ static int	make_adj_list(t_room *room1, t_room *room2) // modify this to put roo
 
 	edge1_in = NULL;
 	edge2_in = NULL;
-	if (room1->in)
-		edge1_in = create_edge(room1->in);
-	if (room2->in)
-		edge2_in = create_edge(room2->in);
-	if (room1->out && edge2_in)
+	if (room1->out && room2->in)
 	{
+		edge2_in = create_edge(room2->in);
 		if (!append_edge(room1->out, edge2_in))
 			return (FALSE);
 	}
-	if (room2->out && edge1_in)
+	if (room2->out && room1->in)
 	{
+		edge1_in = create_edge(room1->in);
 		if (!append_edge(room2->out, edge1_in))
 			return (FALSE);
 	}
 	return (TRUE);
 }
-
-
 
 /*int	parse_links(t_farm *farm, char *line)
 {
@@ -94,8 +90,6 @@ static int	make_adj_list(t_room *room1, t_room *room2) // modify this to put roo
 	}
 	return (FALSE);
 }*/
-
-
 
 void parse_links(t_farm *farm, char *line)
 {
@@ -133,7 +127,7 @@ t_edge *create_edge(t_node *node)
 
 	if (!node)
 		return (NULL);
-	edge = ft_memalloc(sizeof(*edge));
+	edge = (t_edge *)ft_memalloc(sizeof(t_edge));
 	if (!edge)
 		return (NULL); // to do error exit
 	edge->to = node;
