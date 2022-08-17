@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/16 20:11:35 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/17 15:26:08 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,3 +227,122 @@ t_list *update_path_graph(t_farm *farm)
 	return (the_path);
 }
 
+static void update_fwd_flow(t_farm *farm)
+{
+	t_node *the_node;
+	t_edge *the_edge;
+	t_list *edges;
+
+	the_node = farm->end->in;
+	edges = NULL;
+	while (the_node)
+	{
+		if (the_node->parent)
+			edges = the_node->parent->edges;
+		while (edges)
+		{
+			the_edge = edges->content;
+			if (the_edge->to == the_node)
+			{
+				the_edge->flow = 1;
+				break ;
+			}
+			edges = edges->next;
+		}
+		the_node = the_node->parent;
+	}
+}
+
+static t_list *reset_graph_save_paths(t_farm *farm)
+{
+	t_node *the_node;
+	t_edge *the_edge;
+	t_list *edges;
+	t_list *the_path;
+
+	the_node = farm->end->in;
+	edges = NULL;
+	while (the_node)
+	{
+		if (the_node->parent)
+			edges = the_node->parent->edges;
+		while (edges)
+		{
+			the_edge = edges->content;
+			if (the_edge->to == the_node)
+			{
+				the_edge->flow = 0;
+				break ;
+			}
+			edges = edges->next;
+		}
+		if (the_node->source != farm->start && the_node->source != the_node->parent->source)
+			ft_lstadd(&the_path, lstnew_pointer(the_node->source->name));
+		the_node = the_node->parent;
+	}
+	return (the_path);
+}
+
+static int bfs_flow_one(t_farm *farm)
+{
+	t_node *the_node;
+	t_node *child;
+	t_list *edges;
+	t_edge *the_edge;
+	t_list *queue;
+	t_list **hashmap_node;
+	hashmap_node = ft_memalloc(128 * sizeof(t_list *));
+
+	queue = NULL;
+	q_push(&queue, farm->start->out);
+	while (queue)
+	{
+		the_node = q_pop(&queue);
+		if (the_node == farm->end->in)
+		{
+			free_hashmap(hashmap_node);
+			return (1);
+		}
+		hashmap_node_set(hashmap_node, the_node);
+		edges = the_node->edges;
+		while (edges)
+		{
+			the_edge = edges->content;
+			child = the_edge->to;
+			if (the_edge->flow == 1 && !hashmap_node_get(hashmap_node, child->name))
+			{
+				child->parent = the_node;
+				q_push (&queue, child);
+			}
+			edges = edges->next;
+		}
+	}
+	free_hashmap(hashmap_node);
+	return (0);
+}
+
+t_list **shortest_paths(t_farm *farm, int *size)
+{
+	size_t flow;
+	size_t i;
+	t_list **shorts;
+
+	flow = 0;
+	while (bfs(farm))
+	{
+		flow++;
+		update_fwd_flow(farm);
+	}
+	*size = flow;
+	shorts = ft_memalloc(flow * sizeof(t_list *));
+	if (!shorts)
+		return (NULL); // or exit (1)
+	i = 0;
+	while (bfs_flow_one(farm))
+	{
+		shorts[i] = reset_graph_save_paths(farm);
+		i++;
+	}
+	print_paths(shorts, flow);
+	return (shorts);
+}
