@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/17 15:26:08 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/18 10:05:21 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int bfs(t_farm *farm)  // if it reaches to end return 1, else 0
 		the_node = q_pop(&queue);
 		if (the_node == farm->end->in)
 		{
+			//free queue
 			free_hashmap(hashmap_node);
 			return (1);
 		}
@@ -72,6 +73,7 @@ int bfs(t_farm *farm)  // if it reaches to end return 1, else 0
 			edges = edges->next;
 		}
 	}
+	//free queue
 	free_hashmap(hashmap_node);
 	return (0);
 }
@@ -262,6 +264,7 @@ static t_list *reset_graph_save_paths(t_farm *farm)
 
 	the_node = farm->end->in;
 	edges = NULL;
+	the_path = NULL;
 	while (the_node)
 	{
 		if (the_node->parent)
@@ -334,7 +337,7 @@ t_list **shortest_paths(t_farm *farm, int *size)
 		update_fwd_flow(farm);
 	}
 	*size = flow;
-	shorts = ft_memalloc(flow * sizeof(t_list *));
+	shorts = (t_list **)ft_memalloc(flow * sizeof(t_list *));
 	if (!shorts)
 		return (NULL); // or exit (1)
 	i = 0;
