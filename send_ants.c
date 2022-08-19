@@ -6,7 +6,7 @@
 /*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 17:40:39 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/19 16:01:51 by ykot             ###   ########.fr       */
+/*   Updated: 2022/08/19 17:01:26 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,29 +135,21 @@ static int count_ants(int num_ants, int *queue, int size)
 	int	i;
 
 	i = 0;	
-	while (num_ants)
+	while (num_ants--)
 	{
-		if (i + 1 != size && queue[i] <= queue[i + 1])
-		{
-			queue[i]++;
-			num_ants--;
-			continue ;
-		}
-		if (i + 1 != size)
+		if (i + 1 != size && queue[i] > queue[i + 1])
 		{
 			i++;
-			continue ;
-		}
-		if (i + 1 == size)
-		{
 			queue[i]++;
-			num_ants--;
+		}
+		else
+		{
 			i = 0;
+			queue[i]++;
 		}
 	}
-
-	/*	Printing length of path + ants in queue		
-	**	
+	/*
+	** print length of path + ants in queue
 	for (int j = 0; j < size; j++)
 		ft_printf("%d ", queue[j]);
 	ft_printf("\n");*/
