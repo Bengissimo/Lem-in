@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/18 13:10:35 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/18 15:34:59 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,9 +141,9 @@ t_list **edmonds_karp(t_farm *farm, int *size) //name: get_max_flow_paths
 	t_list **paths;
 
 	flow = 0;
-	while (bfs(farm, 0))
+	while (bfs(farm, 0))  // if the_flow == 0 
 	{
-		flow++;
+		flow++; 
 		update_res_graph(farm->end);
 	}
 	*size = flow;
@@ -270,17 +270,17 @@ t_list **shortest_paths(t_farm *farm, int *size) //get_shortest_paths
 	flow = 0;
 	while (bfs(farm, 0))
 	{
-		flow++;
-		update_fwd_flow(farm);
+		flow++;  //2 path
+		update_fwd_flow(farm); // make fwd flow 1
 	}
 	*size = flow;
 	shorts = (t_list **)ft_memalloc(flow * sizeof(t_list *));
 	if (!shorts)
 		return (NULL); // or exit (1)
 	i = 0;
-	while (bfs(farm, 1))
+	while (bfs(farm, 1))  //the_edge->flow == 1
 	{
-		shorts[i] = reset_graph_save_paths(farm);
+		shorts[i] = reset_graph_save_paths(farm); //the_edge->flow = 0, 
 		i++;
 	}
 	print_paths(shorts, flow);
