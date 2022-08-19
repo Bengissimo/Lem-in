@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/16 20:02:08 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/18 13:09:07 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,19 +109,27 @@ t_node	*create_node(char **str, int in);
 t_edge *create_edge(t_node *node);
 int	append_edge(t_node *node, t_edge *edge);
 
-int bfs(t_farm *farm);
+//int bfs(t_farm *farm);
+int bfs(t_farm *farm, int flow);
 void update_res_graph(t_room *end);
 t_list **edmonds_karp(t_farm *farm, int *size);
 
 
 int bfs_path(t_farm *farm);
-t_list *update_path_graph(t_farm *farm);
+//t_list *update_path_graph(t_farm *farm); 
 
 int	hashmap_node_set(t_list **hashmap_node, t_node *node);
 t_node	*hashmap_node_get(t_list **hashmap_node, char *name);
 
 
 void del_fn(void *content, size_t size);
+
+
+
+t_list **shortest_paths(t_farm *farm, int *size);
+
+t_list *reset_graph_save_paths(t_farm *farm);
+
 
 
 #endif
