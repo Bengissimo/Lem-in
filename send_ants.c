@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   send_ants.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 17:40:39 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/16 11:46:51 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/19 16:01:51 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,3 +129,55 @@ void	send_ants(int num_ants, t_list **paths, int size)
 	}
 	free(queue);
 }
+
+static int count_ants(int num_ants, int *queue, int size)
+{
+	int	i;
+
+	i = 0;	
+	while (num_ants)
+	{
+		if (i + 1 != size && queue[i] <= queue[i + 1])
+		{
+			queue[i]++;
+			num_ants--;
+			continue ;
+		}
+		if (i + 1 != size)
+		{
+			i++;
+			continue ;
+		}
+		if (i + 1 == size)
+		{
+			queue[i]++;
+			num_ants--;
+			i = 0;
+		}
+	}
+
+	/*	Printing length of path + ants in queue		
+	**	
+	for (int j = 0; j < size; j++)
+		ft_printf("%d ", queue[j]);
+	ft_printf("\n");*/
+	return (queue[0]);
+}
+
+int	is_prev_shorter(int num_ants, t_list **cur_paths, int cur_size, t_list **prev_paths, int prev_size)
+{
+	int	*cur_queue;
+	int	*prev_queue;
+	int	result;	
+	
+	cur_queue = get_numrooms(cur_paths, cur_size);
+	prev_queue = get_numrooms(prev_paths, prev_size);
+	if (count_ants(num_ants, cur_queue, cur_size) >= count_ants(num_ants, prev_queue, prev_size))
+		result = 1;
+	else
+		result = 0;
+	free(cur_queue);
+	free(prev_queue);
+	return (result);
+}
+

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem-in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/19 12:46:44 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/19 16:02:07 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ void	print_ant(t_ant ant);
 void	send_ants(int num_ants, t_list **paths, int size);
 void	ant_push(t_list *path_ptr, t_list **queue);
 void	ant_pop(t_list ***queue, t_list **moving_ants, int size, int *cur_ant_num);
+int	is_prev_shorter(int num_ants, t_list **cur_paths, int cur_size, t_list **prev_paths, int prev_size);
 
 /* other */
 t_list	*lstnew_pointer(void *content);
