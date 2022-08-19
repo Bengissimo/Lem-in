@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/18 15:34:59 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/19 13:04:51 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int bfs(t_farm *farm, int flow)  // if it reaches to end return 1, else 0
 	t_edge *the_edge;
 	t_list *queue;
 	t_list **hashmap_node;
-	hashmap_node = ft_memalloc(128 * sizeof(t_list *));
+	hashmap_node = ft_memalloc(HASH * sizeof(t_list *));
 
 	queue = NULL;
 	q_push(&queue, farm->start->out);
@@ -113,7 +113,7 @@ void update_res_graph(t_room *end)
 	}
 }
 
-static void print_paths(t_list **paths, size_t flow)
+/*static void print_paths(t_list **paths, size_t flow)
 {
 	size_t i;
 	char *the_room;
@@ -132,7 +132,7 @@ static void print_paths(t_list **paths, size_t flow)
 		printf("\n\n");
 		i++;
 	}
-}
+}*/
 
 t_list **edmonds_karp(t_farm *farm, int *size) //name: get_max_flow_paths
 {
@@ -157,7 +157,7 @@ t_list **edmonds_karp(t_farm *farm, int *size) //name: get_max_flow_paths
 		paths[i] = reset_graph_save_paths(farm);
 		i++;
 	}
-	print_paths(paths, flow);
+	//print_paths(paths, flow);
 	return (paths);
 }
 
@@ -170,7 +170,7 @@ int bfs_path(t_farm *farm)
 	t_list *queue;
 	t_list **hashmap_node;
 	
-	hashmap_node = (t_list **)ft_memalloc(128 * sizeof(t_list *));
+	hashmap_node = (t_list **)ft_memalloc(HASH * sizeof(t_list *));
 	queue = NULL;
 	the_edge = NULL;
 	q_push(&queue, farm->start->out);
@@ -283,6 +283,6 @@ t_list **shortest_paths(t_farm *farm, int *size) //get_shortest_paths
 		shorts[i] = reset_graph_save_paths(farm); //the_edge->flow = 0, 
 		i++;
 	}
-	print_paths(shorts, flow);
+	//print_paths(shorts, flow);
 	return (shorts);
 }

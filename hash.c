@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 12:28:34 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/16 20:25:30 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/19 12:04:54 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	hashmap_set(t_farm *farm, t_room *room)
 	t_list			*new;
 	unsigned long	key;
 
-	key = hash(room->name, 128);
+	key = hash(room->name, HASH);
 	new = lstnew_pointer((void *)room);
 	if (!new)
 		return (0);
@@ -45,7 +45,7 @@ int	hashmap_node_set(t_list **hashmap_node, t_node *node)
 	t_list			*new;
 	unsigned long	key;
 
-	key = hash(node->name, 128);
+	key = hash(node->name, HASH);
 	new = lstnew_pointer((void *)node);
 	if (!new)
 		return (0);
@@ -59,7 +59,7 @@ t_room	*hashmap_get(t_farm *farm, char *name)
 	t_list			*curr;
 	t_room			*the_room;
 
-	key = hash(name, 128);
+	key = hash(name, HASH);
 	curr = farm->hashmap[key];
 	while (curr)
 	{
@@ -77,7 +77,7 @@ t_node	*hashmap_node_get(t_list **hashmap_node, char *name)
 	t_list			*curr;
 	t_node			*the_node;
 
-	key = hash(name, 128);
+	key = hash(name, HASH);
 	curr = hashmap_node[key];
 	while (curr)
 	{
@@ -100,7 +100,7 @@ void	free_hashmap(t_list **hashmap)
 	size_t	i;
 
 	i = 0;
-	while (i < 128)
+	while (i < HASH)
 	{
 		if (hashmap[i])
 		{

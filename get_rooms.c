@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 10:00:16 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/16 15:26:14 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/19 12:04:54 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	append_room(t_farm *farm, t_room *room)
 	t_list	*new;
 
 	new = lstnew_pointer((void *)room);
-	//farm->hashmap = ft_memalloc(128 * sizeof(t_list *));
+	//farm->hashmap = ft_memalloc(HASH * sizeof(t_list *));
 	if (!new)
 		return (0);
 	ft_lstappend(&farm->rooms, new);
