@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:25:04 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/16 11:11:45 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/20 21:24:11 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ static void	get_ant_num(t_farm *farm, char **line)
 		if (get_next_line(0, line) != 1)
 			error(farm);
 		if (is_comment(*line))
+		{
+			ft_lstappend(&farm->comments, ft_lstnew(line, ft_strlen(line) + 1));
 			continue ;
+		}
 		if (check_int(*line) == 0)
 			error_free_split_line(farm, NULL, line);
 		farm->num_ants = ft_atoi(*line);
@@ -83,7 +86,7 @@ void	read_input(t_farm *farm)
 	int		gnl;
 
 	line = NULL;
-	get_ant_num(farm, &line);
+	get_ant_num(farm, &line);  //TO DO save if there is a comment in here!
 	while (TRUE)
 	{
 		ft_strdel(&line);

@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/19 13:04:51 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/20 20:55:25 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,26 +113,29 @@ void update_res_graph(t_room *end)
 	}
 }
 
-/*static void print_paths(t_list **paths, size_t flow)
+static void print_paths(t_list **paths, size_t flow)
 {
 	size_t i;
 	char *the_room;
 	t_list *list;
+	size_t len;
 
 	i = 0;
 	while (i < flow)
 	{
 		list = paths[i];
+		len = ft_lstsize(paths[i]);
 		while (list)
 		{
 			the_room = list->content;
 			printf("%s > ", the_room);
 			list = list->next;
 		}
+		printf(" -path_len: %d- ", (int)len);
 		printf("\n\n");
 		i++;
 	}
-}*/
+}
 
 t_list **edmonds_karp(t_farm *farm, int *size) //name: get_max_flow_paths
 {
@@ -157,7 +160,8 @@ t_list **edmonds_karp(t_farm *farm, int *size) //name: get_max_flow_paths
 		paths[i] = reset_graph_save_paths(farm);
 		i++;
 	}
-	//print_paths(paths, flow);
+	printf("max i: %d\n", (int)i);
+	print_paths(paths, flow);
 	return (paths);
 }
 
@@ -192,6 +196,7 @@ int bfs_path(t_farm *farm)
 			if (((the_edge->flow == 1 && the_edge->reverse->flow == 0)
 				|| (the_edge->flow == 0 && !the_edge->reverse))
 					&& !hashmap_node_get(hashmap_node, child->name))
+			//if (!hashmap_node_get(hashmap_node, child->name) && (the_edge->flow == 1 && (the_edge->reverse && the_edge->reverse->flow == 0)))
 			{
 				child->parent = the_node;
 				q_push (&queue, child);
@@ -282,7 +287,9 @@ t_list **shortest_paths(t_farm *farm, int *size) //get_shortest_paths
 	{
 		shorts[i] = reset_graph_save_paths(farm); //the_edge->flow = 0, 
 		i++;
+		
 	}
-	//print_paths(shorts, flow);
+	printf("shorts i: %d\n", (int)i);
+	print_paths(shorts, flow);
 	return (shorts);
 }
