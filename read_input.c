@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:25:04 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/20 21:24:11 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/21 10:10:08 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	get_ant_num(t_farm *farm, char **line)
 			error(farm);
 		if (is_comment(*line))
 		{
-			ft_lstappend(&farm->comments, ft_lstnew(line, ft_strlen(line) + 1));
+			ft_lstappend(&farm->comments, ft_lstnew(line, ft_strlen(*line) + 1));
 			continue ;
 		}
 		if (check_int(*line) == 0)

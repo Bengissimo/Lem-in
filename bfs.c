@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/20 20:55:25 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/21 22:37:48 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ t_list **edmonds_karp(t_farm *farm, int *size) //name: get_max_flow_paths
 		flow++; 
 		update_res_graph(farm->end);
 	}
-	*size = flow;
+	//*size = flow;
 	paths = (t_list**)ft_memalloc(flow * sizeof(t_list *));
 	if (!paths)
 		return (NULL); // or exit (1)
@@ -160,7 +160,8 @@ t_list **edmonds_karp(t_farm *farm, int *size) //name: get_max_flow_paths
 		paths[i] = reset_graph_save_paths(farm);
 		i++;
 	}
-	printf("max i: %d\n", (int)i);
+	*size = i;
+	printf("max i: %d flow: %d\n", (int)i, (int)flow);
 	print_paths(paths, flow);
 	return (paths);
 }
@@ -193,10 +194,10 @@ int bfs_path(t_farm *farm)
 		{
 			the_edge = edges->content;
 			child = the_edge->to;
-			if (((the_edge->flow == 1 && the_edge->reverse->flow == 0)
-				|| (the_edge->flow == 0 && !the_edge->reverse))
-					&& !hashmap_node_get(hashmap_node, child->name))
-			//if (!hashmap_node_get(hashmap_node, child->name) && (the_edge->flow == 1 && (the_edge->reverse && the_edge->reverse->flow == 0)))
+			if (!hashmap_node_get(hashmap_node, child->name)
+				&& ((the_edge->flow == 1 && (the_edge->reverse->flow == 0))
+				|| (the_edge->flow == 0 && !the_edge->reverse)))
+			//if (!hashmap_node_get(hashmap_node, child->name) && (the_edge->flow == 1 && the_edge->reverse->flow == 0))
 			{
 				child->parent = the_node;
 				q_push (&queue, child);
