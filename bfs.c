@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/23 14:31:53 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/23 15:42:51 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,21 @@ static void print_paths(t_list **paths, size_t flow)
 	}
 }
 
-t_list **edmonds_karp(t_farm *farm, int *size) //name: get_max_flow_paths
+static void print_path_sets(t_list ***sets, size_t flow)
+{
+	size_t i;
+	t_list **the_set;
+
+	i = 0;
+	while (i < flow)
+	{
+		the_set = sets[i];
+		print_paths(the_set, i);
+		i++;
+	}
+}
+
+/*t_list **edmonds_karp(t_farm *farm, int *size) //name: get_max_flow_paths
 {
 	size_t flow;
 	size_t i;
@@ -149,7 +163,7 @@ t_list **edmonds_karp(t_farm *farm, int *size) //name: get_max_flow_paths
 		flow++; 
 		update_res_graph(farm->end);
 	}
-	//*size = flow;
+	*size = flow;
 	paths = (t_list**)ft_memalloc(flow * sizeof(t_list *));
 	if (!paths)
 		return (NULL); // or exit (1)
@@ -164,7 +178,20 @@ t_list **edmonds_karp(t_farm *farm, int *size) //name: get_max_flow_paths
 	printf("max i: %d flow: %d\n", (int)i, (int)flow);
 	print_paths(paths, flow);
 	return (paths);
-}
+}*/
+
+/*size_t calc_max_flow(t_farm *farm)
+{
+	size_t flow;
+
+	flow = 0;
+	while (bfs(farm, 0))  // if the_flow == 0 
+	{
+		flow++; 
+		update_res_graph(farm->end);
+	}
+	return (flow);
+}*/
 
 int bfs_path(t_farm *farm)
 {
@@ -210,7 +237,7 @@ int bfs_path(t_farm *farm)
 	return (0);
 }
 
-static void update_fwd_flow(t_farm *farm)
+/*static void update_fwd_flow(t_farm *farm)
 {
 	t_node *the_node;
 	t_edge *the_edge;
@@ -234,9 +261,9 @@ static void update_fwd_flow(t_farm *farm)
 		}
 		the_node = the_node->parent;
 	}
-}
+}*/
 
-t_list *reset_graph_save_paths(t_farm *farm)
+/*t_list *reset_graph_save_paths(t_farm *farm)
 {
 	t_node *the_node;
 	t_edge *the_edge;
@@ -265,6 +292,68 @@ t_list *reset_graph_save_paths(t_farm *farm)
 		the_node = the_node->parent;
 	}
 	return (the_path);
+}*/
+
+/*t_list **shortest_paths(t_farm *farm, int *size) //get_shortest_paths
+{
+	size_t flow;
+	size_t i;
+	t_list **shorts;
+
+	flow = 0;
+	while (bfs(farm, 0))
+	{
+		flow++;  //2 path
+		update_fwd_flow(farm); // make fwd flow 1
+	}
+	*size = flow;
+	shorts = (t_list **)ft_memalloc(flow * sizeof(t_list *));
+	if (!shorts)
+		return (NULL); // or exit (1)
+	i = 0;
+	while (bfs(farm, 1))  //the_edge->flow == 1
+	{
+		shorts[i] = reset_graph_save_paths(farm); //the_edge->flow = 0, 
+		i++;
+		
+	}
+	printf("shorts i: %d\n", (int)i);
+	print_paths(shorts, flow);
+	return (shorts);
+}*/
+
+void reset_mark(t_farm *farm, t_list **sets, size_t size)
+{
+	size_t i;
+	t_list *rooms;
+	t_room *the_room;
+	t_room *next_room;
+	t_list *edges;
+	t_edge *the_edge;
+
+	i = 0;
+	while (i < size)
+	{
+		rooms = sets[i];
+		while (rooms)
+		{
+			the_room = hashmap_get(farm, (char *)rooms->content);
+			edges = the_room->out->edges;
+			while (edges)
+			{
+				the_edge = edges->content;
+				next_room =  hashmap_get(farm, (char *)rooms->next->content);
+				if (the_edge->to == next_room->in && the_edge->flow == 2)
+				{
+					the_edge->flow = 1;
+					break ;
+				}
+				edges = edges->next;
+			}
+			rooms = rooms->next;
+		}
+		i++;
+	}
 }
 
 t_list *mark_and_save_path(t_farm *farm)
@@ -298,97 +387,16 @@ t_list *mark_and_save_path(t_farm *farm)
 	return (the_path);
 }
 
-t_list **shortest_paths(t_farm *farm, int *size) //get_shortest_paths
-{
-	size_t flow;
-	size_t i;
-	t_list **shorts;
-
-	flow = 0;
-	while (bfs(farm, 0))
-	{
-		flow++;  //2 path
-		update_fwd_flow(farm); // make fwd flow 1
-	}
-	*size = flow;
-	shorts = (t_list **)ft_memalloc(flow * sizeof(t_list *));
-	if (!shorts)
-		return (NULL); // or exit (1)
-	i = 0;
-	while (bfs(farm, 1))  //the_edge->flow == 1
-	{
-		shorts[i] = reset_graph_save_paths(farm); //the_edge->flow = 0, 
-		i++;
-		
-	}
-	printf("shorts i: %d\n", (int)i);
-	print_paths(shorts, flow);
-	return (shorts);
-}
-
-static t_list *update_res_graph_save_path(t_farm *farm)
-{
-	t_node *the_node;
-	t_edge *the_edge;
-	t_list *edges;
-	t_list *the_path;
-
-	the_node = farm->end->in;
-	edges = NULL;
-	while (the_node)
-	{
-		if (the_node->parent)
-			edges = the_node->parent->edges;
-		/*else
-			edges = NULL;*/
-		while (edges)
-		{
-			the_edge = edges->content;
-			if (the_edge->to == the_node)
-			{
-				the_edge->flow = 1;
-				if (!the_edge->reverse)
-				{
-					the_edge->reverse = create_edge(the_node->parent);
-					if (!append_edge(the_node, the_edge->reverse))
-						exit (1);
-					the_edge->reverse->reverse = the_edge;
-				}
-				break ;
-			}
-			edges = edges->next;
-		}
-		if (the_node->source != farm->start && the_node->source != the_node->parent->source)
-			ft_lstadd(&the_path, lstnew_pointer(the_node->source->name));
-		the_node = the_node->parent;
-	}
-}
-
-void reset_mark(t_list **sets, size_t size)
-{
-	size_t i;
-	t_list *rooms;
-	t_room *the_room;
-
-	i = 0;
-	while (i < size)
-	{
-		rooms = sets[i];
-		while (rooms)
-		{
-			the_room = rooms->content;
-			
-		}
-	}
-}
-
-t_list ***better_paths(t_farm *farm, int max_flow)
+t_list ***better_paths(t_farm *farm)
 {
 	t_list ***sets;
 	size_t i;
 	size_t j;
 	size_t flow_count;
+	size_t max_flow;
 	
+	//max_flow = calc_max_flow(farm);
+	max_flow = 3;
 	sets = (t_list ***)ft_memalloc(max_flow * sizeof(t_list **));
 	if (!sets)
 		return (NULL); // error
@@ -403,6 +411,8 @@ t_list ***better_paths(t_farm *farm, int max_flow)
 		else
 			break;
 		//reset fwd flow in sets[i - 1] if i > 0
+		if (i > 0)
+			reset_mark(farm, sets[i - 1], i);
 		j = 0;
 		while (j < flow_count)
 		{
@@ -416,4 +426,6 @@ t_list ***better_paths(t_farm *farm, int max_flow)
 		}
 		i++;
 	}
+	print_path_sets(sets, max_flow);
+	return (sets);
 }
