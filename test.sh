@@ -2,7 +2,7 @@
 
 # This script generates 5 different random maps to test each case for the evaluation
 # Generated maps are saved
-# The number of lines required info is ompared with the line number obtained from the lem-in's output
+# The number of lines required is compared with the line number obtained from the lem-in's output
 
 for i in {1..5}; do
 	./generator --flow-one > flow_1_$i.txt

@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/21 22:37:48 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/23 12:02:49 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -267,6 +267,34 @@ t_list *reset_graph_save_paths(t_farm *farm)
 	return (the_path);
 }
 
+t_list *save_path(t_farm *farm)
+{
+	t_node *the_node;
+	t_edge *the_edge;
+	t_list *edges;
+	t_list *the_path;
+
+	the_node = farm->end->in;
+	edges = NULL;
+	the_path = NULL;
+	while (the_node)
+	{
+		if (the_node->parent)
+			edges = the_node->parent->edges;
+		while (edges)
+		{
+			the_edge = edges->content;
+			if (the_edge->to == the_node)
+				break ;
+			edges = edges->next;
+		}
+		if (the_node->source != farm->start && the_node->source != the_node->parent->source)
+			ft_lstadd(&the_path, lstnew_pointer(the_node->source->name));
+		the_node = the_node->parent;
+	}
+	return (the_path);
+}
+
 t_list **shortest_paths(t_farm *farm, int *size) //get_shortest_paths
 {
 	size_t flow;
@@ -293,4 +321,78 @@ t_list **shortest_paths(t_farm *farm, int *size) //get_shortest_paths
 	printf("shorts i: %d\n", (int)i);
 	print_paths(shorts, flow);
 	return (shorts);
+}
+
+static t_list *update_res_graph_save_path(t_farm *farm)
+{
+	t_node *the_node;
+	t_edge *the_edge;
+	t_list *edges;
+	t_list *the_path;
+
+	the_node = farm->end->in;
+	edges = NULL;
+	while (the_node)
+	{
+		if (the_node->parent)
+			edges = the_node->parent->edges;
+		/*else
+			edges = NULL;*/
+		while (edges)
+		{
+			the_edge = edges->content;
+			if (the_edge->to == the_node)
+			{
+				the_edge->flow = 1;
+				if (!the_edge->reverse)
+				{
+					the_edge->reverse = create_edge(the_node->parent);
+					if (!append_edge(the_node, the_edge->reverse))
+						exit (1);
+					the_edge->reverse->reverse = the_edge;
+				}
+				break ;
+			}
+			edges = edges->next;
+		}
+		if (the_node->source != farm->start && the_node->source != the_node->parent->source)
+			ft_lstadd(&the_path, lstnew_pointer(the_node->source->name));
+		the_node = the_node->parent;
+	}
+}
+
+t_list ***better_paths(t_farm *farm, int max_flow)
+{
+	t_list ***sets;
+	size_t i;
+	size_t j;
+	size_t flow_count;
+	
+	sets = (t_list ***)ft_memalloc(max_flow * sizeof(t_list **));
+	if (!sets)
+		return (NULL); // error
+	flow_count = 0;
+	i= 0;
+	while(i < max_flow)
+	{
+		flow_count++;
+		sets[i] = (t_list **)ft_memalloc(flow_count * sizeof(t_list *)); //sets[0] has 1 path, sets[1] has 2 paths etc...
+		if (bfs(farm, 0))
+			update_res_graph(farm->end);
+		else
+			break;
+		//reset fwd flow in sets[i - 1] if i > 0
+		j = 0;
+		while (j < flow_count)
+		{
+			if (bfs_path(farm))
+			{
+				sets[i][j] = save_path(farm); //set fwd edge to 2
+				j++;
+			}
+			else
+				break ;
+		}
+		i++;
+	}
 }
