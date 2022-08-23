@@ -6,7 +6,7 @@
 /*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 17:40:39 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/19 17:01:26 by ykot             ###   ########.fr       */
+/*   Updated: 2022/08/23 17:28:49 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void	send_ants(int num_ants, t_list **paths, int size)
 	free(queue);
 }
 
-static int count_ants(int num_ants, int *queue, int size)
+static int count_printed_lines(int num_ants, int *queue, int size)
 {
 	int	i;
 
@@ -156,20 +156,28 @@ static int count_ants(int num_ants, int *queue, int size)
 	return (queue[0]);
 }
 
-int	is_prev_shorter(int num_ants, t_list **cur_paths, int cur_size, t_list **prev_paths, int prev_size)
+int	the_best_path(t_list ***better_paths, int num_ants, int *sizes, int num_paths)
 {
-	int	*cur_queue;
-	int	*prev_queue;
-	int	result;	
+	int	min_lines;
+	int	best_path;
+	int	*queue;
+	int	num_lines;
+	int	i;
 	
-	cur_queue = get_numrooms(cur_paths, cur_size);
-	prev_queue = get_numrooms(prev_paths, prev_size);
-	if (count_ants(num_ants, cur_queue, cur_size) >= count_ants(num_ants, prev_queue, prev_size))
-		result = 1;
-	else
-		result = 0;
-	free(cur_queue);
-	free(prev_queue);
-	return (result);
+	i = 0;
+	min_lines = INT_MAX;
+	while(num_paths - i)
+	{
+		queue = get_numrooms(better_paths[i], sizes[i]);
+		num_lines = count_printed_lines(num_ants, queue, sizes[i]);
+		if (min_lines < num_lines)
+		{
+			min_lines = num_lines;
+			best_path = i;
+		}
+		free(queue);
+		i++;
+	}
+	return (best_path);
 }
 
