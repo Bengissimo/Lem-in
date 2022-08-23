@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/23 12:02:49 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/23 14:31:53 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -267,7 +267,7 @@ t_list *reset_graph_save_paths(t_farm *farm)
 	return (the_path);
 }
 
-t_list *save_path(t_farm *farm)
+t_list *mark_and_save_path(t_farm *farm)
 {
 	t_node *the_node;
 	t_edge *the_edge;
@@ -285,7 +285,10 @@ t_list *save_path(t_farm *farm)
 		{
 			the_edge = edges->content;
 			if (the_edge->to == the_node)
+			{
+				the_edge->flow = 2;
 				break ;
+			}
 			edges = edges->next;
 		}
 		if (the_node->source != farm->start && the_node->source != the_node->parent->source)
@@ -361,6 +364,24 @@ static t_list *update_res_graph_save_path(t_farm *farm)
 	}
 }
 
+void reset_mark(t_list **sets, size_t size)
+{
+	size_t i;
+	t_list *rooms;
+	t_room *the_room;
+
+	i = 0;
+	while (i < size)
+	{
+		rooms = sets[i];
+		while (rooms)
+		{
+			the_room = rooms->content;
+			
+		}
+	}
+}
+
 t_list ***better_paths(t_farm *farm, int max_flow)
 {
 	t_list ***sets;
@@ -387,7 +408,7 @@ t_list ***better_paths(t_farm *farm, int max_flow)
 		{
 			if (bfs_path(farm))
 			{
-				sets[i][j] = save_path(farm); //set fwd edge to 2
+				sets[i][j] = mark_and_save_path(farm); //set fwd edge to 2
 				j++;
 			}
 			else
