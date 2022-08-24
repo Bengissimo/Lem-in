@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/24 12:03:23 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/24 14:01:02 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -374,33 +374,26 @@ t_list *mark_and_save_path(t_farm *farm)
 	return (the_path);
 }
 
-t_list *better_paths(t_farm *farm)
+t_list *better_paths(t_farm *farm, int *flow)
 {
 	t_list **set_i;
 	t_list *sets;
 	size_t i;
 	size_t j;
-	size_t flow_count;
-	//size_t max_flow;
-	
-	//max_flow = calc_max_flow(farm);
-	//max_flow = 4;
-	flow_count = 0;
 	i= 0;
 	sets = NULL;
 	while(TRUE)
 	{
-		flow_count++;
-		set_i = (t_list **)ft_memalloc(flow_count * sizeof(t_list *)); //sets[0] has 1 path, sets[1] has 2 paths etc...
 		if (bfs(farm, 0))
 			update_res_graph(farm->end);
 		else
 			break;
+		set_i = (t_list **)ft_memalloc((i + 1) * sizeof(t_list *)); //set_i[0] has 1 path, set_i[1] has 2 paths etc...
 		//reset fwd flow in sets[i - 1] if i > 0
 		if (i > 0)
 			reset_mark(farm);
 		j = 0;
-		while (j < flow_count)
+		while (j < i + 1)
 		{
 			if (bfs_path(farm))
 			{
@@ -414,6 +407,7 @@ t_list *better_paths(t_farm *farm)
 			ft_lstappend(&sets, lstnew_pointer(set_i));
 		i++;
 	}
+	*flow = i;
 	print_path_sets(sets);
 	return (sets);
 }
