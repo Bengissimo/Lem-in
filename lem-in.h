@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem-in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/24 16:49:24 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/24 19:30:00 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 # include "libft/libft.h"
 # include <stdio.h> //DELETE LATER
 
-#define HASH 1109
-#define INT_MAX 2147483647
+# define HASH 1109
+# define INT_MAX 2147483647
 
 typedef struct	s_coord
 {
@@ -102,7 +102,7 @@ void	print_ant(t_ant ant);
 void	send_ants(int num_ants, t_list **paths, int size);
 void	ant_push(t_list *path_ptr, t_list **queue);
 void	ant_pop(t_list ***queue, t_list **moving_ants, int size, int *cur_ant_num);
-int	is_prev_shorter(int num_ants, t_list **cur_paths, int cur_size, t_list **prev_paths, int prev_size);
+void	find_the_best_paths_and_send_ants(t_list *sets, t_farm *farm);
 
 /* other */
 t_list	*lstnew_pointer(void *content);
@@ -135,10 +135,13 @@ t_list **shortest_paths(t_farm *farm, int *size);
 t_list *reset_graph_save_paths(t_farm *farm);
 
 
-t_list *better_paths(t_farm *farm, int *flow);
+t_list *better_paths(t_farm *farm);
 
 
 void update_fwd_flow(t_farm *farm, int flow);
 
+//printing paths
+void print_paths(t_list **paths, size_t flow);
+void print_path_sets(t_list *sets);
 
 #endif

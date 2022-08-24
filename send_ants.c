@@ -6,7 +6,7 @@
 /*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 17:40:39 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/23 17:28:49 by ykot             ###   ########.fr       */
+/*   Updated: 2022/08/24 19:30:40 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,8 +156,10 @@ static int count_printed_lines(int num_ants, int *queue, int size)
 	return (queue[0]);
 }
 
-int	the_best_path(t_list ***better_paths, int num_ants, int *sizes, int num_paths)
+static int	the_best_path(t_list *sets, int num_ants)
 {
+	t_list **the_set;
+	t_list *curr;
 	int	min_lines;
 	int	best_path;
 	int	*queue;
@@ -165,19 +167,44 @@ int	the_best_path(t_list ***better_paths, int num_ants, int *sizes, int num_path
 	int	i;
 	
 	i = 0;
+	curr = sets;
 	min_lines = INT_MAX;
-	while(num_paths - i)
+	while (curr)
 	{
-		queue = get_numrooms(better_paths[i], sizes[i]);
-		num_lines = count_printed_lines(num_ants, queue, sizes[i]);
-		if (min_lines < num_lines)
+		the_set = curr->content;
+		queue = get_numrooms(the_set, i + 1);
+		num_lines = count_printed_lines(num_ants, queue, i + 1);
+		printf("set %d:\n", (int)i);
+		printf("Number of lines to print: %d\n", num_lines - 1);
+		print_paths(the_set, i + 1);
+		if (min_lines > num_lines)
 		{
 			min_lines = num_lines;
 			best_path = i;
 		}
+		
 		free(queue);
 		i++;
+		curr = curr->next;
 	}
 	return (best_path);
 }
 
+void	find_the_best_paths_and_send_ants(t_list *sets, t_farm *farm)
+{
+	int		best_set_num;
+	int		i;
+	t_list	**the_set;
+	t_list	*curr;		
+
+	best_set_num = the_best_path(sets, farm->num_ants);
+	i = 0;
+	curr = sets;
+	while (i <= best_set_num)
+	{
+		the_set = curr->content;
+		i++;
+		curr = curr->next;
+	}
+	send_ants(farm->num_ants, the_set, best_set_num + 1);
+}

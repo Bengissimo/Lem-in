@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bfs.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/24 14:01:02 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/24 19:31:02 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void update_res_graph(t_room *end)
 	}
 }
 
-static void print_paths(t_list **paths, size_t flow)
+void print_paths(t_list **paths, size_t flow)
 {
 	size_t i;
 	char *the_room;
@@ -137,7 +137,7 @@ static void print_paths(t_list **paths, size_t flow)
 	}
 }
 
-static void print_path_sets(t_list *sets)
+void print_path_sets(t_list *sets)
 {
 	size_t i;
 	t_list **the_set;
@@ -374,7 +374,7 @@ t_list *mark_and_save_path(t_farm *farm)
 	return (the_path);
 }
 
-t_list *better_paths(t_farm *farm, int *flow)
+t_list *better_paths(t_farm *farm)
 {
 	t_list **set_i;
 	t_list *sets;
@@ -407,7 +407,6 @@ t_list *better_paths(t_farm *farm, int *flow)
 			ft_lstappend(&sets, lstnew_pointer(set_i));
 		i++;
 	}
-	*flow = i;
-	print_path_sets(sets);
+	//print_path_sets(sets);
 	return (sets);
 }
