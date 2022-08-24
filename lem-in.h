@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem-in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/19 16:02:07 by ykot             ###   ########.fr       */
+/*   Updated: 2022/08/24 11:57:52 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,11 @@ t_list **shortest_paths(t_farm *farm, int *size);
 
 t_list *reset_graph_save_paths(t_farm *farm);
 
+
+t_list *better_paths(t_farm *farm);
+
+
+void update_fwd_flow(t_farm *farm, int flow);
 
 
 #endif

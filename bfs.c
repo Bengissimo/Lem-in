@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/21 22:37:48 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/24 12:03:23 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,25 @@ static void print_paths(t_list **paths, size_t flow)
 	}
 }
 
-t_list **edmonds_karp(t_farm *farm, int *size) //name: get_max_flow_paths
+static void print_path_sets(t_list *sets)
+{
+	size_t i;
+	t_list **the_set;
+	t_list *curr;
+
+	i = 0;
+	curr = sets;
+	while (curr)
+	{
+		the_set = curr->content;
+		printf("set %d:\n", (int)i);
+		print_paths(the_set, i + 1);
+		i++;
+		curr = curr->next;
+	}
+}
+
+/*t_list **edmonds_karp(t_farm *farm, int *size) //name: get_max_flow_paths
 {
 	size_t flow;
 	size_t i;
@@ -149,7 +167,7 @@ t_list **edmonds_karp(t_farm *farm, int *size) //name: get_max_flow_paths
 		flow++; 
 		update_res_graph(farm->end);
 	}
-	//*size = flow;
+	*size = flow;
 	paths = (t_list**)ft_memalloc(flow * sizeof(t_list *));
 	if (!paths)
 		return (NULL); // or exit (1)
@@ -164,7 +182,29 @@ t_list **edmonds_karp(t_farm *farm, int *size) //name: get_max_flow_paths
 	printf("max i: %d flow: %d\n", (int)i, (int)flow);
 	print_paths(paths, flow);
 	return (paths);
+}*/
+
+/*void reset_graph(t_farm *farm)
+{
+	while (bfs(farm, 1))
+	{
+		update_fwd_flow(farm, 0);
+	}
 }
+
+size_t calc_max_flow(t_farm *farm)
+{
+	size_t flow;
+
+	flow = 0;
+	while (bfs(farm, 0))  // if the_flow == 0 
+	{
+		flow++; 
+		update_res_graph(farm->end);
+	}
+	reset_graph(farm);
+	return (flow);
+}*/
 
 int bfs_path(t_farm *farm)
 {
@@ -195,7 +235,7 @@ int bfs_path(t_farm *farm)
 			the_edge = edges->content;
 			child = the_edge->to;
 			if (!hashmap_node_get(hashmap_node, child->name)
-				&& ((the_edge->flow == 1 && (the_edge->reverse->flow == 0))
+				&& ((the_edge->flow == 1 && (the_edge->reverse && the_edge->reverse->flow == 0))
 				|| (the_edge->flow == 0 && !the_edge->reverse)))
 			//if (!hashmap_node_get(hashmap_node, child->name) && (the_edge->flow == 1 && the_edge->reverse->flow == 0))
 			{
@@ -210,7 +250,7 @@ int bfs_path(t_farm *farm)
 	return (0);
 }
 
-static void update_fwd_flow(t_farm *farm)
+void update_fwd_flow(t_farm *farm, int flow)
 {
 	t_node *the_node;
 	t_edge *the_edge;
@@ -227,7 +267,7 @@ static void update_fwd_flow(t_farm *farm)
 			the_edge = edges->content;
 			if (the_edge->to == the_node)
 			{
-				the_edge->flow = 1;
+				the_edge->flow = flow;
 				break ;
 			}
 			edges = edges->next;
@@ -236,7 +276,7 @@ static void update_fwd_flow(t_farm *farm)
 	}
 }
 
-t_list *reset_graph_save_paths(t_farm *farm)
+/*t_list *reset_graph_save_paths(t_farm *farm)
 {
 	t_node *the_node;
 	t_edge *the_edge;
@@ -265,9 +305,9 @@ t_list *reset_graph_save_paths(t_farm *farm)
 		the_node = the_node->parent;
 	}
 	return (the_path);
-}
+}*/
 
-t_list **shortest_paths(t_farm *farm, int *size) //get_shortest_paths
+/*t_list **shortest_paths(t_farm *farm, int *size) //get_shortest_paths
 {
 	size_t flow;
 	size_t i;
@@ -293,4 +333,87 @@ t_list **shortest_paths(t_farm *farm, int *size) //get_shortest_paths
 	printf("shorts i: %d\n", (int)i);
 	print_paths(shorts, flow);
 	return (shorts);
+}*/
+
+void reset_mark(t_farm *farm)
+{
+	while (bfs(farm, 2))
+	{
+		update_fwd_flow(farm, 1);
+	}
+}
+
+t_list *mark_and_save_path(t_farm *farm)
+{
+	t_node *the_node;
+	t_edge *the_edge;
+	t_list *edges;
+	t_list *the_path;
+
+	the_node = farm->end->in;
+	edges = NULL;
+	the_path = NULL;
+	while (the_node)
+	{
+		if (the_node->parent)
+			edges = the_node->parent->edges;
+		while (edges)
+		{
+			the_edge = edges->content;
+			if (the_edge->to == the_node)
+			{
+				the_edge->flow = 2;
+				break ;
+			}
+			edges = edges->next;
+		}
+		if (the_node->source != farm->start && the_node->source != the_node->parent->source)
+			ft_lstadd(&the_path, lstnew_pointer(the_node->source->name));
+		the_node = the_node->parent;
+	}
+	return (the_path);
+}
+
+t_list *better_paths(t_farm *farm)
+{
+	t_list **set_i;
+	t_list *sets;
+	size_t i;
+	size_t j;
+	size_t flow_count;
+	//size_t max_flow;
+	
+	//max_flow = calc_max_flow(farm);
+	//max_flow = 4;
+	flow_count = 0;
+	i= 0;
+	sets = NULL;
+	while(TRUE)
+	{
+		flow_count++;
+		set_i = (t_list **)ft_memalloc(flow_count * sizeof(t_list *)); //sets[0] has 1 path, sets[1] has 2 paths etc...
+		if (bfs(farm, 0))
+			update_res_graph(farm->end);
+		else
+			break;
+		//reset fwd flow in sets[i - 1] if i > 0
+		if (i > 0)
+			reset_mark(farm);
+		j = 0;
+		while (j < flow_count)
+		{
+			if (bfs_path(farm))
+			{
+				set_i[j] = mark_and_save_path(farm); //set fwd edge to 2
+				j++;
+			}
+			else
+				break ;
+		}
+		if (j)
+			ft_lstappend(&sets, lstnew_pointer(set_i));
+		i++;
+	}
+	print_path_sets(sets);
+	return (sets);
 }

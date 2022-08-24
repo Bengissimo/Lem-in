@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 14:43:14 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/16 20:25:43 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/22 22:55:30 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	error(t_farm *farm)
 {
 	free_farm(farm);
 	ft_putendl_fd("Error", 2);
+	//system("leaks lem-in >> error_leaks.txt");
 	exit(1);
 }
 
