@@ -6,7 +6,7 @@
 /*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 17:40:39 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/24 19:30:40 by ykot             ###   ########.fr       */
+/*   Updated: 2022/08/24 20:19:48 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ static int	*get_numrooms(t_list **paths, int size)
 	while (i < size)
 	{
 		rooms[i] = ft_lstsize(paths[i]);
+		if (rooms[i] == 0)
+			return (NULL);
 		++i;
 	}
 	return (rooms);
@@ -173,6 +175,8 @@ static int	the_best_path(t_list *sets, int num_ants)
 	{
 		the_set = curr->content;
 		queue = get_numrooms(the_set, i + 1);
+		if (queue == NULL)
+			break;
 		num_lines = count_printed_lines(num_ants, queue, i + 1);
 		printf("set %d:\n", (int)i);
 		printf("Number of lines to print: %d\n", num_lines - 1);
