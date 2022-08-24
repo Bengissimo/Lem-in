@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:22:20 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/24 09:00:11 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/24 11:58:03 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	main(int argc, char **argv)
 	//int		size;
 	//t_list	**all;
 	//t_list **shorts;
-	t_list ***sets;
+	t_list *sets;
 	
 	ft_bzero(&farm, sizeof(farm));
 	farm.hashmap = ft_memalloc(HASH * sizeof(t_list *));
