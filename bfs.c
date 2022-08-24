@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/23 15:42:51 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/24 09:42:24 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,7 +222,7 @@ int bfs_path(t_farm *farm)
 			the_edge = edges->content;
 			child = the_edge->to;
 			if (!hashmap_node_get(hashmap_node, child->name)
-				&& ((the_edge->flow == 1 && (the_edge->reverse->flow == 0))
+				&& ((the_edge->flow == 1 && the_edge->reverse->flow == 0)
 				|| (the_edge->flow == 0 && !the_edge->reverse)))
 			//if (!hashmap_node_get(hashmap_node, child->name) && (the_edge->flow == 1 && the_edge->reverse->flow == 0))
 			{
@@ -237,7 +237,7 @@ int bfs_path(t_farm *farm)
 	return (0);
 }
 
-/*static void update_fwd_flow(t_farm *farm)
+static void update_fwd_flow(t_farm *farm)
 {
 	t_node *the_node;
 	t_edge *the_edge;
@@ -261,7 +261,7 @@ int bfs_path(t_farm *farm)
 		}
 		the_node = the_node->parent;
 	}
-}*/
+}
 
 /*t_list *reset_graph_save_paths(t_farm *farm)
 {
@@ -322,37 +322,11 @@ int bfs_path(t_farm *farm)
 	return (shorts);
 }*/
 
-void reset_mark(t_farm *farm, t_list **sets, size_t size)
+void reset_mark(t_farm *farm)
 {
-	size_t i;
-	t_list *rooms;
-	t_room *the_room;
-	t_room *next_room;
-	t_list *edges;
-	t_edge *the_edge;
-
-	i = 0;
-	while (i < size)
+	while (bfs(farm, 2))
 	{
-		rooms = sets[i];
-		while (rooms)
-		{
-			the_room = hashmap_get(farm, (char *)rooms->content);
-			edges = the_room->out->edges;
-			while (edges)
-			{
-				the_edge = edges->content;
-				next_room =  hashmap_get(farm, (char *)rooms->next->content);
-				if (the_edge->to == next_room->in && the_edge->flow == 2)
-				{
-					the_edge->flow = 1;
-					break ;
-				}
-				edges = edges->next;
-			}
-			rooms = rooms->next;
-		}
-		i++;
+		update_fwd_flow(farm);
 	}
 }
 
@@ -412,7 +386,7 @@ t_list ***better_paths(t_farm *farm)
 			break;
 		//reset fwd flow in sets[i - 1] if i > 0
 		if (i > 0)
-			reset_mark(farm, sets[i - 1], i);
+			reset_mark(farm);
 		j = 0;
 		while (j < flow_count)
 		{
