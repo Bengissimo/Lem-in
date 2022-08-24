@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/24 09:42:24 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/24 09:58:09 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ static void print_path_sets(t_list ***sets, size_t flow)
 	while (i < flow)
 	{
 		the_set = sets[i];
-		print_paths(the_set, i);
+		print_paths(the_set, i + 1);
 		i++;
 	}
 }
@@ -180,7 +180,15 @@ static void print_path_sets(t_list ***sets, size_t flow)
 	return (paths);
 }*/
 
-/*size_t calc_max_flow(t_farm *farm)
+void reset_graph(t_farm *farm)
+{
+	while (bfs(farm, 1))
+	{
+		update_fwd_flow(farm, 0);
+	}
+}
+
+size_t calc_max_flow(t_farm *farm)
 {
 	size_t flow;
 
@@ -190,8 +198,9 @@ static void print_path_sets(t_list ***sets, size_t flow)
 		flow++; 
 		update_res_graph(farm->end);
 	}
+	reset_graph(farm);
 	return (flow);
-}*/
+}
 
 int bfs_path(t_farm *farm)
 {
@@ -237,7 +246,7 @@ int bfs_path(t_farm *farm)
 	return (0);
 }
 
-static void update_fwd_flow(t_farm *farm)
+void update_fwd_flow(t_farm *farm, int flow)
 {
 	t_node *the_node;
 	t_edge *the_edge;
@@ -254,7 +263,7 @@ static void update_fwd_flow(t_farm *farm)
 			the_edge = edges->content;
 			if (the_edge->to == the_node)
 			{
-				the_edge->flow = 1;
+				the_edge->flow = flow;
 				break ;
 			}
 			edges = edges->next;
@@ -326,7 +335,7 @@ void reset_mark(t_farm *farm)
 {
 	while (bfs(farm, 2))
 	{
-		update_fwd_flow(farm);
+		update_fwd_flow(farm, 1);
 	}
 }
 
