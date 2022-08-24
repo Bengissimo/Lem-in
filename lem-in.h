@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/24 11:57:52 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/24 16:49:24 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdio.h> //DELETE LATER
 
 #define HASH 1109
+#define INT_MAX 2147483647
 
 typedef struct	s_coord
 {
@@ -134,7 +135,7 @@ t_list **shortest_paths(t_farm *farm, int *size);
 t_list *reset_graph_save_paths(t_farm *farm);
 
 
-t_list *better_paths(t_farm *farm);
+t_list *better_paths(t_farm *farm, int *flow);
 
 
 void update_fwd_flow(t_farm *farm, int flow);
