@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/24 09:58:09 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/24 10:06:04 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,7 @@ static void print_path_sets(t_list ***sets, size_t flow)
 	while (i < flow)
 	{
 		the_set = sets[i];
+		printf("set %d:\n", (int)i);
 		print_paths(the_set, i + 1);
 		i++;
 	}
@@ -198,7 +199,7 @@ size_t calc_max_flow(t_farm *farm)
 		flow++; 
 		update_res_graph(farm->end);
 	}
-	reset_graph(farm);
+	//reset_graph(farm);
 	return (flow);
 }
 
@@ -231,7 +232,7 @@ int bfs_path(t_farm *farm)
 			the_edge = edges->content;
 			child = the_edge->to;
 			if (!hashmap_node_get(hashmap_node, child->name)
-				&& ((the_edge->flow == 1 && the_edge->reverse->flow == 0)
+				&& ((the_edge->flow == 1 && (the_edge->reverse && the_edge->reverse->flow == 0))
 				|| (the_edge->flow == 0 && !the_edge->reverse)))
 			//if (!hashmap_node_get(hashmap_node, child->name) && (the_edge->flow == 1 && the_edge->reverse->flow == 0))
 			{
@@ -378,8 +379,8 @@ t_list ***better_paths(t_farm *farm)
 	size_t flow_count;
 	size_t max_flow;
 	
-	//max_flow = calc_max_flow(farm);
-	max_flow = 3;
+	max_flow = calc_max_flow(farm);
+	//max_flow = 3;
 	sets = (t_list ***)ft_memalloc(max_flow * sizeof(t_list **));
 	if (!sets)
 		return (NULL); // error
@@ -389,10 +390,10 @@ t_list ***better_paths(t_farm *farm)
 	{
 		flow_count++;
 		sets[i] = (t_list **)ft_memalloc(flow_count * sizeof(t_list *)); //sets[0] has 1 path, sets[1] has 2 paths etc...
-		if (bfs(farm, 0))
+		/*if (bfs(farm, 0))
 			update_res_graph(farm->end);
 		else
-			break;
+			break;*/
 		//reset fwd flow in sets[i - 1] if i > 0
 		if (i > 0)
 			reset_mark(farm);
