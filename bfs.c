@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bfs.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/24 19:31:02 by ykot             ###   ########.fr       */
+/*   Updated: 2022/08/26 12:53:28 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,10 +234,10 @@ int bfs_path(t_farm *farm)
 		{
 			the_edge = edges->content;
 			child = the_edge->to;
-			if (!hashmap_node_get(hashmap_node, child->name)
+			/*if (!hashmap_node_get(hashmap_node, child->name)
 				&& ((the_edge->flow == 1 && (the_edge->reverse && the_edge->reverse->flow == 0))
-				|| (the_edge->flow == 0 && !the_edge->reverse)))
-			//if (!hashmap_node_get(hashmap_node, child->name) && (the_edge->flow == 1 && the_edge->reverse->flow == 0))
+				|| (the_edge->flow == 0 && !the_edge->reverse)))*/
+			if (!hashmap_node_get(hashmap_node, child->name) && the_edge->flow == 1 && the_edge->reverse && the_edge->reverse->flow == 0)
 			{
 				child->parent = the_node;
 				q_push (&queue, child);
@@ -343,7 +343,7 @@ void reset_mark(t_farm *farm)
 	}
 }
 
-t_list *mark_and_save_path(t_farm *farm)
+t_list *mark_and_save_path(t_farm *farm, int flow)
 {
 	t_node *the_node;
 	t_edge *the_edge;
@@ -362,7 +362,7 @@ t_list *mark_and_save_path(t_farm *farm)
 			the_edge = edges->content;
 			if (the_edge->to == the_node)
 			{
-				the_edge->flow = 2;
+				the_edge->flow = flow;
 				break ;
 			}
 			edges = edges->next;
@@ -374,10 +374,50 @@ t_list *mark_and_save_path(t_farm *farm)
 	return (the_path);
 }
 
-t_list *better_paths(t_farm *farm)
+/*static void print_adj_list(t_farm farm) //just to see what we have in adj_list, will be removed later
 {
-	t_list **set_i;
+	t_list *rooms;
+	t_room *the_room;
+	t_list	*edges;
+	t_edge	*the_edge;
+
+	rooms = farm.rooms;
+	while (rooms)
+	{
+		the_room = rooms->content;
+		printf("the room %s:\n", the_room->name);
+		if (the_room->in)
+		{
+			printf("%s -> ",the_room->in->name);
+			edges = the_room->in->edges;
+			while (edges)
+			{
+				the_edge = edges->content;
+				printf("%s (flow: %d) - ", the_edge->to->name, the_edge->flow);
+				edges = edges->next;
+			}
+			printf("\n");
+		}
+		if (the_room->out)
+		{
+			printf("%s -> ", the_room->out->name);
+			edges = the_room->out->edges;
+			while (edges)
+			{
+				the_edge = edges->content;
+				printf("%s (flow: %d) - ", the_edge->to->name, the_edge->flow);
+				edges = edges->next;
+			}
+			printf("\n");
+		}
+		rooms = rooms->next;
+	}
+}*/
+
+t_list *better_paths(t_farm *farm, size_t *size)
+{
 	t_list *sets;
+	t_list **set_i;
 	size_t i;
 	size_t j;
 	i= 0;
@@ -397,7 +437,7 @@ t_list *better_paths(t_farm *farm)
 		{
 			if (bfs_path(farm))
 			{
-				set_i[j] = mark_and_save_path(farm); //set fwd edge to 2
+				set_i[j] = mark_and_save_path(farm, 2); //set fwd edge to 2
 				j++;
 			}
 			else
@@ -407,6 +447,77 @@ t_list *better_paths(t_farm *farm)
 			ft_lstappend(&sets, lstnew_pointer(set_i));
 		i++;
 	}
+	*size = j;
 	//print_path_sets(sets);
+	//print_adj_list(*farm);
 	return (sets);
+}
+
+int bfs_path_2(t_farm *farm)
+{
+	t_node *the_node;
+	t_node *child;
+	t_list *edges;
+	t_edge *the_edge;
+	t_list *queue;
+	t_list **hashmap_node;
+	
+	hashmap_node = (t_list **)ft_memalloc(HASH * sizeof(t_list *));
+	queue = NULL;
+	the_edge = NULL;
+	q_push(&queue, farm->start->out);
+	while (queue)
+	{
+		the_node = q_pop(&queue);
+		if (the_node == farm->end->in)
+		{
+			//free_queue
+			free_hashmap(hashmap_node);
+			return (1);
+		}
+		hashmap_node_set(hashmap_node, the_node);
+		edges = the_node->edges;
+		while (edges)
+		{
+			the_edge = edges->content;
+			child = the_edge->to;
+			if (!hashmap_node_get(hashmap_node, child->name)
+				&& ((the_edge->flow == 2 && (the_edge->reverse && the_edge->reverse->flow == 0))
+				|| (the_edge->flow == 0 && !the_edge->reverse)))
+			//if (!hashmap_node_get(hashmap_node, child->name) && the_edge->flow == 1 && the_edge->reverse && the_edge->reverse->flow == 0)
+			{
+				child->parent = the_node;
+				q_push (&queue, child);
+			}
+			edges = edges->next;
+		}
+	}
+	//free_queue
+	free_hashmap(hashmap_node);
+	return (0);
+}
+
+void add_one_more_set(t_list *sets, t_farm *farm, size_t size)
+{
+	t_list **last_set;
+
+	last_set = (t_list **)ft_memalloc(size * sizeof(t_list *));
+	int ind = 0;
+	while (bfs_path_2(farm))
+	{
+		last_set[ind] = mark_and_save_path(farm, 3);
+		ind++;
+	}
+	ft_lstappend(&sets, lstnew_pointer(last_set));
+	//print_path_sets(sets);
+	/*t_list *curr = sets;
+	int i = 0;
+	while (i < 3)
+	{
+		curr = curr->next;
+		i++;
+	}
+	print_paths(curr->content, size); */ //just to confirm if I have this final set in the sets
+	printf("the last set of paths:\n");
+	print_paths(last_set, size);
 }
