@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/26 13:09:54 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/26 13:44:02 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,8 @@ void print_paths(t_list **paths, size_t flow)
 	while (i < flow)
 	{
 		list = paths[i];
+		if (!list)
+			break ;
 		len = ft_lstsize(paths[i]);
 		while (list)
 		{
@@ -502,7 +504,7 @@ void add_one_more_set(t_list *sets, t_farm *farm, size_t size)
 {
 	t_list **last_set;
 
-	last_set = (t_list **)ft_memalloc(size * sizeof(t_list *));
+	last_set = (t_list **)ft_memalloc((size + 1) * sizeof(t_list *));
 	int ind = 0;
 	while (bfs_path_2(farm))
 	{
@@ -519,6 +521,7 @@ void add_one_more_set(t_list *sets, t_farm *farm, size_t size)
 		i++;
 	}
 	print_paths(curr->content, size); */ //just to confirm if I have this final set in the sets
-	printf("the last set of paths:\n");
-	print_paths(last_set, size);
+	//printf("the last set of paths:\n");
+	//print_paths(last_set, size);
+	print_path_sets(sets);
 }
