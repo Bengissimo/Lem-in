@@ -6,7 +6,11 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/08/26 12:53:28 by bkandemi         ###   ########.fr       */
+=======
+/*   Updated: 2022/08/26 11:13:09 by bkandemi         ###   ########.fr       */
+>>>>>>> 3dd1bc7c688a1b1d3affe4a651afa28a2d748e14
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -510,14 +514,23 @@ void add_one_more_set(t_list *sets, t_farm *farm, size_t size)
 	}
 	ft_lstappend(&sets, lstnew_pointer(last_set));
 	//print_path_sets(sets);
+<<<<<<< HEAD
 	/*t_list *curr = sets;
+=======
+	t_list *curr = sets;
+>>>>>>> 3dd1bc7c688a1b1d3affe4a651afa28a2d748e14
 	int i = 0;
 	while (i < 3)
 	{
 		curr = curr->next;
 		i++;
 	}
+<<<<<<< HEAD
 	print_paths(curr->content, size); */ //just to confirm if I have this final set in the sets
 	printf("the last set of paths:\n");
 	print_paths(last_set, size);
+=======
+	print_paths(last_set, size);
+	print_paths(curr->content, size); //just to confirm if I have this final set in the sets
+>>>>>>> 3dd1bc7c688a1b1d3affe4a651afa28a2d748e14
 }
