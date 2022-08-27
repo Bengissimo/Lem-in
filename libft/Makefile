@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+         #
+#    By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/02 23:20:01 by ykot              #+#    #+#              #
-#    Updated: 2022/07/19 12:19:41 by bkandemi         ###   ########.fr        #
+#    Updated: 2022/08/27 09:09:55 by ykot             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,7 +81,15 @@ SRC = 		ft_atoi.c \
 			ft_numundig.c \
 			ft_bigger.c \
 			ft_demtobase.c \
-			get_next_line.c
+			get_next_line.c \
+			ft_dlstdel.c \
+			ft_dlstdelone.c \
+			ft_dlstnew.c \
+			ft_dynlstadd.c \
+			ft_dynlstappend.c \
+			ft_dynlstdelelem.c \
+			ft_dynlstelem.c \
+			ft_dlstnew_pointer.c
 
 SRC_PF = 	ft_printf.c \
 			print_conversion.c \

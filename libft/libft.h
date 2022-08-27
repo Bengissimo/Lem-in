@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 20:10:34 by ykot              #+#    #+#             */
-/*   Updated: 2022/07/17 22:10:24 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/27 09:04:55 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,23 @@ typedef struct s_list
 	size_t			content_size;
 	struct s_list	*next;
 }				t_list;
+
+
+typedef struct s_dlist
+{
+	void			*content;
+	size_t			content_size;
+	struct s_dlist	*next;
+	struct s_dlist	*prev;
+}				t_dlist;
+
+typedef struct s_dynlist
+{
+	t_dlist	*head;
+	t_dlist	*tail;
+	size_t		size;
+}				t_dynlist;
+
 
 /*
 **	String manipulation
@@ -135,5 +152,18 @@ int			ft_numundig(unsigned long long num, int base);
 char		*ft_demtobase(unsigned long long num, int base);
 long long	ft_bigger(long long a, long long b);
 long double	ft_pow(long double base, int exp);
+
+/*
+**	Dynamic lists
+*/
+
+void	ft_dlstdel(t_dynlist *alst, void (*del)(void *));
+void	ft_dlstdelone(t_dlist **alst, void (*del)(void*));
+t_dlist	*ft_dlstnew(void const *content, size_t content_size);
+void	ft_dynlstadd(t_dynlist *alst, t_dlist *new);
+void	ft_dynlstappend(t_dynlist *alst, t_dlist *new);
+void    ft_dynlstdelelem(t_dynlist *alst, size_t elem, void (*del)(void *));
+t_dlist *ft_dynlstelem(t_dynlist alst, size_t elem);
+t_dlist	*ft_dlstnew_pointer(void *content);
 
 #endif
