@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:22:20 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/26 13:41:01 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/29 22:22:14 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@ int	main(int argc, char **argv)
 	//t_list	**all;
 	//t_list **shorts;
 	t_list *sets;
+	t_list *second_sets;
 	size_t size;
+	size_t size2;
 
 	
 	ft_bzero(&farm, sizeof(farm));
@@ -54,8 +56,12 @@ int	main(int argc, char **argv)
 	else
 		send_ants(farm.num_ants, shorts, size);*/
 	sets = better_paths(&farm, &size);
-	add_one_more_set(sets, &farm, size);
+	second_sets = another_set(&farm, &size2);
+	printf("size: %d\n", (int)size);
+	printf("size2: %d\n", (int)size2);
+	//add_one_more_set(sets, &farm, size);
 	find_the_best_paths_and_send_ants(sets, &farm);
+	find_the_best_paths_and_send_ants(second_sets, &farm);
 	free_farm(&farm);
 	//system("leaks lem-in >> leaks.txt"); //do not run this with make debug or with valgrind, if you do so, first call make fclean and call make re
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/26 11:03:38 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/29 21:50:41 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,9 @@ t_list *better_paths(t_farm *farm, size_t *size);
 
 
 void add_one_more_set(t_list *sets, t_farm *farm, size_t size);
+
+t_list *another_set(t_farm *farm, size_t *size);
+
 
 
 

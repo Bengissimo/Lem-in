@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/26 13:44:02 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/29 22:26:55 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -485,7 +485,7 @@ int bfs_path_2(t_farm *farm)
 			the_edge = edges->content;
 			child = the_edge->to;
 			if (!hashmap_node_get(hashmap_node, child->name)
-				&& ((the_edge->flow == 2 && (the_edge->reverse && the_edge->reverse->flow == 0))
+				&& ((the_edge->flow == 1 && (the_edge->reverse && the_edge->reverse->flow == 0))
 				|| (the_edge->flow == 0 && !the_edge->reverse)))
 			//if (!hashmap_node_get(hashmap_node, child->name) && the_edge->flow == 1 && the_edge->reverse && the_edge->reverse->flow == 0)
 			{
@@ -500,7 +500,7 @@ int bfs_path_2(t_farm *farm)
 	return (0);
 }
 
-void add_one_more_set(t_list *sets, t_farm *farm, size_t size)
+/*void add_one_more_set(t_list *sets, t_farm *farm, size_t size)
 {
 	t_list **last_set;
 
@@ -524,4 +524,93 @@ void add_one_more_set(t_list *sets, t_farm *farm, size_t size)
 	//printf("the last set of paths:\n");
 	//print_paths(last_set, size);
 	print_path_sets(sets);
+}*/
+
+void reset_mark_1(t_farm *farm)
+{
+	while (bfs(farm, 1))
+	{
+		update_fwd_flow(farm, 0);
+	}
+	while (bfs(farm, 2))
+	{
+		update_fwd_flow(farm, 0);
+	}
+}
+
+/*t_list *another_set(t_farm *farm, size_t size)
+{
+	t_list *second_sets;
+	t_list **set_i;
+	size_t i;
+	size_t j;
+	i= 0;
+	second_sets = NULL;
+	while(i < size)
+	{
+		set_i = (t_list **)ft_memalloc((i + 1) * sizeof(t_list *)); //set_i[0] has 1 path, set_i[1] has 2 paths etc...
+		//reset fwd flow in sets[i - 1] if i > 0
+		if (i > 0)
+			reset_mark_3(farm);
+		j = 0;
+		while (j < i + 1)
+		{
+			if (bfs_path_2(farm))
+			{
+				set_i[j] = mark_and_save_path(farm, 3); //set fwd edge to 3
+				j++;
+			}
+			else
+				break ;
+		}
+		if (j)
+			ft_lstappend(&second_sets, lstnew_pointer(set_i));
+		i++;
+	}
+	printf("second sets:\n");
+	print_path_sets(second_sets);
+	return (second_sets);
+}*/
+
+t_list *another_set(t_farm *farm, size_t *size)
+{
+	t_list *sets;
+	t_list **set_i;
+	size_t i;
+	size_t j;
+	i= 0;
+	sets = NULL;
+	reset_mark_1(farm);
+	//print_adj_list(*farm);
+	while(TRUE)
+	{
+		if (bfs(farm, 0))
+			update_res_graph(farm->end);
+		else
+			break;
+		set_i = (t_list **)ft_memalloc((i + 1) * sizeof(t_list *)); //set_i[0] has 1 path, set_i[1] has 2 paths etc...
+		//reset fwd flow in sets[i - 1] if i > 0
+		if (i > 0)
+			reset_mark(farm);
+		j = 0;
+		while (j < i + 1)
+		{
+			if (bfs_path_2(farm))
+			{
+				set_i[j] = mark_and_save_path(farm, 2); //set fwd edge to 3
+				j++;
+			}
+			else
+				break ;
+		}
+		if (j)
+			ft_lstappend(&sets, lstnew_pointer(set_i));
+		i++;
+	}
+	*size = j;
+	printf("second sets:\n");
+	print_path_sets(sets);
+	//print_path_sets(sets);
+	//print_adj_list(*farm);
+	return (sets);
 }
