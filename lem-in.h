@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/29 21:50:41 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/31 10:09:45 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,8 @@ t_list **edmonds_karp(t_farm *farm, int *size);
 
 int bfs_path(t_farm *farm);
 //t_list *update_path_graph(t_farm *farm); 
+int bfs_path_2(t_farm *farm);
+
 
 int	hashmap_node_set(t_list **hashmap_node, t_node *node);
 t_node	*hashmap_node_get(t_list **hashmap_node, char *name);
