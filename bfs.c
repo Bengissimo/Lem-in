@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/31 13:49:45 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/31 19:43:06 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -384,7 +384,7 @@ int bfs_path_2(t_farm *farm)
 			the_edge = edges->content;
 			child = the_edge->to;
 			if (!hashmap_node_get(hashmap_node, child->name)
-				&& ((the_edge->flow == 2 && (the_edge->reverse && the_edge->reverse->flow == 0))
+				&& ((the_edge->flow == 1 && (the_edge->reverse && the_edge->reverse->flow == 0))
 				|| (the_edge->flow == 0 && !the_edge->reverse)))
 			{
 				child->parent = the_node;
@@ -398,34 +398,11 @@ int bfs_path_2(t_farm *farm)
 	return (0);
 }
 
-void add_one_more_set(t_list *sets, t_farm *farm, size_t size)
-{
-	t_list **last_set;
-
-	last_set = (t_list **)ft_memalloc((size + 1) * sizeof(t_list *));
-	int ind = 0;
-	while (bfs_path_2(farm))
-	{
-		last_set[ind] = mark_and_save_path(farm, 3);
-		ind++;
-	}
-	ft_lstappend(&sets, lstnew_pointer(last_set));
-	//print_path_sets(sets);
-	/*t_list *curr = sets;
-	int i = 0;
-	while (i < 3)
-	{
-		curr = curr->next;
-		i++;
-	}
-	print_paths(curr->content, size);  //just to confirm if I have this final set in the sets*/
-	printf("the last set of paths:\n");
-	print_paths(last_set, size);
-	//print_path_sets(sets);
-}
+// to see void add_one_more_set(t_list *sets, t_farm *farm, size_t size) go to test_one_path_set branch
 
 
-/*t_list *another_set(t_farm *farm, size_t *size)
+
+t_list *another_set(t_farm *farm, size_t *size)
 {
 	t_list *sets;
 	t_list **set_i;
@@ -450,7 +427,7 @@ void add_one_more_set(t_list *sets, t_farm *farm, size_t size)
 		{
 			if (bfs_path_2(farm))
 			{
-				set_i[j] = mark_and_save_path(farm, 2); //set fwd edge to 3
+				set_i[j] = mark_and_save_path(farm, 2); //set fwd edge to 2
 				j++;
 			}
 			else
@@ -466,4 +443,4 @@ void add_one_more_set(t_list *sets, t_farm *farm, size_t size)
 	//print_path_sets(sets);
 	//print_adj_list(*farm);
 	return (sets);
-}*/
+}

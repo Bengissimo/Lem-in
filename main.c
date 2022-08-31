@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:22:20 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/31 13:12:37 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/31 19:38:13 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,10 @@
 int	main(int argc, char **argv)
 {
 	t_farm	farm;
-	//int		size;
-	//t_list	**all;
-	//t_list **shorts;
 	t_list *sets;
-	//t_list *second_sets;
+	t_list *second_sets;
 	size_t size;
-	//size_t size2;
+	size_t size2;
 
 	
 	ft_bzero(&farm, sizeof(farm));
@@ -46,19 +43,11 @@ int	main(int argc, char **argv)
 		error(&farm);
 	read_input(&farm);
 	print_farm(farm);
-	/*shorts = shortest_paths(&farm, &size);
-	if (farm.num_ants > (int)total_path_size(shorts, size))
-	{
-		all = edmonds_karp(&farm, &size);  //this fn returns t_list **paths
-		send_ants(farm.num_ants, all, size);
-	}
-	else
-		send_ants(farm.num_ants, shorts, size);*/
+	
 	sets = better_paths(&farm, &size);
-	//second_sets = another_set(&farm, &size2);
-	add_one_more_set(sets, &farm, size);
+	second_sets = another_set(&farm, &size2);
 	find_the_best_paths_and_send_ants(sets, &farm);
-	//find_the_best_paths_and_send_ants(second_sets, &farm);
+	find_the_best_paths_and_send_ants(second_sets, &farm);
 	free_farm(&farm);
 	//system("leaks lem-in >> leaks.txt"); //do not run this with make debug or with valgrind, if you do so, first call make fclean and call make re
 	return (0);
