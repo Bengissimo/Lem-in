@@ -6,13 +6,13 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:22:20 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/19 12:02:14 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/31 14:19:15 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem-in.h"
 
-static size_t total_path_size(t_list **path, size_t size)
+/*static size_t total_path_size(t_list **path, size_t size)
 {
 	size_t i;
 	size_t result;
@@ -25,14 +25,14 @@ static size_t total_path_size(t_list **path, size_t size)
 		i++;
 	}
 	return (result);
-}
+}*/
 
 int	main(int argc, char **argv)
 {
 	t_farm	farm;
-	int		size;
-	t_list	**all;
-	t_list **shorts;
+	size_t		size;
+	t_list *sets;
+	t_list **last_set;
 	
 	ft_bzero(&farm, sizeof(farm));
 	farm.hashmap = ft_memalloc(HASH * sizeof(t_list *));
@@ -41,14 +41,9 @@ int	main(int argc, char **argv)
 		error(&farm);
 	read_input(&farm);
 	print_farm(farm);
-	shorts = shortest_paths(&farm, &size);
-	if (farm.num_ants > (int)total_path_size(shorts, size))
-	{
-		all = edmonds_karp(&farm, &size);  //this fn returns t_list **paths
-		send_ants(farm.num_ants, all, size);
-	}
-	else
-		send_ants(farm.num_ants, shorts, size);
+	sets = better_paths(&farm, &size);
+	last_set = add_one_more_set(&farm, size);
+	send_ants(farm.num_ants, last_set, (int)size);
 	free_farm(&farm);
 	//system("leaks lem-in"); //do not run this with make debug or with valgrind, if you do so, first call make fclean and call make re
 	return (0);

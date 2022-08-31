@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 17:40:39 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/16 11:46:51 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/08/31 14:21:50 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,5 +127,7 @@ void	send_ants(int num_ants, t_list **paths, int size)
 		move_all_ants(&moving_ants);
 		ant_pop(&queue, &moving_ants, size, &cur_ant_num);
 	}
+	printf("\n");
+	print_paths(paths, size);
 	free(queue);
 }
