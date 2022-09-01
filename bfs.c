@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/01 17:41:59 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/01 17:43:00 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,7 +230,7 @@ void reset_mark(t_farm *farm)
 	}
 }
 
-void reset_all_flows(t_farm *farm)
+void reset_all_flow(t_farm *farm)
 {
 	while (bfs(farm, 1))
 	{
@@ -252,7 +252,7 @@ t_list *get_paths(t_farm *farm, int option)
 	i= 0;
 	sets = NULL;
 	if (option == 2)
-		reset_all_flows(farm);
+		reset_all_flow(farm);
 	while(bfs(farm, 0))
 	{
 		update_res_flow(farm->end);
