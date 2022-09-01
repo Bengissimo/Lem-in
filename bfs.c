@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/01 16:49:57 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/01 17:41:59 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,15 +199,6 @@ void update_fwd_flow(t_farm *farm, int flow)
 	}
 }
 
-void reset_mark(t_farm *farm)
-{
-	while (bfs(farm, 2))
-	{
-		update_fwd_flow(farm, 1);
-	}
-}
-
-
 t_list *mark_and_save_path(t_farm *farm, int flow)
 {
 	t_node *the_node;
@@ -231,7 +222,15 @@ t_list *mark_and_save_path(t_farm *farm, int flow)
 	return (the_path);
 }
 
-void reset_mark_1(t_farm *farm)
+void reset_mark(t_farm *farm)
+{
+	while (bfs(farm, 2))
+	{
+		update_fwd_flow(farm, 1);
+	}
+}
+
+void reset_all_flows(t_farm *farm)
 {
 	while (bfs(farm, 1))
 	{
@@ -245,14 +244,15 @@ void reset_mark_1(t_farm *farm)
 
 t_list *get_paths(t_farm *farm, int option)
 {
-	t_list *sets;
-	t_list **set_i;
-	size_t i;
-	size_t j;
+	t_list	*sets;
+	t_list	**set_i;
+	size_t	i;
+	size_t	j;
+
 	i= 0;
 	sets = NULL;
 	if (option == 2)
-		reset_mark_1(farm);
+		reset_all_flows(farm);
 	while(bfs(farm, 0))
 	{
 		update_res_flow(farm->end);
@@ -269,11 +269,7 @@ t_list *get_paths(t_farm *farm, int option)
 			ft_lstappend(&sets, lstnew_pointer(set_i));
 		i++;
 	}
-	//print_path_sets(sets);
-	//print_adj_list(*farm);
 	return (sets);
 }
-
-
 
 // to see void add_one_more_set(t_list *sets, t_farm *farm, size_t size) go to test_one_path_set branch
