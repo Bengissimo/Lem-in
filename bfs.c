@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/01 17:43:00 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/01 22:04:54 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,29 @@ static int	free_and_exit_bfs(t_list **queue, t_list **hashmap_node, int exit)
 	return (exit);
 }
 
+static void find_edge(t_node *the_node, int flow, t_list **queue, t_list **hashmap_node)
+{
+	t_list	*edges;
+	t_edge	*the_edge;
+	t_node	*child;
+
+	edges = the_node->edges;
+	while (edges)
+	{
+		the_edge = edges->content;
+		child = the_edge->to;
+		if (the_edge->flow == flow && !hashmap_node_get(hashmap_node, child->name))
+		{
+			child->parent = the_node;
+			q_push (queue, child);
+		}
+		edges = edges->next;
+	}
+}
+
 int bfs(t_farm *farm, int flow)  // if it reaches to end return 1, else 0
 {
 	t_node	*the_node;
-	t_node	*child;
-	t_list	*edges;
-	t_edge	*the_edge;
 	t_list	*queue;
 	t_list	**hashmap_node;
 
@@ -64,18 +81,7 @@ int bfs(t_farm *farm, int flow)  // if it reaches to end return 1, else 0
 		if (the_node == farm->end->in)
 			return (free_and_exit_bfs(&queue, hashmap_node, 1));
 		hashmap_node_set(hashmap_node, the_node);
-		edges = the_node->edges;
-		while (edges)
-		{
-			the_edge = edges->content;
-			child = the_edge->to;
-			if (the_edge->flow == flow && !hashmap_node_get(hashmap_node, child->name))
-			{
-				child->parent = the_node;
-				q_push (&queue, child);
-			}
-			edges = edges->next;
-		}
+		find_edge(the_node, flow, &queue, hashmap_node);
 	}
 	return (free_and_exit_bfs(&queue, hashmap_node, 0));
 }
@@ -93,18 +99,34 @@ int set_option(int option, t_list **hashmap_node, t_edge *the_edge, t_node *chil
 	return (0);
 }
 
+static void find_edge_set_opt(t_node *the_node, int option, t_list **queue, t_list **hashmap_node)
+{
+	t_list	*edges;
+	t_edge	*the_edge;
+	t_node	*child;
+
+	edges = the_node->edges;
+	while (edges)
+	{
+		the_edge = edges->content;
+		child = the_edge->to;
+		if (set_option(option, hashmap_node, the_edge, child))
+		{
+			child->parent = the_node;
+			q_push (queue, child);
+		}
+		edges = edges->next;
+	}
+}
+
 int bfs_path_search(t_farm *farm, int option)
 {
 	t_node *the_node;
-	t_node *child;
-	t_list *edges;
-	t_edge *the_edge;
 	t_list *queue;
 	t_list **hashmap_node;
 	
 	hashmap_node = (t_list **)ft_memalloc(HASH * sizeof(t_list *));
 	queue = NULL;
-	the_edge = NULL;
 	q_push(&queue, farm->start->out);
 	while (queue)
 	{
@@ -112,18 +134,7 @@ int bfs_path_search(t_farm *farm, int option)
 		if (the_node == farm->end->in)
 			return (free_and_exit_bfs(&queue, hashmap_node, 1));
 		hashmap_node_set(hashmap_node, the_node);
-		edges = the_node->edges;
-		while (edges)
-		{
-			the_edge = edges->content;
-			child = the_edge->to;
-			if (set_option(option, hashmap_node, the_edge, child))
-			{
-				child->parent = the_node;
-				q_push (&queue, child);
-			}
-			edges = edges->next;
-		}
+		find_edge_set_opt(the_node, option, &queue, hashmap_node);
 	}
 	return (free_and_exit_bfs(&queue, hashmap_node, 0));
 }
