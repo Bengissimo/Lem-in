@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/01 10:24:25 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/01 10:40:13 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -328,7 +328,7 @@ void reset_mark_1(t_farm *farm)
 	}
 }
 
-t_list *better_paths(t_farm *farm)
+/*t_list *better_paths(t_farm *farm)
 {
 	t_list *sets;
 	t_list **set_i;
@@ -336,26 +336,49 @@ t_list *better_paths(t_farm *farm)
 	size_t j;
 	i= 0;
 	sets = NULL;
-	while(TRUE)
+	while(bfs(farm, 0))
 	{
-		if (bfs(farm, 0))
-			update_res_graph(farm->end);
-		else
-			break;
+		update_res_graph(farm->end);
 		set_i = (t_list **)ft_memalloc((i + 1) * sizeof(t_list *)); //set_i[0] has 1 path, set_i[1] has 2 paths etc...
 		//reset fwd flow in sets[i - 1] if i > 0
 		if (i > 0)
 			reset_mark(farm);
 		j = 0;
-		while (j < i + 1)
+		while (j < i + 1 && bfs_path_search(farm, 1))
 		{
-			if (bfs_path_search(farm, 1))  //with option 1
-			{
-				set_i[j] = mark_and_save_path(farm, 2); //set fwd edge to 2
-				j++;
-			}
-			else
-				break ;
+			set_i[j] = mark_and_save_path(farm, 2); //set fwd edge to 2
+			j++;
+		}
+		if (j)
+			ft_lstappend(&sets, lstnew_pointer(set_i));
+		i++;
+	}
+	//print_path_sets(sets);
+	//print_adj_list(*farm);
+	return (sets);
+}*/
+
+t_list *get_paths(t_farm *farm, int option)
+{
+	t_list *sets;
+	t_list **set_i;
+	size_t i;
+	size_t j;
+	i= 0;
+	sets = NULL;
+	if (option == 2)
+		reset_mark_1(farm);
+	while(bfs(farm, 0))
+	{
+		update_res_graph(farm->end);
+		set_i = (t_list **)ft_memalloc((i + 1) * sizeof(t_list *)); //set_i[0] has 1 path, set_i[1] has 2 paths etc...
+		if (i > 0)
+			reset_mark(farm);
+		j = 0;
+		while (j < i + 1 && bfs_path_search(farm, option))
+		{
+			set_i[j] = mark_and_save_path(farm, 2); //set fwd edge to 2
+			j++;
 		}
 		if (j)
 			ft_lstappend(&sets, lstnew_pointer(set_i));
@@ -372,7 +395,7 @@ t_list *better_paths(t_farm *farm)
 
 
 
-t_list *another_set(t_farm *farm)
+/*t_list *another_set(t_farm *farm)
 {
 	t_list *sets;
 	t_list **set_i;
@@ -393,15 +416,10 @@ t_list *another_set(t_farm *farm)
 		if (i > 0)
 			reset_mark(farm);
 		j = 0;
-		while (j < i + 1)
+		while (j < i + 1 && bfs_path_search(farm, 2))
 		{
-			if (bfs_path_search(farm, 2)) // option 2
-			{
-				set_i[j] = mark_and_save_path(farm, 2); //set fwd edge to 2
-				j++;
-			}
-			else
-				break ;
+			set_i[j] = mark_and_save_path(farm, 2); //set fwd edge to 2
+			j++;
 		}
 		if (j)
 			ft_lstappend(&sets, lstnew_pointer(set_i));
@@ -409,3 +427,4 @@ t_list *another_set(t_farm *farm)
 	}
 	return (sets);
 }
+*/

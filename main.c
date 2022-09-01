@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:22:20 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/01 10:15:15 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/01 10:39:18 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,19 @@
 int	main(int argc, char **argv)
 {
 	t_farm	farm;
-	t_list *sets;
-	t_list *second_sets;
+	t_list *option1;
+	t_list *option2;
 
-
-	
 	ft_bzero(&farm, sizeof(farm));
 	farm.hashmap = ft_memalloc(HASH * sizeof(t_list *));
 	if (argc != 1 && argv)
 		error(&farm);
 	read_input(&farm);
 	print_farm(farm);
-	
-	sets = better_paths(&farm);
-	second_sets = another_set(&farm);
-	find_the_best_paths_and_send_ants(sets, &farm);
-	//find_the_best_paths_and_send_ants(second_sets, &farm);
+	option1 = get_paths(&farm, 1);
+	option2 = get_paths(&farm, 2);
+	find_the_best_paths_and_send_ants(option1, &farm);
+	find_the_best_paths_and_send_ants(option2, &farm);
 	free_farm(&farm);
 	//system("leaks lem-in >> leaks.txt"); //do not run this with make debug or with valgrind, if you do so, first call make fclean and call make re
 	return (0);
