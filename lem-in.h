@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/01 10:32:15 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/01 16:12:59 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,8 @@ int	append_edge(t_node *node, t_edge *edge);
 
 //int bfs(t_farm *farm);
 int bfs(t_farm *farm, int flow);
-void update_res_graph(t_room *end);
-t_list **edmonds_karp(t_farm *farm, int *size);
+void update_res_flow(t_room *end);
+
 
 int bfs_path_search(t_farm *farm, int option);
 

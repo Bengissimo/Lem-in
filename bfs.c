@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/01 10:40:13 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/01 16:12:34 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int bfs(t_farm *farm, int flow)  // if it reaches to end return 1, else 0
 	return (free_and_exit_bfs(&queue, hashmap_node, 0));
 }
 
-int which_option(int option, t_list **hashmap_node, t_edge *the_edge, t_node *child)
+int set_option(int option, t_list **hashmap_node, t_edge *the_edge, t_node *child)
 {
 	if (option == 1)
 		return (!hashmap_node_get(hashmap_node, child->name)
@@ -117,7 +117,7 @@ int bfs_path_search(t_farm *farm, int option)
 		{
 			the_edge = edges->content;
 			child = the_edge->to;
-			if (which_option(option, hashmap_node, the_edge, child))
+			if (set_option(option, hashmap_node, the_edge, child))
 			{
 				child->parent = the_node;
 				q_push (&queue, child);
@@ -128,88 +128,44 @@ int bfs_path_search(t_farm *farm, int option)
 	return (free_and_exit_bfs(&queue, hashmap_node, 0));
 }
 
-void update_res_graph(t_room *end)
+static void create_rev_flow(t_node *the_node, t_list *edges, t_edge *the_edge)
 {
-	t_node *the_node;
-	t_edge *the_edge;
-	t_list *edges;
+	while (edges)
+	{
+		the_edge = edges->content;
+		if (the_edge->to == the_node)
+		{
+			the_edge->flow = 1;
+			if (!the_edge->reverse)
+			{
+				the_edge->reverse = create_edge(the_node->parent);
+				if (!append_edge(the_node, the_edge->reverse))
+					exit (1);
+				the_edge->reverse->reverse = the_edge;
+			}
+			break ;
+		}
+		edges = edges->next;
+	}
+}
 
+void update_res_flow(t_room *end)
+{
+	t_node	*the_node;
+	t_edge	*the_edge;
+	t_list	*edges;
+	
 	the_node = end->in;
 	edges = NULL;
+	the_edge = NULL;
 	while (the_node)
 	{
 		if (the_node->parent)
 			edges = the_node->parent->edges;
-		/*else
-			edges = NULL;*/
-		while (edges)
-		{
-			the_edge = edges->content;
-			if (the_edge->to == the_node)
-			{
-				the_edge->flow = 1;
-				if (!the_edge->reverse)
-				{
-					the_edge->reverse = create_edge(the_node->parent);
-					if (!append_edge(the_node, the_edge->reverse))
-						exit (1);
-					the_edge->reverse->reverse = the_edge;
-				}
-				break ;
-			}
-			edges = edges->next;
-		}
+		create_rev_flow(the_node, edges, the_edge);
 		the_node = the_node->parent;
 	}
 }
-
-void print_paths(t_list **paths, size_t flow)
-{
-	size_t i;
-	char *the_room;
-	t_list *list;
-	size_t len;
-
-	i = 0;
-	while (i < flow)
-	{
-		list = paths[i];
-		if (!list)
-			break ;
-		len = ft_lstsize(paths[i]);
-		while (list)
-		{
-			the_room = list->content;
-			printf("%s > ", the_room);
-			list = list->next;
-		}
-		printf(" -path_len: %d- ", (int)len);
-		printf("\n\n");
-		i++;
-	}
-}
-
-void print_path_sets(t_list *sets)
-{
-	size_t i;
-	t_list **the_set;
-	t_list *curr;
-
-	i = 0;
-	curr = sets;
-	while (curr)
-	{
-		the_set = curr->content;
-		printf("set %d:\n", (int)i);
-		print_paths(the_set, i + 1);
-		i++;
-		curr = curr->next;
-	}
-}
-
-
-
-
 
 void update_fwd_flow(t_farm *farm, int flow)
 {
@@ -276,45 +232,6 @@ t_list *mark_and_save_path(t_farm *farm, int flow)
 	return (the_path);
 }
 
-/*static void print_adj_list(t_farm farm) //just to see what we have in adj_list, will be removed later
-{
-	t_list *rooms;
-	t_room *the_room;
-	t_list	*edges;
-	t_edge	*the_edge;
-
-	rooms = farm.rooms;
-	while (rooms)
-	{
-		the_room = rooms->content;
-		printf("the room %s:\n", the_room->name);
-		if (the_room->in)
-		{
-			printf("%s -> ",the_room->in->name);
-			edges = the_room->in->edges;
-			while (edges)
-			{
-				the_edge = edges->content;
-				printf("%s (flow: %d) - ", the_edge->to->name, the_edge->flow);
-				edges = edges->next;
-			}
-			printf("\n");
-		}
-		if (the_room->out)
-		{
-			printf("%s -> ", the_room->out->name);
-			edges = the_room->out->edges;
-			while (edges)
-			{
-				the_edge = edges->content;
-				printf("%s (flow: %d) - ", the_edge->to->name, the_edge->flow);
-				edges = edges->next;
-			}
-			printf("\n");
-		}
-		rooms = rooms->next;
-	}
-}*/
 
 void reset_mark_1(t_farm *farm)
 {
@@ -328,35 +245,6 @@ void reset_mark_1(t_farm *farm)
 	}
 }
 
-/*t_list *better_paths(t_farm *farm)
-{
-	t_list *sets;
-	t_list **set_i;
-	size_t i;
-	size_t j;
-	i= 0;
-	sets = NULL;
-	while(bfs(farm, 0))
-	{
-		update_res_graph(farm->end);
-		set_i = (t_list **)ft_memalloc((i + 1) * sizeof(t_list *)); //set_i[0] has 1 path, set_i[1] has 2 paths etc...
-		//reset fwd flow in sets[i - 1] if i > 0
-		if (i > 0)
-			reset_mark(farm);
-		j = 0;
-		while (j < i + 1 && bfs_path_search(farm, 1))
-		{
-			set_i[j] = mark_and_save_path(farm, 2); //set fwd edge to 2
-			j++;
-		}
-		if (j)
-			ft_lstappend(&sets, lstnew_pointer(set_i));
-		i++;
-	}
-	//print_path_sets(sets);
-	//print_adj_list(*farm);
-	return (sets);
-}*/
 
 t_list *get_paths(t_farm *farm, int option)
 {
@@ -370,7 +258,7 @@ t_list *get_paths(t_farm *farm, int option)
 		reset_mark_1(farm);
 	while(bfs(farm, 0))
 	{
-		update_res_graph(farm->end);
+		update_res_flow(farm->end);
 		set_i = (t_list **)ft_memalloc((i + 1) * sizeof(t_list *)); //set_i[0] has 1 path, set_i[1] has 2 paths etc...
 		if (i > 0)
 			reset_mark(farm);
@@ -392,39 +280,3 @@ t_list *get_paths(t_farm *farm, int option)
 
 
 // to see void add_one_more_set(t_list *sets, t_farm *farm, size_t size) go to test_one_path_set branch
-
-
-
-/*t_list *another_set(t_farm *farm)
-{
-	t_list *sets;
-	t_list **set_i;
-	size_t i;
-	size_t j;
-	i= 0;
-	sets = NULL;
-	reset_mark_1(farm);
-	//print_adj_list(*farm);
-	while(TRUE)
-	{
-		if (bfs(farm, 0))
-			update_res_graph(farm->end);
-		else
-			break;
-		set_i = (t_list **)ft_memalloc((i + 1) * sizeof(t_list *)); //set_i[0] has 1 path, set_i[1] has 2 paths etc...
-		//reset fwd flow in sets[i - 1] if i > 0
-		if (i > 0)
-			reset_mark(farm);
-		j = 0;
-		while (j < i + 1 && bfs_path_search(farm, 2))
-		{
-			set_i[j] = mark_and_save_path(farm, 2); //set fwd edge to 2
-			j++;
-		}
-		if (j)
-			ft_lstappend(&sets, lstnew_pointer(set_i));
-		i++;
-	}
-	return (sets);
-}
-*/
