@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/01 16:12:34 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/01 16:49:57 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,12 @@ int set_option(int option, t_list **hashmap_node, t_edge *the_edge, t_node *chil
 {
 	if (option == 1)
 		return (!hashmap_node_get(hashmap_node, child->name)
-		&& the_edge->flow == 1
-		&& the_edge->reverse && the_edge->reverse->flow == 0);
+			&& the_edge->flow == 1
+			&& the_edge->reverse && the_edge->reverse->flow == 0);
 	if (option == 2)
 		return (!hashmap_node_get(hashmap_node, child->name)
-				&& ((the_edge->flow == 1 && (the_edge->reverse && the_edge->reverse->flow == 0))
-				|| (the_edge->flow == 0 && !the_edge->reverse)));
+			&& ((the_edge->flow == 1 && (the_edge->reverse && the_edge->reverse->flow == 0))
+			|| (the_edge->flow == 0 && !the_edge->reverse)));
 	return (0);
 }
 
@@ -167,19 +167,9 @@ void update_res_flow(t_room *end)
 	}
 }
 
-void update_fwd_flow(t_farm *farm, int flow)
+static void set_edge_flow(t_node *the_node, t_list *edges, t_edge *the_edge, int flow)
 {
-	t_node *the_node;
-	t_edge *the_edge;
-	t_list *edges;
-
-	the_node = farm->end->in;
-	edges = NULL;
-	while (the_node)
-	{
-		if (the_node->parent)
-			edges = the_node->parent->edges;
-		while (edges)
+	while (edges)
 		{
 			the_edge = edges->content;
 			if (the_edge->to == the_node)
@@ -189,6 +179,22 @@ void update_fwd_flow(t_farm *farm, int flow)
 			}
 			edges = edges->next;
 		}
+}
+
+void update_fwd_flow(t_farm *farm, int flow)
+{
+	t_node	*the_node;
+	t_edge	*the_edge;
+	t_list	*edges;
+
+	the_node = farm->end->in;
+	edges = NULL;
+	the_edge = NULL;
+	while (the_node)
+	{
+		if (the_node->parent)
+			edges = the_node->parent->edges;
+		set_edge_flow(the_node, edges, the_edge, flow);
 		the_node = the_node->parent;
 	}
 }
@@ -201,6 +207,7 @@ void reset_mark(t_farm *farm)
 	}
 }
 
+
 t_list *mark_and_save_path(t_farm *farm, int flow)
 {
 	t_node *the_node;
@@ -211,27 +218,18 @@ t_list *mark_and_save_path(t_farm *farm, int flow)
 	the_node = farm->end->in;
 	edges = NULL;
 	the_path = NULL;
+	the_edge = NULL;
 	while (the_node)
 	{
 		if (the_node->parent)
 			edges = the_node->parent->edges;
-		while (edges)
-		{
-			the_edge = edges->content;
-			if (the_edge->to == the_node)
-			{
-				the_edge->flow = flow;
-				break ;
-			}
-			edges = edges->next;
-		}
+		set_edge_flow(the_node, edges, the_edge, flow);
 		if (the_node->source != farm->start && the_node->source != the_node->parent->source)
 			ft_lstadd(&the_path, lstnew_pointer(the_node->source->name));
 		the_node = the_node->parent;
 	}
 	return (the_path);
 }
-
 
 void reset_mark_1(t_farm *farm)
 {
@@ -244,7 +242,6 @@ void reset_mark_1(t_farm *farm)
 		update_fwd_flow(farm, 0);
 	}
 }
-
 
 t_list *get_paths(t_farm *farm, int option)
 {
