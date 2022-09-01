@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/31 19:43:06 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/01 09:44:21 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,14 @@ t_node *q_pop(t_list **queue)
 
 int bfs(t_farm *farm, int flow)  // if it reaches to end return 1, else 0
 {
-	t_node *the_node;
-	t_node *child;
-	t_list *edges;
-	t_edge *the_edge;
-	t_list *queue;
-	t_list **hashmap_node;
-	hashmap_node = ft_memalloc(HASH * sizeof(t_list *));
+	t_node	*the_node;
+	t_node	*child;
+	t_list	*edges;
+	t_edge	*the_edge;
+	t_list	*queue;
+	t_list	**hashmap_node;
 
+	hashmap_node = ft_memalloc(HASH * sizeof(t_list *));
 	queue = NULL;
 	q_push(&queue, farm->start->out);
 	while (queue)
@@ -316,7 +316,7 @@ void reset_mark_1(t_farm *farm)
 	}
 }
 
-t_list *better_paths(t_farm *farm, size_t *size)
+t_list *better_paths(t_farm *farm)
 {
 	t_list *sets;
 	t_list **set_i;
@@ -349,7 +349,6 @@ t_list *better_paths(t_farm *farm, size_t *size)
 			ft_lstappend(&sets, lstnew_pointer(set_i));
 		i++;
 	}
-	*size = j;
 	//print_path_sets(sets);
 	//print_adj_list(*farm);
 	return (sets);
@@ -402,7 +401,7 @@ int bfs_path_2(t_farm *farm)
 
 
 
-t_list *another_set(t_farm *farm, size_t *size)
+t_list *another_set(t_farm *farm)
 {
 	t_list *sets;
 	t_list **set_i;
@@ -437,10 +436,5 @@ t_list *another_set(t_farm *farm, size_t *size)
 			ft_lstappend(&sets, lstnew_pointer(set_i));
 		i++;
 	}
-	*size = j;
-	//printf("second sets:\n");
-	//print_path_sets(sets);
-	//print_path_sets(sets);
-	//print_adj_list(*farm);
 	return (sets);
 }

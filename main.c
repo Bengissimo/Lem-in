@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:22:20 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/31 19:38:13 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/01 09:44:46 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ int	main(int argc, char **argv)
 	t_farm	farm;
 	t_list *sets;
 	t_list *second_sets;
-	size_t size;
-	size_t size2;
+
 
 	
 	ft_bzero(&farm, sizeof(farm));
@@ -44,8 +43,8 @@ int	main(int argc, char **argv)
 	read_input(&farm);
 	print_farm(farm);
 	
-	sets = better_paths(&farm, &size);
-	second_sets = another_set(&farm, &size2);
+	sets = better_paths(&farm);
+	second_sets = another_set(&farm);
 	find_the_best_paths_and_send_ants(sets, &farm);
 	find_the_best_paths_and_send_ants(second_sets, &farm);
 	free_farm(&farm);
