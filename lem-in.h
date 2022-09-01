@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem-in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/24 19:30:00 by ykot             ###   ########.fr       */
+/*   Updated: 2022/09/01 16:12:59 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,12 +115,12 @@ int	append_edge(t_node *node, t_edge *edge);
 
 //int bfs(t_farm *farm);
 int bfs(t_farm *farm, int flow);
-void update_res_graph(t_room *end);
-t_list **edmonds_karp(t_farm *farm, int *size);
+void update_res_flow(t_room *end);
 
 
-int bfs_path(t_farm *farm);
-//t_list *update_path_graph(t_farm *farm); 
+int bfs_path_search(t_farm *farm, int option);
+
+
 
 int	hashmap_node_set(t_list **hashmap_node, t_node *node);
 t_node	*hashmap_node_get(t_list **hashmap_node, char *name);
@@ -135,7 +135,20 @@ t_list **shortest_paths(t_farm *farm, int *size);
 t_list *reset_graph_save_paths(t_farm *farm);
 
 
-t_list *better_paths(t_farm *farm);
+//t_list *better_paths(t_farm *farm, size_t *ind);
+
+//t_list *better_paths(t_farm *farm);
+
+t_list *get_paths(t_farm *farm, int option);
+
+
+
+void add_one_more_set(t_list *sets, t_farm *farm, size_t size);
+
+//t_list *another_set(t_farm *farm);
+
+
+
 
 
 void update_fwd_flow(t_farm *farm, int flow);

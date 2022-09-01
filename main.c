@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:22:20 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/24 19:27:47 by ykot             ###   ########.fr       */
+/*   Updated: 2022/09/01 22:04:03 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "lem-in.h"
 
@@ -30,28 +31,19 @@
 int	main(int argc, char **argv)
 {
 	t_farm	farm;
-	//int		size;
-	//t_list	**all;
-	//t_list **shorts;
-	t_list *sets;
-	
+	t_list *option1;
+	t_list *option2;
+
 	ft_bzero(&farm, sizeof(farm));
 	farm.hashmap = ft_memalloc(HASH * sizeof(t_list *));
-	
 	if (argc != 1 && argv)
 		error(&farm);
 	read_input(&farm);
 	print_farm(farm);
-	/*shorts = shortest_paths(&farm, &size);
-	if (farm.num_ants > (int)total_path_size(shorts, size))
-	{
-		all = edmonds_karp(&farm, &size);  //this fn returns t_list **paths
-		send_ants(farm.num_ants, all, size);
-	}
-	else
-		send_ants(farm.num_ants, shorts, size);*/
-	sets = better_paths(&farm);
-	find_the_best_paths_and_send_ants(sets, &farm);
+	option1 = get_paths(&farm, 1);
+	option2 = get_paths(&farm, 2);
+	//find_the_best_paths_and_send_ants(option1, &farm);
+	find_the_best_paths_and_send_ants(option2, &farm);
 	free_farm(&farm);
 	//system("leaks lem-in >> leaks.txt"); //do not run this with make debug or with valgrind, if you do so, first call make fclean and call make re
 	return (0);

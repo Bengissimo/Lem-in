@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 13:05:24 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/21 15:09:28 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/01 11:38:09 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,50 @@ static void print_comments(t_farm farm)
 		comments = comments->next;
 	}
 	//free comments list here ?
+}
+
+void print_paths(t_list **paths, size_t flow)
+{
+	size_t i;
+	char *the_room;
+	t_list *list;
+	size_t len;
+
+	i = 0;
+	while (i < flow)
+	{
+		list = paths[i];
+		if (!list)
+			break ;
+		len = ft_lstsize(paths[i]);
+		while (list)
+		{
+			the_room = list->content;
+			printf("%s > ", the_room);
+			list = list->next;
+		}
+		printf(" -path_len: %d- ", (int)len);
+		printf("\n\n");
+		i++;
+	}
+}
+
+void print_path_sets(t_list *sets)
+{
+	size_t i;
+	t_list **the_set;
+	t_list *curr;
+
+	i = 0;
+	curr = sets;
+	while (curr)
+	{
+		the_set = curr->content;
+		printf("set %d:\n", (int)i);
+		print_paths(the_set, i + 1);
+		i++;
+		curr = curr->next;
+	}
 }
 
 void	print_farm(t_farm farm)
