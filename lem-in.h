@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/01 10:13:51 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/01 10:24:07 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,11 +118,8 @@ int bfs(t_farm *farm, int flow);
 void update_res_graph(t_room *end);
 t_list **edmonds_karp(t_farm *farm, int *size);
 
-int bfs_path(t_farm *farm, int option);
+int bfs_path_search(t_farm *farm, int option);
 
-//int bfs_path(t_farm *farm);
-//t_list *update_path_graph(t_farm *farm); 
-int bfs_path_2(t_farm *farm);
 
 
 int	hashmap_node_set(t_list **hashmap_node, t_node *node);

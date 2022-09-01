@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/01 10:14:32 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/01 10:24:25 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int which_option(int option, t_list **hashmap_node, t_edge *the_edge, t_node *ch
 	return (0);
 }
 
-int bfs_path(t_farm *farm, int option)
+int bfs_path_search(t_farm *farm, int option)
 {
 	t_node *the_node;
 	t_node *child;
@@ -127,43 +127,6 @@ int bfs_path(t_farm *farm, int option)
 	}
 	return (free_and_exit_bfs(&queue, hashmap_node, 0));
 }
-
-/*int bfs_path_2(t_farm *farm)
-{
-	t_node *the_node;
-	t_node *child;
-	t_list *edges;
-	t_edge *the_edge;
-	t_list *queue;
-	t_list **hashmap_node;
-	
-	hashmap_node = (t_list **)ft_memalloc(HASH * sizeof(t_list *));
-	queue = NULL;
-	the_edge = NULL;
-	q_push(&queue, farm->start->out);
-	while (queue)
-	{
-		the_node = q_pop(&queue);
-		if (the_node == farm->end->in)
-			return (free_and_exit_bfs(&queue, hashmap_node, 1));
-		hashmap_node_set(hashmap_node, the_node);
-		edges = the_node->edges;
-		while (edges)
-		{
-			the_edge = edges->content;
-			child = the_edge->to;
-			if (!hashmap_node_get(hashmap_node, child->name)
-				&& ((the_edge->flow == 1 && (the_edge->reverse && the_edge->reverse->flow == 0))
-				|| (the_edge->flow == 0 && !the_edge->reverse)))
-			{
-				child->parent = the_node;
-				q_push (&queue, child);
-			}
-			edges = edges->next;
-		}
-	}
-	return (free_and_exit_bfs(&queue, hashmap_node, 0));
-}*/
 
 void update_res_graph(t_room *end)
 {
@@ -386,7 +349,7 @@ t_list *better_paths(t_farm *farm)
 		j = 0;
 		while (j < i + 1)
 		{
-			if (bfs_path(farm, 1))  //with option 1
+			if (bfs_path_search(farm, 1))  //with option 1
 			{
 				set_i[j] = mark_and_save_path(farm, 2); //set fwd edge to 2
 				j++;
@@ -432,7 +395,7 @@ t_list *another_set(t_farm *farm)
 		j = 0;
 		while (j < i + 1)
 		{
-			if (bfs_path(farm, 2)) // option 2
+			if (bfs_path_search(farm, 2)) // option 2
 			{
 				set_i[j] = mark_and_save_path(farm, 2); //set fwd edge to 2
 				j++;
