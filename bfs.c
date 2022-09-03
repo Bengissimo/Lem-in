@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/01 22:04:54 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/02 15:33:38 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -283,4 +283,4 @@ t_list *get_paths(t_farm *farm, int option)
 	return (sets);
 }
 
-// to see void add_one_more_set(t_list *sets, t_farm *farm, size_t size) go to test_one_path_set branch
+// to see add_one_more_set(t_list *sets, t_farm *farm, size_t size) go to test_one_path_set branch
