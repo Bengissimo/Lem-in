@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 12:28:34 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/19 12:04:54 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/03 22:09:05 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,13 @@ unsigned long	hash(const char *s, unsigned long m)
 	return (key);
 }
 
-int	hashmap_set(t_farm *farm, t_room *room)
+typedef struct s_hash
+{
+	char	*name;
+	void	*ptr;
+}			t_hash;
+
+/*int	hashmap_set(t_farm *farm, t_room *room)
 {
 	t_list			*new;
 	unsigned long	key;
@@ -38,9 +44,26 @@ int	hashmap_set(t_farm *farm, t_room *room)
 		return (0);
 	ft_lstappend(&farm->hashmap[key], new);
 	return (1);
+}*/
+
+int	hashmap_set(t_list **hashmap, char *str, void *ptr)
+{
+	t_list			*new;
+	t_hash			*value;
+	unsigned long	key;
+
+	value = (t_hash *)ft_memalloc(sizeof(t_hash));
+	value->name = str;
+	value->ptr = ptr;
+	key = hash(str, HASH);
+	new = lstnew_pointer((void *)value);
+	if (!new)
+		return (0);
+	ft_lstappend(&hashmap[key], new);
+	return (1);
 }
 
-int	hashmap_node_set(t_list **hashmap_node, t_node *node)
+/*int	hashmap_node_set(t_list **hashmap_node, t_node *node)
 {
 	t_list			*new;
 	unsigned long	key;
@@ -69,9 +92,27 @@ t_room	*hashmap_get(t_farm *farm, char *name)
 		curr = curr->next;
 	}
 	return (NULL);
+}*/
+
+void	*hashmap_get(t_list **hashmap, char *str)
+{
+	unsigned long	key;
+	t_list			*curr;
+	t_hash			*the_value;
+
+	key = hash(str, HASH);
+	curr = hashmap[key];
+	while (curr)
+	{
+		the_value = curr->content;
+		if (ft_strequ(the_value->name, str))
+			return (the_value->ptr);
+		curr = curr->next;
+	}
+	return (NULL);
 }
 
-t_node	*hashmap_node_get(t_list **hashmap_node, char *name)
+/*t_node	*hashmap_node_get(t_list **hashmap_node, char *name)
 {
 	unsigned long	key;
 	t_list			*curr;
@@ -87,13 +128,7 @@ t_node	*hashmap_node_get(t_list **hashmap_node, char *name)
 		curr = curr->next;
 	}
 	return (NULL);
-}
-
-static void null_fn(void *content, size_t size)
-{
-	content = NULL;
-	size = 0;
-}
+}*/
 
 void	free_hashmap(t_list **hashmap)
 {
@@ -104,7 +139,7 @@ void	free_hashmap(t_list **hashmap)
 	{
 		if (hashmap[i])
 		{
-			ft_lstdel(&hashmap[i], null_fn);
+			ft_lstdel(&hashmap[i], del_fn);
 		}
 		i++;
 	}

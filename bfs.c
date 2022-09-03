@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/02 15:33:38 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/03 22:02:24 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void find_edge(t_node *the_node, int flow, t_list **queue, t_list **hashm
 	{
 		the_edge = edges->content;
 		child = the_edge->to;
-		if (the_edge->flow == flow && !hashmap_node_get(hashmap_node, child->name))
+		if (the_edge->flow == flow && hashmap_get(hashmap_node, child->name) == NULL)
 		{
 			child->parent = the_node;
 			q_push (queue, child);
@@ -80,7 +80,7 @@ int bfs(t_farm *farm, int flow)  // if it reaches to end return 1, else 0
 		the_node = q_pop(&queue);
 		if (the_node == farm->end->in)
 			return (free_and_exit_bfs(&queue, hashmap_node, 1));
-		hashmap_node_set(hashmap_node, the_node);
+		hashmap_set(hashmap_node, the_node->name, the_node);
 		find_edge(the_node, flow, &queue, hashmap_node);
 	}
 	return (free_and_exit_bfs(&queue, hashmap_node, 0));
@@ -89,11 +89,11 @@ int bfs(t_farm *farm, int flow)  // if it reaches to end return 1, else 0
 int set_option(int option, t_list **hashmap_node, t_edge *the_edge, t_node *child)
 {
 	if (option == 1)
-		return (!hashmap_node_get(hashmap_node, child->name)
+		return (hashmap_get(hashmap_node, child->name) == NULL
 			&& the_edge->flow == 1
 			&& the_edge->reverse && the_edge->reverse->flow == 0);
 	if (option == 2)
-		return (!hashmap_node_get(hashmap_node, child->name)
+		return (hashmap_get(hashmap_node, child->name) == NULL
 			&& ((the_edge->flow == 1 && (the_edge->reverse && the_edge->reverse->flow == 0))
 			|| (the_edge->flow == 0 && !the_edge->reverse)));
 	return (0);
@@ -133,7 +133,7 @@ int bfs_path_search(t_farm *farm, int option)
 		the_node = q_pop(&queue);
 		if (the_node == farm->end->in)
 			return (free_and_exit_bfs(&queue, hashmap_node, 1));
-		hashmap_node_set(hashmap_node, the_node);
+		hashmap_set(hashmap_node, the_node->name, the_node);
 		find_edge_set_opt(the_node, option, &queue, hashmap_node);
 	}
 	return (free_and_exit_bfs(&queue, hashmap_node, 0));

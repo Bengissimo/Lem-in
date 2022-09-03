@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/01 16:12:59 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/03 21:56:12 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,11 @@ void			print_farm(t_farm farm);
 
 /* hashmap */
 unsigned long	hash(const char *s, unsigned long m);
-t_room			*hashmap_get(t_farm *farm, char *name);
-int				hashmap_set(t_farm *farm, t_room *room);
+//t_room			*hashmap_get(t_farm *farm, char *name);
+void	*hashmap_get(t_list **hashmap, char *str);
+//int				hashmap_set(t_farm *farm, t_room *room);
+int	hashmap_set(t_list **hashmap, char *str, void *ptr);
+
 void			free_hashmap(t_list **hashmap);
 
 /* send_ants */
@@ -156,5 +159,6 @@ void update_fwd_flow(t_farm *farm, int flow);
 //printing paths
 void print_paths(t_list **paths, size_t flow);
 void print_path_sets(t_list *sets);
+
 
 #endif
