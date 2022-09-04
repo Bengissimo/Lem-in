@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:22:20 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/03 21:39:07 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/04 14:41:48 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,15 +70,19 @@ void	free_paths(t_list **alst)
 	*alst = NULL;
 }
 
+static void init_farm(t_farm *farm)
+{
+	ft_bzero(farm, sizeof(*farm));
+	farm->hashmap = ft_memalloc(HASH * sizeof(t_list *));
+}
+
 int	main(int argc, char **argv)
 {
 	t_farm	farm;
 	t_list *option1;
 	t_list *option2;
 
-
-	ft_bzero(&farm, sizeof(farm));
-	farm.hashmap = ft_memalloc(HASH * sizeof(t_list *));
+	init_farm(&farm);
 	if (argc != 1 && argv)
 		error(&farm);
 	read_input(&farm);

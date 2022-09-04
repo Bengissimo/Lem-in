@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 10:00:16 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/19 12:04:54 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/03 21:58:43 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	append_room(t_farm *farm, t_room *room)
 	if (!new)
 		return (0);
 	ft_lstappend(&farm->rooms, new);
-	if (!hashmap_set(farm, room))
+	if (!hashmap_set(farm->hashmap, room->name, room))
 		return (0);
 	return (1);
 }

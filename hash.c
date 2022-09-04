@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 12:28:34 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/19 12:04:54 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/04 14:33:57 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,72 +27,57 @@ unsigned long	hash(const char *s, unsigned long m)
 	return (key);
 }
 
-int	hashmap_set(t_farm *farm, t_room *room)
+int	hashmap_set(t_list **hashmap, char *str, void *ptr)
 {
 	t_list			*new;
+	t_hash			*value;
 	unsigned long	key;
 
-	key = hash(room->name, HASH);
-	new = lstnew_pointer((void *)room);
+	value = (t_hash *)ft_memalloc(sizeof(t_hash));
+	value->name = str;
+	value->ptr = ptr;
+	key = hash(str, HASH);
+	new = lstnew_pointer((void *)value);
 	if (!new)
 		return (0);
-	ft_lstappend(&farm->hashmap[key], new);
+	ft_lstappend(&hashmap[key], new);
 	return (1);
 }
 
-int	hashmap_node_set(t_list **hashmap_node, t_node *node)
-{
-	t_list			*new;
-	unsigned long	key;
-
-	key = hash(node->name, HASH);
-	new = lstnew_pointer((void *)node);
-	if (!new)
-		return (0);
-	ft_lstappend(&hashmap_node[key], new);
-	return (1);
-}
-
-t_room	*hashmap_get(t_farm *farm, char *name)
+void	*hashmap_get(t_list **hashmap, char *str)
 {
 	unsigned long	key;
 	t_list			*curr;
-	t_room			*the_room;
+	t_hash			*the_value;
 
-	key = hash(name, HASH);
-	curr = farm->hashmap[key];
+	key = hash(str, HASH);
+	curr = hashmap[key];
 	while (curr)
 	{
-		the_room = curr->content;
-		if (ft_strequ(the_room->name, name))
-			return (the_room);
+		the_value = curr->content;
+		if (ft_strequ(the_value->name, str))
+			return (the_value->ptr);
 		curr = curr->next;
 	}
 	return (NULL);
 }
 
-t_node	*hashmap_node_get(t_list **hashmap_node, char *name)
+int	is_in(t_list **hashmap, char *str)
 {
 	unsigned long	key;
 	t_list			*curr;
-	t_node			*the_node;
+	t_hash			*the_value;
 
-	key = hash(name, HASH);
-	curr = hashmap_node[key];
+	key = hash(str, HASH);
+	curr = hashmap[key];
 	while (curr)
 	{
-		the_node = curr->content;
-		if (ft_strequ(the_node->name, name))
-			return (the_node);
+		the_value = curr->content;
+		if (ft_strequ(the_value->name, str))
+			return (TRUE);
 		curr = curr->next;
 	}
-	return (NULL);
-}
-
-static void null_fn(void *content, size_t size)
-{
-	content = NULL;
-	size = 0;
+	return (FALSE);
 }
 
 void	free_hashmap(t_list **hashmap)
@@ -104,7 +89,7 @@ void	free_hashmap(t_list **hashmap)
 	{
 		if (hashmap[i])
 		{
-			ft_lstdel(&hashmap[i], null_fn);
+			ft_lstdel(&hashmap[i], del_fn);
 		}
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/01 16:12:59 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/04 14:44:27 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,22 +49,27 @@ typedef struct	s_ant
 typedef struct	s_farm
 {
 	int		num_ants;
-	t_list	*rooms;   // this is the ONLY adj list !!!!
+	t_list	*rooms;
 	t_list	*links;
 	t_room	*start;
 	t_room	*end;
-	int		rooms_done; //this flag is 1, once we start reading links, else 0
-	t_list	**hashmap; // remove this
+	int		rooms_done;
+	t_list	**hashmap;
 	t_list	*comments;
 }				t_farm;
-
 
 typedef struct	s_edge
 {
 	t_node			*to;
-	int				flow;  // 1 or zero, at first it should be 1 but the reverse should be 0
+	int				flow;
 	struct s_edge	*reverse;
 }				t_edge;
+
+typedef struct s_hash
+{
+	char	*name;
+	void	*ptr;
+}			t_hash;
 
 /* read input */
 int		is_command(t_farm *farm, char **line);
@@ -77,7 +82,7 @@ void	read_input(t_farm *farm);
 
 /* checks */
 int		check_int(const char *str);
-void		parse_links(t_farm *farm, char *line);
+void	parse_links(t_farm *farm, char *line);
 int		is_char_in_str(char c, char *str);
 
 /* errors */
@@ -91,8 +96,9 @@ void			print_farm(t_farm farm);
 
 /* hashmap */
 unsigned long	hash(const char *s, unsigned long m);
-t_room			*hashmap_get(t_farm *farm, char *name);
-int				hashmap_set(t_farm *farm, t_room *room);
+void			*hashmap_get(t_list **hashmap, char *str);
+int				hashmap_set(t_list **hashmap, char *str, void *ptr);
+int				is_in(t_list **hashmap, char *str);
 void			free_hashmap(t_list **hashmap);
 
 /* send_ants */
@@ -110,51 +116,23 @@ void	lstdel(t_list **alst);
 
 /* algo */
 t_node	*create_node(char **str, int in);
-t_edge *create_edge(t_node *node);
-int	append_edge(t_node *node, t_edge *edge);
-
-//int bfs(t_farm *farm);
-int bfs(t_farm *farm, int flow);
-void update_res_flow(t_room *end);
-
-
-int bfs_path_search(t_farm *farm, int option);
-
-
-
-int	hashmap_node_set(t_list **hashmap_node, t_node *node);
-t_node	*hashmap_node_get(t_list **hashmap_node, char *name);
+t_edge	*create_edge(t_node *node);
+int		append_edge(t_node *node, t_edge *edge);
+int		bfs(t_farm *farm, int flow);
+void	update_res_flow(t_room *end);
+void	update_fwd_flow(t_farm *farm, int flow);
+int		bfs_path_search(t_farm *farm, int option);
+t_list *reset_graph_save_paths(t_farm *farm);
+t_list *get_paths(t_farm *farm, int option);
 
 
 void del_fn(void *content, size_t size);
 
-
-
-t_list **shortest_paths(t_farm *farm, int *size);
-
-t_list *reset_graph_save_paths(t_farm *farm);
-
-
-//t_list *better_paths(t_farm *farm, size_t *ind);
-
-//t_list *better_paths(t_farm *farm);
-
-t_list *get_paths(t_farm *farm, int option);
-
-
-
-void add_one_more_set(t_list *sets, t_farm *farm, size_t size);
-
-//t_list *another_set(t_farm *farm);
-
-
-
-
-
-void update_fwd_flow(t_farm *farm, int flow);
+//void add_one_more_set(t_list *sets, t_farm *farm, size_t size);
 
 //printing paths
 void print_paths(t_list **paths, size_t flow);
 void print_path_sets(t_list *sets);
+
 
 #endif
