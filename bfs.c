@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/04 14:31:56 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/06 11:30:13 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,52 @@ int bfs(t_farm *farm, int flow)  // if it reaches to end return 1, else 0
 		find_edge(the_node, flow, &queue, visited);
 	}
 	return (free_and_exit_bfs(&queue, visited, 0));
+}
+
+
+int bfs_level(t_farm *farm)  // if it reaches to end return 1, else 0
+{
+	t_node *the_node;
+	t_node *child;
+	t_list *edges;
+	t_edge *the_edge;
+	t_list *queue;
+	t_list **hashmap_node;
+	hashmap_node = ft_memalloc(HASH * sizeof(t_list *));
+
+	queue = NULL;
+	q_push(&queue, farm->start->out);
+	farm->start->out->level = 0;
+	while (queue)
+	{
+		the_node = q_pop(&queue);
+		/*if (the_node == farm->end->in)
+		{
+			ft_lstdel(&queue, null_fn);
+			free_hashmap(hashmap_node);
+			return (1);
+		}*/
+		hashmap_set(hashmap_node, the_node->name, the_node);
+		edges = the_node->edges;
+		while (edges)
+		{
+			the_edge = edges->content;
+			child = the_edge->to;
+			if (the_edge->flow == 0 && !is_in(hashmap_node, child->name))
+			{
+				child->parent = the_node;
+				if (!ft_strequ(child->source->name, the_node->source->name))
+					child->level = the_node->level + 1;
+				else
+					child->level = the_node->level;
+				q_push (&queue, child);
+			}
+			edges = edges->next;
+		}
+	}
+	ft_lstdel(&queue, null_fn);
+	free_hashmap(hashmap_node);
+	return (0);
 }
 
 int set_option(int option, t_list **visited, t_edge *the_edge, t_node *child)

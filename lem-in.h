@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/04 14:44:27 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/06 11:27:50 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct	s_node
 	struct		s_node *parent;
 	t_list		*edges;
 	struct		s_room *source;
+	size_t level;
 }				t_node;
 
 typedef struct	s_room
@@ -133,6 +134,10 @@ void del_fn(void *content, size_t size);
 //printing paths
 void print_paths(t_list **paths, size_t flow);
 void print_path_sets(t_list *sets);
+void print_adj_list(t_farm farm);
+
+
+int bfs_level(t_farm *farm);
 
 
 #endif

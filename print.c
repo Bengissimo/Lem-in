@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 13:05:24 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/01 11:38:09 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/06 10:58:24 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	print_links(t_farm farm)
     }
 }
 
-/*static void print_adj_list(t_farm farm) //just to see what we have in adj_list, will be removed later
+void print_adj_list(t_farm farm) //just to see what we have in adj_list, will be removed later
 {
 	t_list *rooms;
 	t_room *the_room;
@@ -61,7 +61,7 @@ static void	print_links(t_farm farm)
 		printf("the room %s:\n", the_room->name);
 		if (the_room->in)
 		{
-			printf("%s -> ",the_room->in->name);
+			printf("%s (level: %d)-> ",the_room->in->name, (int)the_room->in->level);
 			edges = the_room->in->edges;
 			while (edges)
 			{
@@ -73,7 +73,7 @@ static void	print_links(t_farm farm)
 		}
 		if (the_room->out)
 		{
-			printf("%s -> ", the_room->out->name);
+			printf("%s (level: %d)-> ", the_room->out->name, (int)the_room->out->level);
 			edges = the_room->out->edges;
 			while (edges)
 			{
@@ -85,7 +85,7 @@ static void	print_links(t_farm farm)
 		}
 		rooms = rooms->next;
 	}
-}*/
+}
 
 static void print_comments(t_farm farm)
 {
