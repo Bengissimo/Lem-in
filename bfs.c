@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/08 15:01:33 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/08 15:12:13 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int bfs(t_farm *farm, int flow)  // if it reaches to end return 1, else 0
 	visited = ft_memalloc(HASH * sizeof(t_list *));
 	queue = NULL;
 	q_push(&queue, farm->start->out);
+	hashmap_set(visited, farm->start->in->name, farm->start->in);
 	while (queue)
 	{
 		the_node = q_pop(&queue);
@@ -173,6 +174,7 @@ int bfs_path_search(t_farm *farm, int option)
 	visited = (t_list **)ft_memalloc(HASH * sizeof(t_list *));
 	queue = NULL;
 	q_push(&queue, farm->start->out);
+	hashmap_set(visited, farm->start->in->name, farm->start->in);
 	while (queue)
 	{
 		the_node = q_pop(&queue);
