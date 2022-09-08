@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:22:20 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/06 11:27:39 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/07 22:02:08 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	main(int argc, char **argv)
 {
 	t_farm	farm;
 	t_list *option1;
-	//t_list *option2;
+	t_list *option2;
 
 	init_farm(&farm);
 	if (argc != 1 && argv)
@@ -88,15 +88,20 @@ int	main(int argc, char **argv)
 	read_input(&farm);
 	print_farm(farm);
 	bfs_level(&farm);
+	/*
+	* scan the edges of the node while saving paths or while doing bfs
+	* if the edge->to level is greater than the node skip that way
+	* if the levels are equal, check if they are siblings, if so skip one node. 
+	*/
 	print_adj_list(farm);
 	option1 = get_paths(&farm, 1);
-	//option2 = get_paths(&farm, 2);
-	//find_the_best_paths_and_send_ants(option1, &farm);
-	//find_the_best_paths_and_send_ants(option2, &farm);
+	option2 = get_paths(&farm, 2);
+	find_the_best_paths_and_send_ants(option1, &farm);
+	find_the_best_paths_and_send_ants(option2, &farm);
 
 	free_farm(&farm);
 	free_paths(&option1);
-	//free_paths(&option2);
+	free_paths(&option2);
 	//system("leaks lem-in >> leaks.txt"); //do not run this with make debug or with valgrind, if you do so, first call make fclean and call make re
 	return (0);
 }

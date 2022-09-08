@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/06 11:30:13 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/08 15:01:33 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,7 @@ int bfs_level(t_farm *farm)  // if it reaches to end return 1, else 0
 	hashmap_node = ft_memalloc(HASH * sizeof(t_list *));
 
 	queue = NULL;
-	q_push(&queue, farm->start->out);
-	farm->start->out->level = 0;
+	q_push(&queue, farm->start->in);
 	while (queue)
 	{
 		the_node = q_pop(&queue);

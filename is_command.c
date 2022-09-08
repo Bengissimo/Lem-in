@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 10:49:49 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/15 09:45:48 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/08 14:58:31 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // might be organised better, to do later
 
-static void	get_command(t_farm *farm, char **line, int start_flag)
+/*static void	get_command(t_farm *farm, char **line, int start_flag)
 {
 	char	**str;
 	t_room *room;
@@ -39,6 +39,44 @@ static void	get_command(t_farm *farm, char **line, int start_flag)
 		farm->end = room;
 		room->in = node; //end room has just in node
 		room->in->source = room;
+	}
+	if (!append_room(farm, room))
+		error_free_split_line(farm, NULL, line);
+}*/
+
+static void	get_command(t_farm *farm, char **line, int start_flag)
+{
+	char	**str;
+	t_room *room;
+	t_node *node_in;
+	t_node *node_out;
+
+	str = get_room_lines(*line);  
+	if (!str)
+		error_free_split_line(farm, NULL, line);
+	room = create_room(str);
+	node_in = create_node(str, 1);
+	node_out = create_node(str, 0);
+	free_split(&str);
+	if (!room || !node_in || !node_out)
+		error_free_split_line(farm, NULL, line);
+	if (start_flag)
+	{
+		farm->start = room;
+		room->out = node_out;
+		room->in = node_in;
+		room->out->source = room;
+		room->in->source = room;
+		append_edge(room->in, create_edge(room->out));
+	}
+	else
+	{
+		farm->end = room;
+		room->out = node_out;
+		room->in = node_in;
+		room->out->source = room;
+		room->in->source = room;
+		append_edge(room->in, create_edge(room->out));
 	}
 	if (!append_room(farm, room))
 		error_free_split_line(farm, NULL, line);

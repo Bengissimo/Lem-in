@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/06 11:27:50 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/08 13:31:46 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,10 @@ typedef struct	s_farm
 typedef struct	s_edge
 {
 	t_node			*to;
-	int				flow;
+	//t_node			*from;
+	int flow;
+	//int				cap_to;
+	//int				cap_from;
 	struct s_edge	*reverse;
 }				t_edge;
 

@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 10:50:17 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/03 22:01:41 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/08 14:53:51 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	append_edge(t_node *node, t_edge *edge)  // rooms will be changed to nodes h
 	 |							  |
 	  -----------------------------
 */
-static int	make_adj_list(t_room *room1, t_room *room2) // modify this to put room_in room_out links
+/*static int	make_adj_list(t_room *room1, t_room *room2) // modify this to put room_in room_out links
 {
 	t_edge *edge1_in;
 	t_edge *edge2_in;
@@ -59,6 +59,22 @@ static int	make_adj_list(t_room *room1, t_room *room2) // modify this to put roo
 		if (!append_edge(room2->out, edge1_in))
 			return (FALSE);
 	}
+	return (TRUE);
+}*/
+
+static int	make_adj_list(t_room *room1, t_room *room2) // modify this to put room_in room_out links
+{
+	t_edge *edge1_in;
+	t_edge *edge2_in;
+
+	edge1_in = NULL;
+	edge2_in = NULL;
+	edge2_in = create_edge(room2->in);
+	if (!append_edge(room1->out, edge2_in))
+		return (FALSE);
+	edge1_in = create_edge(room1->in);
+	if (!append_edge(room2->out, edge1_in))
+		return (FALSE);
 	return (TRUE);
 }
 
@@ -133,3 +149,16 @@ t_edge *create_edge(t_node *node)
 	edge->to = node;
 	return (edge);
 }
+
+/*t_edge *create_edge(t_node *to, )
+{
+	t_edge *edge;
+
+	if (!node)
+		return (NULL);
+	edge = (t_edge *)ft_memalloc(sizeof(t_edge));
+	if (!edge)
+		return (NULL); // to do error exit
+	edge->to = node;
+	return (edge);
+}*/
