@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:22:20 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/09 10:48:57 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/09 19:42:31 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,8 @@ static void init_farm(t_farm *farm)
 int	main(int argc, char **argv)
 {
 	t_farm	farm;
-	t_list *option1;
-	t_list *option2;
+	/*t_list *option1;
+	t_list *option2;*/
 
 	init_farm(&farm);
 	if (argc != 1 && argv)
@@ -97,14 +97,16 @@ int	main(int argc, char **argv)
 	* if the levels are equal, check if they are siblings, if so skip one node. 
 	*/
 	print_adj_list(farm);
-	option1 = get_paths(&farm, 1);
+	bubblesort(farm.start->out->edges);
+	print_adj_list(farm);
+	/*option1 = get_paths(&farm, 1);
 	option2 = get_paths(&farm, 2);
 	find_the_best_paths_and_send_ants(option1, &farm);
 	find_the_best_paths_and_send_ants(option2, &farm);
 
 	free_farm(&farm);
 	free_paths(&option1);
-	free_paths(&option2);
+	free_paths(&option2);*/
 	//system("leaks lem-in >> leaks.txt"); //do not run this with make debug or with valgrind, if you do so, first call make fclean and call make re
 	return (0);
 }

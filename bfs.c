@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/09 10:47:51 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/09 19:41:10 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,6 +204,45 @@ static void find_edge_set_opt(t_node *the_node, int option, t_list **queue, t_li
 	}
 }
 
+static void swap(t_list *a, t_list *b)
+{
+	void *temp;
+
+	temp = a->content;
+	a->content = b->content;
+	b->content = temp;
+}
+
+void bubblesort(t_list *edges)
+{
+	t_list *curr;
+	t_list *next;
+	t_edge *edge1;
+	t_edge *edge2;
+	int swapped;
+
+	if (!edges)
+		return ;
+	swapped = 1;
+	while (swapped)
+	{
+		swapped = 0;
+		curr = edges;
+		while (curr->next)
+		{
+			next = curr->next;
+			edge1 = curr->content;
+			edge2 = next->content;
+			if (edge1->to->level_end > edge2->to->level_end)
+			{
+				swap(curr, next);
+				swapped = 1;
+			}
+			curr = curr->next;
+		}
+	}
+}
+
 int bfs_path_search(t_farm *farm, int option)
 {
 	t_node *the_node;
@@ -219,6 +258,7 @@ int bfs_path_search(t_farm *farm, int option)
 		the_node = q_pop(&queue);
 		if (the_node == farm->end->in)
 			return (free_and_exit_bfs(&queue, visited, 1));
+		//bubblesort(the_node->edges);
 		hashmap_set(visited, the_node->name, the_node);
 		find_edge_set_opt(the_node, option, &queue, visited);
 	}
