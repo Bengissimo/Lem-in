@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:22:20 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/07 22:02:08 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/09 10:48:57 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,10 @@ int	main(int argc, char **argv)
 		error(&farm);
 	read_input(&farm);
 	print_farm(farm);
+	bfs_level_end(&farm);
+	//print_adj_list(farm);
 	bfs_level(&farm);
+	
 	/*
 	* scan the edges of the node while saving paths or while doing bfs
 	* if the edge->to level is greater than the node skip that way

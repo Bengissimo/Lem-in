@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/08 15:12:13 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/09 10:47:51 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,27 +95,24 @@ int bfs_level(t_farm *farm)  // if it reaches to end return 1, else 0
 	t_list *edges;
 	t_edge *the_edge;
 	t_list *queue;
-	t_list **hashmap_node;
-	hashmap_node = ft_memalloc(HASH * sizeof(t_list *));
+	t_list **visited;
+	visited = ft_memalloc(HASH * sizeof(t_list *));
 
 	queue = NULL;
-	q_push(&queue, farm->start->in);
+	q_push(&queue, farm->start->out);
+	hashmap_set(visited, farm->start->in->name, farm->start->in);
 	while (queue)
 	{
+		//printf("test1\n");
 		the_node = q_pop(&queue);
-		/*if (the_node == farm->end->in)
-		{
-			ft_lstdel(&queue, null_fn);
-			free_hashmap(hashmap_node);
-			return (1);
-		}*/
-		hashmap_set(hashmap_node, the_node->name, the_node);
+		hashmap_set(visited, the_node->name, the_node);
 		edges = the_node->edges;
 		while (edges)
 		{
+			//printf("test2\n");
 			the_edge = edges->content;
 			child = the_edge->to;
-			if (the_edge->flow == 0 && !is_in(hashmap_node, child->name))
+			if (!is_in(visited, child->name))
 			{
 				child->parent = the_node;
 				if (!ft_strequ(child->source->name, the_node->source->name))
@@ -128,9 +125,51 @@ int bfs_level(t_farm *farm)  // if it reaches to end return 1, else 0
 		}
 	}
 	ft_lstdel(&queue, null_fn);
-	free_hashmap(hashmap_node);
+	free_hashmap(visited);
 	return (0);
 }
+
+int bfs_level_end(t_farm *farm)
+{
+	t_node *the_node;
+	t_node *child;
+	t_list *edges;
+	t_edge *the_edge;
+	t_list *queue;
+	t_list **visited;
+	visited = ft_memalloc(HASH * sizeof(t_list *));
+
+	queue = NULL;
+	q_push(&queue, farm->end->out);
+	hashmap_set(visited, farm->end->in->name, farm->end->in);
+	hashmap_set(visited, farm->start->out->name, farm->start->out);
+	while (queue)
+	{
+		the_node = q_pop(&queue);
+		hashmap_set(visited, the_node->name, the_node);
+		edges = the_node->edges;
+		while (edges)
+		{
+			the_edge = edges->content;
+			child = the_edge->to;
+			if (!is_in(visited, child->name))
+			{
+				child->parent = the_node;
+				if (!ft_strequ(child->source->name, the_node->source->name))
+					child->level_end = the_node->level_end + 1;
+				else
+					child->level_end = the_node->level_end;
+				q_push (&queue, child);
+			}
+			edges = edges->next;
+		}
+	}
+	farm->start->out->level_end = farm->start->in->level_end;
+	ft_lstdel(&queue, null_fn);
+	free_hashmap(visited);
+	return (0);
+}
+
 
 int set_option(int option, t_list **visited, t_edge *the_edge, t_node *child)
 {

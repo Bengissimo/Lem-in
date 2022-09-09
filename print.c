@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 13:05:24 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/06 10:58:24 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/09 09:33:46 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void print_adj_list(t_farm farm) //just to see what we have in adj_list, will be
 		printf("the room %s:\n", the_room->name);
 		if (the_room->in)
 		{
-			printf("%s (level: %d)-> ",the_room->in->name, (int)the_room->in->level);
+			printf("%s (level: %d level_e: %d)-> ",the_room->in->name, (int)the_room->in->level, (int)the_room->in->level_end);
 			edges = the_room->in->edges;
 			while (edges)
 			{
@@ -73,7 +73,7 @@ void print_adj_list(t_farm farm) //just to see what we have in adj_list, will be
 		}
 		if (the_room->out)
 		{
-			printf("%s (level: %d)-> ", the_room->out->name, (int)the_room->out->level);
+			printf("%s (level: %d level_e: %d)-> ", the_room->out->name, (int)the_room->out->level, (int)the_room->out->level_end);
 			edges = the_room->out->edges;
 			while (edges)
 			{

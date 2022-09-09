@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 10:50:17 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/08 14:53:51 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/09 10:04:39 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	append_edge(t_node *node, t_edge *edge)  // rooms will be changed to nodes h
 	if (!new)
 		return (0); //TO DO: error exit 
 	ft_lstappend(&node->edges, new);
+	edge->cap_from = 0; // reverse capacity is 0
 	return (1);
 }
 
@@ -147,10 +148,12 @@ t_edge *create_edge(t_node *node)
 	if (!edge)
 		return (NULL); // to do error exit
 	edge->to = node;
+	//if node == farm->end->in create list
+	edge->cap_to = 1; //forwaard cap 1
 	return (edge);
 }
 
-/*t_edge *create_edge(t_node *to, )
+/*t_edge *create_edge(t_node *node, t_farm *farm)
 {
 	t_edge *edge;
 
@@ -160,5 +163,9 @@ t_edge *create_edge(t_node *node)
 	if (!edge)
 		return (NULL); // to do error exit
 	edge->to = node;
+	if (node == farm->end->in)
+	{
+		
+	}
 	return (edge);
 }*/
