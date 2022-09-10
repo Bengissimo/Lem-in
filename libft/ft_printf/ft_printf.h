@@ -6,7 +6,7 @@
 /*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 15:35:33 by ykot              #+#    #+#             */
-/*   Updated: 2022/03/17 14:03:24 by ykot             ###   ########.fr       */
+/*   Updated: 2022/09/09 12:34:11 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 # include "../libft.h"
 # include <stdarg.h>
 # define MAX_WP 21474836
-
-int				g_total;
 
 typedef struct s_flags
 {
@@ -33,6 +31,7 @@ typedef struct s_flags
 	int		arg_zero;
 	int		zero_printed;
 	int		int_round;
+	int		total;
 }				t_flags;
 
 typedef void	t_conversion(t_flags *flag, va_list *ap);
@@ -54,7 +53,7 @@ void		print_hash(t_flags *flag);
 void		print_sign_or_hash(t_flags *flag, int num_dig);
 void		print_precision(t_flags *flag, int num_dig);
 void		print_width(t_flags *flag, int num_dig, int first_call);
-void		putspace(void);
+void		putspace(t_flags *flag);
 void		putllunbr(unsigned long long n);
 long long	smaller(long long a, long long b);
 void		print_percent(t_flags *flag);
