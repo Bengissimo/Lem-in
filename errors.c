@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 14:43:14 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/02 16:29:16 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/10 13:17:15 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,11 @@ void	free_farm(t_farm *farm)
 	free_hashmap(farm->hashmap);
 }
 
-void	error(t_farm *farm)
+void	error(t_farm *farm, char *er_str)
 {
 	free_farm(farm);
-	ft_putendl_fd("Error", 2);
+	ft_putstr_fd("Error: ", 2);
+	ft_putendl_fd(er_str, 2);
 	//system("leaks lem-in >> error_leaks.txt");
 	exit(1);
 }
@@ -90,9 +91,9 @@ void	free_split(char ***str)
 	ft_memdel((void *)str);
 }
 
-void	error_free_split_line(t_farm *farm, char ***str, char **line)
+void	error_free_split_line(t_farm *farm, char ***str, char **line, char *er_str)
 {
 	free_split(str);
 	ft_strdel(line);
-	error(farm);
+	error(farm, er_str);
 }

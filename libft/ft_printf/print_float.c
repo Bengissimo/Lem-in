@@ -6,7 +6,7 @@
 /*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/13 13:30:30 by ykot              #+#    #+#             */
-/*   Updated: 2022/03/17 11:19:09 by ykot             ###   ########.fr       */
+/*   Updated: 2022/09/09 12:36:20 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static void	print_prec_f(char *part_frac, t_flags *flag)
 	if (flag->hash || flag->precision)
 	{
 		ft_putchar('.');
-		g_total++;
+		(flag->total)++;
 	}
 	if (flag->precision)
 	{
@@ -113,7 +113,7 @@ void	print_float(t_flags *flag, va_list *ap)
 		if (read_int_fr(arg, flag, &part_int, &part_frac) == -1)
 		{
 			free_all_str(part_int, part_frac);
-			g_total = -1;
+			flag->total = -1;
 			return ;
 		}
 	}
@@ -123,6 +123,6 @@ void	print_float(t_flags *flag, va_list *ap)
 	ft_putstr(part_int);
 	print_prec_f(part_frac, flag);
 	print_width_f(flag, num_dig, 0);
-	g_total += num_dig;
+	flag->total += num_dig;
 	free_all_str(part_int, part_frac);
 }

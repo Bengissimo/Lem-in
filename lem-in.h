@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem-in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/04 14:44:27 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/10 13:00:48 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,25 @@ typedef struct	s_ant
 	t_list	*pathptr;
 }				t_ant;
 
+typedef struct	s_flag
+{
+	int	h;
+	int	v;
+	int p;
+}				t_flag;
+
 typedef struct	s_farm
 {
 	int		num_ants;
 	t_list	*rooms;
 	t_list	*links;
+	t_dynlist	input_lines;
 	t_room	*start;
 	t_room	*end;
 	int		rooms_done;
 	t_list	**hashmap;
-	t_list	*comments;
+	t_flag	flag;
+	//t_list	*comments;
 }				t_farm;
 
 typedef struct	s_edge
@@ -79,7 +88,7 @@ int		append_room(t_farm *farm, t_room *room);
 int		get_link(t_farm *farm, char **line);
 int		get_rooms_links(t_farm *farm, char *line);
 void	read_input(t_farm *farm);
-
+void	save_input(t_farm *farm, char **line);
 /* checks */
 int		check_int(const char *str);
 void	parse_links(t_farm *farm, char *line);
@@ -87,9 +96,9 @@ int		is_char_in_str(char c, char *str);
 
 /* errors */
 void	free_farm(t_farm *farm);
-void	error(t_farm *farm);
+void	error(t_farm *farm, char *str);
 void	free_split(char ***str);
-void	error_free_split_line(t_farm *farm, char ***str, char **line);
+void	error_free_split_line(t_farm *farm, char ***str, char **line, char *er_str);
 
 /* print */
 void			print_farm(t_farm farm);

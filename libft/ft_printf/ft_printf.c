@@ -6,16 +6,16 @@
 /*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 15:51:09 by ykot              #+#    #+#             */
-/*   Updated: 2022/03/15 16:21:29 by ykot             ###   ########.fr       */
+/*   Updated: 2022/09/09 12:18:11 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void	print_one_char(const char *str, int i)
+static void	print_one_char(t_flags *flag, const char *str, int i)
 {
 	ft_putchar(str[i]);
-	g_total++;
+	flag->total++;
 }
 
 int	ft_printf(const char *str, ...)
@@ -25,7 +25,7 @@ int	ft_printf(const char *str, ...)
 	int		i;
 
 	i = -1;
-	g_total = 0;
+	ft_bzero(&flag, sizeof(t_flags));
 	va_start(ap, str);
 	while (str[++i])
 	{
@@ -41,8 +41,8 @@ int	ft_printf(const char *str, ...)
 			}
 		}
 		else
-			print_one_char(str, i);
+			print_one_char(&flag, str, i);
 	}
 	va_end(ap);
-	return (g_total);
+	return (flag.total);
 }

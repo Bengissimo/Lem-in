@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   send_ants.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 17:40:39 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/26 11:13:23 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/10 14:17:33 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,14 @@ static int count_printed_lines(int num_ants, int *queue, int size)
 	return (queue[0]);
 }
 
-static int	the_best_path(t_list *sets, int num_ants)
+static void	print_flag_p(t_list **the_set, int num_lines, int i)
+{
+	printf("set %d:\n", i);
+	printf("Number of lines to print: %d\n", num_lines - 1);
+	print_paths(the_set, i + 1);
+}
+
+static int	the_best_path(t_list *sets, int num_ants, int flag_p)
 {
 	t_list **the_set;
 	t_list *curr;
@@ -178,15 +185,13 @@ static int	the_best_path(t_list *sets, int num_ants)
 		if (queue == NULL)
 			break;
 		num_lines = count_printed_lines(num_ants, queue, i + 1);
-		printf("set %d:\n", (int)i);
-		printf("Number of lines to print: %d\n", num_lines - 1);
-		print_paths(the_set, i + 1);
+		if (flag_p)
+			print_flag_p(the_set, num_lines, i);
 		if (min_lines > num_lines)
 		{
 			min_lines = num_lines;
 			best_path = i;
 		}
-		
 		free(queue);
 		i++;
 		curr = curr->next;
@@ -201,7 +206,7 @@ void	find_the_best_paths_and_send_ants(t_list *sets, t_farm *farm)
 	t_list	**the_set;
 	t_list	*curr;		
 
-	best_set_num = the_best_path(sets, farm->num_ants);
+	best_set_num = the_best_path(sets, farm->num_ants, farm->flag.p);
 	i = 0;
 	curr = sets;
 	while (i <= best_set_num)

@@ -6,7 +6,7 @@
 /*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 15:48:28 by ykot              #+#    #+#             */
-/*   Updated: 2022/03/15 16:22:45 by ykot             ###   ########.fr       */
+/*   Updated: 2022/09/09 12:20:13 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ void	print_unsigned(t_flags *flag, va_list *ap)
 	if (arg)
 	{
 		putllunbr(arg);
-		g_total += num_dig;
+		flag->total += num_dig;
 	}
 	else if (!flag->zero_printed && flag->precision)
 	{
 		ft_putchar('0');
-		g_total++;
+		(flag->total)++;
 	}
 	print_width(flag, num_dig, 0);
 }
@@ -65,12 +65,12 @@ void	print_octal(t_flags *flag, va_list *ap)
 		str = ft_demtobase(arg, 8);
 		ft_putstr(str);
 		ft_strdel(&str);
-		g_total += num_dig;
+		flag->total += num_dig;
 	}
 	else if (!flag->zero_printed && flag->precision)
 	{
 		ft_putchar('0');
-		g_total++;
+		(flag->total)++;
 	}
 	print_width(flag, num_dig, 0);
 }
@@ -91,12 +91,12 @@ void	print_binary(t_flags *flag, va_list	*ap)
 		str = ft_demtobase(arg, 2);
 		ft_putstr(str);
 		ft_strdel(&str);
-		g_total += num_dig;
+		flag->total += num_dig;
 	}
 	else if (!flag->zero_printed && flag->precision)
 	{
 		ft_putchar('0');
-		g_total++;
+		(flag->total)++;
 	}
 	print_width(flag, num_dig, 0);
 }
@@ -119,12 +119,12 @@ void	print_hexadecimal(t_flags *flag, va_list *ap)
 			ft_strtoup(str);
 		ft_putstr(str);
 		ft_strdel(&str);
-		g_total += num_dig;
+		flag->total += num_dig;
 	}
 	else if (!flag->zero_printed && flag->precision)
 	{
 		ft_putchar('0');
-		g_total++;
+		(flag->total)++;
 	}
 	print_width(flag, num_dig, 0);
 }

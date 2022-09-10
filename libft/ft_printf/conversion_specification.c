@@ -6,28 +6,11 @@
 /*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 15:51:16 by ykot              #+#    #+#             */
-/*   Updated: 2022/03/17 14:03:14 by ykot             ###   ########.fr       */
+/*   Updated: 2022/09/09 12:18:37 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-static void	flag_init(t_flags *flag)
-{
-	flag->hash = 0;
-	flag->zero = 0;
-	flag->minus = 0;
-	flag->plus = 0;
-	flag->space = 0;
-	flag->width = 0;
-	flag->precision = -1;
-	flag->modifier = 0;
-	flag->negative = 0;
-	flag->arg_zero = 0;
-	flag->zero_printed = 0;
-	flag->int_round = 0;
-	flag->specifier = '!';
-}
 
 static void	flags_override(t_flags *flag)
 {
@@ -66,7 +49,6 @@ static int	max_wid_prec(t_flags *flag)
 
 int	conv_spec(const char *str, int *i, t_flags *flag, va_list *ap)
 {
-	flag_init(flag);
 	read_flags(str, i, flag);
 	if (str[*i] == '*')
 		read_star(i, flag, ap, 0);

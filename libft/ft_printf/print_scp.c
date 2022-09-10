@@ -6,7 +6,7 @@
 /*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 16:15:34 by ykot              #+#    #+#             */
-/*   Updated: 2022/03/15 16:22:41 by ykot             ###   ########.fr       */
+/*   Updated: 2022/09/09 12:35:47 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	print_percent(t_flags *flag)
 {
 	print_width(flag, 1, 1);
 	ft_putchar('%');
-	g_total++;
+	(flag->total)++;
 	if (flag->precision == 0)
 		flag->width--;
 	print_width(flag, 1, 0);
@@ -29,7 +29,7 @@ void	print_char(t_flags *flag, va_list *ap)
 	arg = va_arg(*ap, int);
 	print_width(flag, 1, 1);
 	ft_putchar(arg);
-	g_total++;
+	(flag->total)++;
 	print_width(flag, 1, 0);
 }
 
@@ -44,7 +44,7 @@ void	print_pointer(t_flags *flag, va_list *ap)
 	if (!arg && flag->precision)
 		num_dig = 1;
 	flag->width -= 2;
-	g_total += num_dig + 2;
+	flag->total += num_dig + 2;
 	print_width(flag, num_dig, 1);
 	ft_putstr("0x");
 	print_precision(flag, num_dig);
@@ -63,7 +63,7 @@ static void	print_str_null(t_flags *flag)
 {
 	if (flag->precision == -1 || flag->precision >= 6)
 	{
-		g_total += 6;
+		flag->total += 6;
 		flag->width -= 6;
 		print_width(flag, 0, 1);
 		write(1, "(null)", 6);
@@ -72,7 +72,7 @@ static void	print_str_null(t_flags *flag)
 	else
 	{
 		flag->width -= flag->precision;
-		g_total += flag->precision;
+		flag->total += flag->precision;
 		print_width(flag, 0, 1);
 		write(1, "(null)", flag->precision);
 		print_width(flag, 0, 0);
@@ -97,7 +97,7 @@ void	print_str(t_flags *flag, va_list *ap)
 	while (i < len)
 	{
 		ft_putchar(arg[i++]);
-		g_total++;
+		(flag->total)++;
 	}
 	print_width(flag, len, 0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_command.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 10:49:49 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/08/15 09:45:48 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/09 12:52:35 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ static void	get_command(t_farm *farm, char **line, int start_flag)
 
 	str = get_room_lines(*line);  
 	if (!str)
-		error_free_split_line(farm, NULL, line);
+		error_free_split_line(farm, NULL, line, "Memory allocation");
 	room = create_room(str);
 	node = create_node(str, 2);
 	free_split(&str);
 	if (!room || !node)
-		error_free_split_line(farm, NULL, line);
+		error_free_split_line(farm, NULL, line, "Memory allocation");
 	if (start_flag)
 	{
 		farm->start = room;
@@ -41,7 +41,7 @@ static void	get_command(t_farm *farm, char **line, int start_flag)
 		room->in->source = room;
 	}
 	if (!append_room(farm, room))
-		error_free_split_line(farm, NULL, line);
+		error_free_split_line(farm, NULL, line, "Memory allocation");
 }
 
 int	is_command(t_farm *farm, char **line)
@@ -53,12 +53,13 @@ int	is_command(t_farm *farm, char **line)
 		return (0);
 	if ((ft_strequ("##start", *line) && farm->start) ||
 		(ft_strequ("##end", *line) && farm->end))
-		error_free_split_line(farm, NULL, line);
+		error_free_split_line(farm, NULL, line, "Wrong command");
 	if (ft_strequ("##start", *line))
 		start_flag = 1;
 	ft_strdel(line);
 	if (get_next_line(0, line) != 1)
-		error_free_split_line(farm, NULL, line);
+		error_free_split_line(farm, NULL, line, "Fail to read a line");
 	get_command(farm, line, start_flag);
+	save_input(farm, line);
 	return (1);
 }

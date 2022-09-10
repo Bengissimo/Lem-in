@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 13:05:24 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/01 11:38:09 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/10 13:16:10 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static void	print_links(t_farm farm)
 		rooms = rooms->next;
 	}
 }*/
-
+/*
 static void print_comments(t_farm farm)
 {
 	t_list	*comments;
@@ -101,7 +101,7 @@ static void print_comments(t_farm farm)
 	}
 	//free comments list here ?
 }
-
+*/
 void print_paths(t_list **paths, size_t flow)
 {
 	size_t i;
@@ -146,13 +146,27 @@ void print_path_sets(t_list *sets)
 	}
 }
 
+static	void	print_input(t_farm farm)
+{
+	t_dlist *tempptr;
+
+	tempptr = farm.input_lines.head;
+	while (tempptr)
+	{
+		ft_putendl((char *)tempptr->content);
+		tempptr = tempptr->next;
+	}
+}
+
 void	print_farm(t_farm farm)
 {
-	ft_printf("%d\n", farm.num_ants);
+	/*ft_printf("%d\n", farm.num_ants);
 	print_rooms(farm);
 	print_links(farm);
-	print_comments(farm);
+	print_comments(farm);*/
+	print_input(farm);
 	ft_putendl("---");
 	//print_adj_list(farm);
 	ft_putendl("");
 }
+

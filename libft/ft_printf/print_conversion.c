@@ -6,7 +6,7 @@
 /*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 16:02:32 by ykot              #+#    #+#             */
-/*   Updated: 2022/03/15 16:21:40 by ykot             ###   ########.fr       */
+/*   Updated: 2022/09/09 12:37:29 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,5 @@ int	print_conv(t_flags *flag, va_list *ap)
 		type_conv(7, flag, ap);
 	if (flag->specifier == 'b')
 		type_conv(8, flag, ap);
-	return (g_total == -1);
+	return (flag->total == -1);
 }

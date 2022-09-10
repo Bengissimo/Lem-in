@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_input.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:25:04 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/21 10:10:08 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/10 13:24:22 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,37 @@ int	is_comment(char *line)
 	return (FALSE);
 }
 
+void	save_input(t_farm *farm, char **line)
+{
+	t_dlist	*tempptr;
+
+	tempptr = ft_dlstnew(*line, sizeof(line));
+	if (tempptr == NULL)
+		error_free_split_line(farm, NULL, line, "Memory allocation");
+	ft_dynlstappend(&(farm->input_lines), tempptr);
+}
+
 static void	get_ant_num(t_farm *farm, char **line)
 {
+	int		num;
+
 	while (TRUE)
 	{
 		ft_strdel(line);
 		if (get_next_line(0, line) != 1)
-			error(farm);
+			error(farm, "Fail to read a line");
 		if (is_comment(*line))
 		{
-			ft_lstappend(&farm->comments, ft_lstnew(line, ft_strlen(*line) + 1));
+			//ft_lstappend(&farm->comments, ft_lstnew(line, ft_strlen(*line) + 1));
 			continue ;
 		}
 		if (check_int(*line) == 0)
-			error_free_split_line(farm, NULL, line);
-		farm->num_ants = ft_atoi(*line);
+			error_free_split_line(farm, NULL, line, "The number of ants is not an integer");
+		num = ft_atoi(*line);
+		if (num <= 0)
+			error_free_split_line(farm, NULL, line, "The number of ants less or equal to zero");
+		save_input(farm, line);		
+		farm->num_ants = num;
 		return ;
 	}
 }
@@ -45,11 +61,11 @@ static void	get_ant_num(t_farm *farm, char **line)
 static int	check_gnl(t_farm *farm, int gnl)
 {
 	if (gnl == -1)
-		error(farm);
+		error(farm, "Fail to read a line");
 	if (gnl == 0 && farm->start && farm->end)
 		return (1);
 	if (gnl == 0)
-		error(farm);
+		error(farm, "No start or end");
 	return (0);
 }
 
@@ -80,6 +96,14 @@ int	get_rooms_links(t_farm *farm, char *line)
 	return (0);
 }
 
+static int	enough_data(t_farm *farm)
+{
+	if (farm->start && farm->end && farm->rooms && farm->links)
+		return (1);
+	else
+		error(farm, "Invalid map");
+}
+
 void	read_input(t_farm *farm)
 {
 	char	*line;
@@ -91,17 +115,19 @@ void	read_input(t_farm *farm)
 	{
 		ft_strdel(&line);
 		gnl = get_next_line(0, &line);
+		save_input(farm, &line);
 		if (check_gnl(farm, gnl))
 			return ;
 		if (is_comment(line))
 		{
-			ft_lstappend(&farm->comments, ft_lstnew(line, ft_strlen(line) + 1));
+			//ft_lstappend(&farm->comments, ft_lstnew(line, ft_strlen(line) + 1));
 			continue ;
 		}
 		if (is_command(farm, &line))
 			continue ;
 		if (get_rooms_links(farm, line))
 			continue ;
-		error(farm);
+		if (enough_data(farm))
+			return ;
 	}
 }
