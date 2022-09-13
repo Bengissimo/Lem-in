@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/09 19:41:24 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/11 17:54:21 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,11 @@ int bfs_level(t_farm *farm);
 int bfs_level_end(t_farm *farm);
 
 void bubblesort(t_list *edges);
+
+int bfs_path_search_new(t_farm *farm);
+t_list *get_paths_new(t_farm *farm);
+
+
 
 
 
