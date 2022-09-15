@@ -6,7 +6,7 @@
 /*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:25:04 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/10 13:24:22 by ykot             ###   ########.fr       */
+/*   Updated: 2022/09/15 14:59:14 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,12 @@ int	is_comment(char *line)
 void	save_input(t_farm *farm, char **line)
 {
 	t_dlist	*tempptr;
-
-	tempptr = ft_dlstnew(*line, sizeof(line));
+	char	*str;
+	
+	str = ft_strdup(*line);
+	if (str == NULL)
+		error_free_split_line(farm, NULL, line, "Memory allocation");
+	tempptr = ft_dlstnew_pointer(str);
 	if (tempptr == NULL)
 		error_free_split_line(farm, NULL, line, "Memory allocation");
 	ft_dynlstappend(&(farm->input_lines), tempptr);
@@ -115,9 +119,9 @@ void	read_input(t_farm *farm)
 	{
 		ft_strdel(&line);
 		gnl = get_next_line(0, &line);
-		save_input(farm, &line);
 		if (check_gnl(farm, gnl))
 			return ;
+		save_input(farm, &line);
 		if (is_comment(line))
 		{
 			//ft_lstappend(&farm->comments, ft_lstnew(line, ft_strlen(line) + 1));
