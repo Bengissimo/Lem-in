@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   send_ants.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 17:40:39 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/10 14:17:33 by ykot             ###   ########.fr       */
+/*   Updated: 2022/09/20 15:53:47 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void    print_moving(t_list *moving_ants)
     printf("\n");
 }
 */
-static int	*get_numrooms(t_list **paths, int size)
+int	*get_numrooms(t_list **paths, int size)
 {
 	int	*rooms;
 	int	i;
@@ -122,7 +122,9 @@ void	send_ants(int num_ants, t_list **paths, int size)
 	
 	moving_ants = NULL;
 	cur_ant_num = 1;
+	print_paths(paths, size);
 	queue = make_queue(num_ants, paths, size);
+	printf ("NO\n");
 	ant_pop(&queue, &moving_ants, size, &cur_ant_num);
 	while (moving_ants)
 	{
@@ -132,7 +134,7 @@ void	send_ants(int num_ants, t_list **paths, int size)
 	free(queue);
 }
 
-static int count_printed_lines(int num_ants, int *queue, int size)
+int count_printed_lines(int num_ants, int *queue, int size)
 {
 	int	i;
 

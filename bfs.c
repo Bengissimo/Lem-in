@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/20 13:33:46 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/20 16:10:09 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,34 +253,62 @@ void reset_all_flow(t_farm *farm)
 	}
 }
 
+static int    when_to_stop(int     *min_num_lines, t_list    **set_i, int index, t_farm *farm)
+{
+    int    num_lines;
+    int    *queue;
+
+    queue = get_numrooms(set_i, index);
+    num_lines = count_printed_lines(farm->num_ants, queue, index);
+    for (int i = 0; i < index; i++)
+        printf("%d\n", queue[i]);
+    printf("\n");
+    if (num_lines >= *min_num_lines)
+        return (1);
+    else
+        *min_num_lines = num_lines;
+    return (0);
+}
+
 t_list *get_paths(t_farm *farm, int option)
 {
-	t_list	*sets;
-	t_list	**set_i;
-	size_t	i;
-	size_t	j;
-
-	i= 0;
-	sets = NULL;
-	if (option == 2)
-		reset_all_flow(farm);
-	while(bfs(farm, 0))
-	{
-		update_res_flow(farm->end);
-		set_i = (t_list **)ft_memalloc((i + 1) * sizeof(t_list *)); //set_i[0] has 1 path, set_i[1] has 2 paths etc...
-		if (i > 0)
-			reset_mark(farm);
-		j = 0;
-		while (j < i + 1 && bfs_path_search(farm, option))
-		{
-			set_i[j] = mark_and_save_path(farm, 2); //set fwd edge to 2
-			j++;
-		}
-		if (j)
-			ft_lstappend(&sets, lstnew_pointer(set_i));
-		i++;
-	}
-	return (sets);
+    t_list    *sets;
+    t_list    **set_i;
+    t_list    **prev_set;
+    size_t    i;
+    size_t    j;
+    int     min_num_lines;
+    
+    i= 0;
+    prev_set = NULL;
+    min_num_lines = INT_MAX;
+    sets = NULL;
+    if (option == 2)
+        reset_all_flow(farm);
+    while(bfs(farm, 0))
+    {
+        update_res_flow(farm->end);
+        set_i = (t_list **)ft_memalloc((i + 1) * sizeof(t_list *)); //set_i[0] has 1 path, set_i[1] has 2 paths etc...
+        if (i > 0)
+            reset_mark(farm);
+        j = 0;
+        while (j < i + 1 && bfs_path_search(farm, option))
+        {
+            set_i[j] = mark_and_save_path(farm, 2); //set fwd edge to 2
+            j++;
+        }
+        if (j)
+            ft_lstappend(&sets, lstnew_pointer(set_i));
+        i++;
+        if (when_to_stop(&min_num_lines, set_i,    j, farm))
+        {
+            send_ants(farm->num_ants, prev_set, j - 1);
+            exit(1);
+        }
+        prev_set = set_i;
+    }
+    return (sets);
 }
+
 
 // to see add_one_more_set(t_list *sets, t_farm *farm, size_t size) go to test_one_path_set branch

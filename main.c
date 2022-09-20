@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:22:20 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/10 17:09:59 by ykot             ###   ########.fr       */
+/*   Updated: 2022/09/20 15:46:41 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,13 +115,13 @@ int	main(int argc, char **argv)
 	option1 = get_paths(&farm, 1);
 	if (option1 == NULL)
 		error(&farm, "No path to end");
-	option2 = get_paths(&farm, 2);
-	find_the_best_paths_and_send_ants(option1, &farm);
+	//option2 = get_paths(&farm, 2);
+	//find_the_best_paths_and_send_ants(option1, &farm);
 	//find_the_best_paths_and_send_ants(option2, &farm);
 
 	free_farm(&farm);
 	free_paths(&option1);
-	free_paths(&option2);
+	//free_paths(&option2);
 	//system("leaks lem-in >> leaks.txt"); //do not run this with make debug or with valgrind, if you do so, first call make fclean and call make re
 	return (0);
 }
