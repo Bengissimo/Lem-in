@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/20 12:45:35 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/20 13:10:00 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct	s_node
 {
 	char		*name;
 	struct		s_node *parent;
-	t_list		*edges; // dynlist
+	t_dynlist		edges; // dynlist
 	struct		s_room *source;
 }				t_node;
 
@@ -56,7 +56,7 @@ typedef struct	s_flag
 typedef struct	s_farm
 {
 	int		num_ants;
-	t_list	*rooms;  //dynlist
+	t_dynlist	rooms;  //dynlist
 	t_dynlist	input_lines;
 	t_room	*start;
 	t_room	*end;

@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:25:04 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/20 13:00:03 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/20 13:08:56 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	get_rooms_links(t_farm *farm, char *line)
 
 static int	enough_data(t_farm *farm)
 {
-	if (farm->start && farm->end && farm->rooms)
+	if (farm->start && farm->end && farm->rooms.head)
 		return (1);
 	else
 		error(farm, "Invalid map");

@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 13:05:24 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/20 12:58:10 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/20 13:19:27 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 static void	print_rooms(t_farm farm)
 {
-	t_list	*rooms;
+	t_dblist	*rooms;
 	t_room	*the_room;
 
-	rooms = farm.rooms;
+	rooms = farm.rooms.head;
 	while (rooms)
 	{
 		the_room = rooms->content;

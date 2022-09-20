@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 10:50:17 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/20 12:26:24 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/20 13:09:37 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 int	append_edge(t_node *node, t_edge *edge)  // rooms will be changed to nodes here
 {
-	t_list	*new;
+	t_dblist	*new;
 
-	new = lstnew_pointer(edge);
+	new = ft_dblstnew_pointer(edge);
 	if (!new)
 		return (0); //TO DO: error exit 
-	ft_lstappend(&node->edges, new);
+	ft_dynlstappend(&node->edges, new);
 	return (1);
 }
 
