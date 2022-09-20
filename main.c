@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:22:20 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/19 11:20:41 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/20 22:51:47 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,23 +105,24 @@ int	main(int argc, char **argv)
 {
 	t_farm	farm;
 	t_list *option1;
-	t_list *option2;
-	t_list **last_set;
+	//t_list *option2;
+	//t_list **last_set;
 
 	init_farm(&farm);
 	if (read_options(&farm, argc, argv))
 		error(&farm, "Wrong arguments");
 	read_input(&farm);
 	print_farm(farm);
-	option1 = get_paths(&farm, 1);
+	option1 = get_paths(&farm, 2);
 	if (option1 == NULL)
 		error(&farm, "No path to end");
-	option2 = get_paths(&farm, 2);
+	//option2 = get_paths(&farm, 2);
 	
 	//find_the_best_paths_and_send_ants(option2, &farm);
-	last_set = add_one_more_set(&farm, 3);
-	ft_lstadd(&option1, lstnew_pointer(last_set));
+	//last_set = add_one_more_set(&farm, 3);
+	//ft_lstadd(&option1, lstnew_pointer(last_set));
 	print_path_sets(option1);
+	//find_the_best_paths_and_send_ants(option1, &farm);
 	find_the_best_paths_and_send_ants(option1, &farm);
 
 	free_farm(&farm);

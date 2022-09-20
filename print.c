@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 13:05:24 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/19 11:18:57 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/20 23:00:01 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,9 +134,7 @@ void print_path_sets(t_list *sets)
 	t_list **the_set;
 	t_list *curr;
 
-	the_set = sets->content;
-	print_paths(the_set, 3);
-	curr = sets->next;
+	curr = sets;
 	i = 0;
 	while (curr)
 	{
