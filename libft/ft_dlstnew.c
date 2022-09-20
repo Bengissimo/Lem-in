@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_dlstnew.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 15:06:27 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/27 00:40:20 by ykot             ###   ########.fr       */
+/*   Updated: 2022/09/20 12:53:14 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_dlist	*ft_dlstnew(void const *content, size_t content_size)
+t_dblist	*ft_dblstnew(void const *content, size_t content_size)
 {
-	t_dlist	*dlstnew;
+	t_dblist	*dlstnew;
 
-	dlstnew = (t_dlist *)malloc(sizeof(t_dlist));
+	dlstnew = (t_dblist *)malloc(sizeof(t_dblist));
 	if (!dlstnew)
 		return (NULL);
 	if (!content)

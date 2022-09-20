@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 13:05:24 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/10 13:16:10 by ykot             ###   ########.fr       */
+/*   Updated: 2022/09/20 12:58:10 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	print_rooms(t_farm farm)
 	}
 }
 
-static void	print_links(t_farm farm)
+/*static void	print_links(t_farm farm)
 {
 	t_list	*links;
 
@@ -45,7 +45,7 @@ static void	print_links(t_farm farm)
         ft_putendl((char *)links->content);
         links = links->next;
     }
-}
+}*/
 
 /*static void print_adj_list(t_farm farm) //just to see what we have in adj_list, will be removed later
 {
@@ -148,7 +148,7 @@ void print_path_sets(t_list *sets)
 
 static	void	print_input(t_farm farm)
 {
-	t_dlist *tempptr;
+	t_dblist *tempptr;
 
 	tempptr = farm.input_lines.head;
 	while (tempptr)

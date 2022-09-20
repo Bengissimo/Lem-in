@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_input.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:25:04 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/15 14:59:14 by ykot             ###   ########.fr       */
+/*   Updated: 2022/09/20 13:00:03 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ int	is_comment(char *line)
 
 void	save_input(t_farm *farm, char **line)
 {
-	t_dlist	*tempptr;
+	t_dblist	*tempptr;
 	char	*str;
 	
 	str = ft_strdup(*line);
 	if (str == NULL)
 		error_free_split_line(farm, NULL, line, "Memory allocation");
-	tempptr = ft_dlstnew_pointer(str);
+	tempptr = ft_dblstnew_pointer(str);
 	if (tempptr == NULL)
 		error_free_split_line(farm, NULL, line, "Memory allocation");
 	ft_dynlstappend(&(farm->input_lines), tempptr);
@@ -102,7 +102,7 @@ int	get_rooms_links(t_farm *farm, char *line)
 
 static int	enough_data(t_farm *farm)
 {
-	if (farm->start && farm->end && farm->rooms && farm->links)
+	if (farm->start && farm->end && farm->rooms)
 		return (1);
 	else
 		error(farm, "Invalid map");

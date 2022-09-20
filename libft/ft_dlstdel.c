@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_dlstdel.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 00:06:25 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/27 01:14:49 by ykot             ###   ########.fr       */
+/*   Updated: 2022/09/20 12:52:01 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_dlstdel(t_dynlist *alst, void (*del)(void *))
+void	ft_dblstdel(t_dynlist *alst, void (*del)(void *))
 {
-	t_dlist	*next;
-	t_dlist *temp;
+	t_dblist	*next;
+	t_dblist *temp;
 	
 	if (alst->size == 0)
 		return ;
@@ -23,7 +23,7 @@ void	ft_dlstdel(t_dynlist *alst, void (*del)(void *))
 	while (temp)
 	{
 		next = temp->next;
-		ft_dlstdelone(&temp, del);
+		ft_dblstdelone(&temp, del);
 		temp = next;
 	}
 	alst = NULL;

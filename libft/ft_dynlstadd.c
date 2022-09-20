@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_dynlstadd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 23:28:13 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/27 00:40:39 by ykot             ###   ########.fr       */
+/*   Updated: 2022/09/20 12:53:23 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_dynlstadd(t_dynlist *alst, t_dlist *new)
+void	ft_dynlstadd(t_dynlist *alst, t_dblist *new)
 {
 	if (!new)
 		return ;

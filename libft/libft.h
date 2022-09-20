@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 20:10:34 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/27 09:04:55 by ykot             ###   ########.fr       */
+/*   Updated: 2022/09/20 13:01:09 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,18 @@ typedef struct s_list
 }				t_list;
 
 
-typedef struct s_dlist
+typedef struct s_dblist
 {
 	void			*content;
 	size_t			content_size;
-	struct s_dlist	*next;
-	struct s_dlist	*prev;
-}				t_dlist;
+	struct s_dblist	*next;
+	struct s_dblist	*prev;
+}				t_dblist;
 
 typedef struct s_dynlist
 {
-	t_dlist	*head;
-	t_dlist	*tail;
+	t_dblist	*head;
+	t_dblist	*tail;
 	size_t		size;
 }				t_dynlist;
 
@@ -157,13 +157,13 @@ long double	ft_pow(long double base, int exp);
 **	Dynamic lists
 */
 
-void	ft_dlstdel(t_dynlist *alst, void (*del)(void *));
-void	ft_dlstdelone(t_dlist **alst, void (*del)(void*));
-t_dlist	*ft_dlstnew(void const *content, size_t content_size);
-void	ft_dynlstadd(t_dynlist *alst, t_dlist *new);
-void	ft_dynlstappend(t_dynlist *alst, t_dlist *new);
+void	ft_dblstdel(t_dynlist *alst, void (*del)(void *));
+void	ft_dblstdelone(t_dblist **alst, void (*del)(void*));
+t_dblist	*ft_dblstnew(void const *content, size_t content_size);
+void	ft_dynlstadd(t_dynlist *alst, t_dblist *new);
+void	ft_dynlstappend(t_dynlist *alst, t_dblist *new);
 void    ft_dynlstdelelem(t_dynlist *alst, size_t elem, void (*del)(void *));
-t_dlist *ft_dynlstelem(t_dynlist alst, size_t elem);
-t_dlist	*ft_dlstnew_pointer(void *content);
+t_dblist *ft_dynlstelem(t_dynlist alst, size_t elem);
+t_dblist	*ft_dblstnew_pointer(void *content);
 
 #endif

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_dlstdelone.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 00:06:04 by ykot              #+#    #+#             */
-/*   Updated: 2022/08/27 01:15:03 by ykot             ###   ########.fr       */
+/*   Updated: 2022/09/20 12:52:13 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_dlstdelone(t_dlist **alst, void (*del)(void*))
+void	ft_dblstdelone(t_dblist **alst, void (*del)(void*))
 {
 	if (!alst || !*alst)
 		return ;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem-in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/10 13:00:48 by ykot             ###   ########.fr       */
+/*   Updated: 2022/09/20 12:45:35 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct	s_node
 {
 	char		*name;
 	struct		s_node *parent;
-	t_list		*edges;
+	t_list		*edges; // dynlist
 	struct		s_room *source;
 }				t_node;
 
@@ -56,12 +56,11 @@ typedef struct	s_flag
 typedef struct	s_farm
 {
 	int		num_ants;
-	t_list	*rooms;
-	t_list	*links;
+	t_list	*rooms;  //dynlist
 	t_dynlist	input_lines;
 	t_room	*start;
 	t_room	*end;
-	int		rooms_done;
+	int rooms_done;
 	t_list	**hashmap;
 	t_flag	flag;
 	//t_list	*comments;

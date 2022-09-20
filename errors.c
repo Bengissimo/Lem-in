@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 14:43:14 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/10 13:17:15 by ykot             ###   ########.fr       */
+/*   Updated: 2022/09/20 12:57:27 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void	del_rooms(void *content, size_t size)
 void	free_farm(t_farm *farm)
 {
 	ft_lstdel(&farm->rooms, del_rooms);
-	ft_lstdel(&farm->links, del_fn);
+	//ft_lstdel(&farm->links, del_fn);
 	free_hashmap(farm->hashmap);
 }
 
