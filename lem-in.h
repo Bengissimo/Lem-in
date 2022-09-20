@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/20 13:10:00 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/20 13:41:15 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ t_list *reset_graph_save_paths(t_farm *farm);
 t_list *get_paths(t_farm *farm, int option);
 
 
-void del_fn(void *content, size_t size);
+//void del_fn(void *content);
 
 //void add_one_more_set(t_list *sets, t_farm *farm, size_t size);
 

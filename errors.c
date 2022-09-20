@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 14:43:14 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/20 12:57:27 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/20 13:40:04 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,13 @@
 	*alst = NULL;
 }*/
 
-void del_fn(void *content, size_t size)
+static void del_fn(void *content)
 {
 	if (content)
 		free(content);
-	size = 0;
 }
 
-static void	del_rooms(void *content, size_t size)
+static void	del_rooms(void *content)
 {
 	t_room *the_room;
 
@@ -47,22 +46,21 @@ static void	del_rooms(void *content, size_t size)
 	if (the_room->in)  //node_in
 	{
 		ft_strdel(&the_room->in->name);
-		ft_lstdel(&the_room->in->edges, del_fn);
+		ft_dblstdel(&the_room->in->edges, del_fn);
 		ft_memdel((void **)&the_room->in);
 	}
 	if (the_room->out)  //node_out
 	{
 		ft_strdel(&the_room->out->name);
-		ft_lstdel(&the_room->out->edges, del_fn);
+		ft_dblstdel(&the_room->out->edges, del_fn);
 		ft_memdel((void **)&the_room->out);
 	}
 	ft_memdel((void **)&the_room);
-	size++;
 }
 
 void	free_farm(t_farm *farm)
 {
-	ft_lstdel(&farm->rooms, del_rooms);
+	ft_dblstdel(&farm->rooms, del_rooms);
 	//ft_lstdel(&farm->links, del_fn);
 	free_hashmap(farm->hashmap);
 }

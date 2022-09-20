@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/20 13:18:29 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/20 13:33:46 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ int bfs_path_search(t_farm *farm, int option)
 	return (free_and_exit_bfs(&queue, visited, 0));
 }
 
-static void create_rev_flow(t_node *the_node, t_list *edges, t_edge *the_edge)
+static void create_rev_flow(t_node *the_node, t_dblist *edges, t_edge *the_edge)
 {
 	while (edges)
 	{
@@ -178,7 +178,7 @@ void update_res_flow(t_room *end)
 	}
 }
 
-static void set_edge_flow(t_node *the_node, t_list *edges, t_edge *the_edge, int flow)
+static void set_edge_flow(t_node *the_node, t_dblist *edges, t_edge *the_edge, int flow)
 {
 	while (edges)
 		{
