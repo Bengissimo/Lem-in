@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:22:20 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/10 17:09:59 by ykot             ###   ########.fr       */
+/*   Updated: 2022/09/19 11:20:41 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ int	main(int argc, char **argv)
 	t_farm	farm;
 	t_list *option1;
 	t_list *option2;
+	t_list **last_set;
 
 	init_farm(&farm);
 	if (read_options(&farm, argc, argv))
@@ -116,12 +117,16 @@ int	main(int argc, char **argv)
 	if (option1 == NULL)
 		error(&farm, "No path to end");
 	option2 = get_paths(&farm, 2);
-	find_the_best_paths_and_send_ants(option1, &farm);
+	
 	//find_the_best_paths_and_send_ants(option2, &farm);
+	last_set = add_one_more_set(&farm, 3);
+	ft_lstadd(&option1, lstnew_pointer(last_set));
+	print_path_sets(option1);
+	find_the_best_paths_and_send_ants(option1, &farm);
 
 	free_farm(&farm);
-	free_paths(&option1);
-	free_paths(&option2);
+	//free_paths(&option1);
+	//free_paths(&option2);
 	//system("leaks lem-in >> leaks.txt"); //do not run this with make debug or with valgrind, if you do so, first call make fclean and call make re
 	return (0);
 }

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 13:05:24 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/10 13:16:10 by ykot             ###   ########.fr       */
+/*   Updated: 2022/09/19 11:18:57 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem-in.h"
 
-static void	print_rooms(t_farm farm)
+/*static void	print_rooms(t_farm farm)
 {
 	t_list	*rooms;
 	t_room	*the_room;
@@ -33,9 +33,9 @@ static void	print_rooms(t_farm farm)
 		//printf("%s %d %d %lu\n", the_room->name, the_room->coord.x, the_room->coord.y, hash(the_room->name, HASH));
 		rooms = rooms->next;
 	}
-}
+}*/
 
-static void	print_links(t_farm farm)
+/*static void	print_links(t_farm farm)
 {
 	t_list	*links;
 
@@ -45,7 +45,7 @@ static void	print_links(t_farm farm)
         ft_putendl((char *)links->content);
         links = links->next;
     }
-}
+}*/
 
 /*static void print_adj_list(t_farm farm) //just to see what we have in adj_list, will be removed later
 {
@@ -134,8 +134,10 @@ void print_path_sets(t_list *sets)
 	t_list **the_set;
 	t_list *curr;
 
+	the_set = sets->content;
+	print_paths(the_set, 3);
+	curr = sets->next;
 	i = 0;
-	curr = sets;
 	while (curr)
 	{
 		the_set = curr->content;

@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/04 14:31:56 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/19 11:19:06 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int set_option(int option, t_list **visited, t_edge *the_edge, t_node *child)
 			&& the_edge->reverse && the_edge->reverse->flow == 0);
 	if (option == 2)
 		return (!is_in(visited, child->name)
-			&& ((the_edge->flow == 1 && (the_edge->reverse && the_edge->reverse->flow == 0))
+			&& ((the_edge->flow == 2 && (the_edge->reverse && the_edge->reverse->flow == 0))
 			|| (the_edge->flow == 0 && !the_edge->reverse)));
 	return (0);
 }
@@ -262,8 +262,8 @@ t_list *get_paths(t_farm *farm, int option)
 
 	i= 0;
 	sets = NULL;
-	if (option == 2)
-		reset_all_flow(farm);
+	/*if (option == 2)
+		reset_all_flow(farm);*/
 	while(bfs(farm, 0))
 	{
 		update_res_flow(farm->end);
@@ -284,3 +284,19 @@ t_list *get_paths(t_farm *farm, int option)
 }
 
 // to see add_one_more_set(t_list *sets, t_farm *farm, size_t size) go to test_one_path_set branch
+
+t_list **add_one_more_set(t_farm *farm, size_t size)
+{
+	t_list **last_set;
+
+	last_set = (t_list **)ft_memalloc((size + 1) * sizeof(t_list *));
+	int ind = 0;
+	while (bfs_path_search(farm, 2))
+	{
+		last_set[ind] = mark_and_save_path(farm, 3);
+		ind++;
+	}
+	//printf("the last set of paths:\n");
+	//print_paths(last_set, size);
+	return (last_set);
+}

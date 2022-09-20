@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem-in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/10 13:00:48 by ykot             ###   ########.fr       */
+/*   Updated: 2022/09/19 10:55:20 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ t_list *get_paths(t_farm *farm, int option);
 
 void del_fn(void *content, size_t size);
 
-//void add_one_more_set(t_list *sets, t_farm *farm, size_t size);
+t_list **add_one_more_set(t_farm *farm, size_t size);
 
 //printing paths
 void print_paths(t_list **paths, size_t flow);
