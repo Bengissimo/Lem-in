@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/20 13:33:46 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/20 15:51:23 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,14 +253,32 @@ void reset_all_flow(t_farm *farm)
 	}
 }
 
+static int	when_to_stop(int 	*min_num_lines, t_list	**set_i, int index, t_farm *farm)
+{
+	int	num_lines;
+	int	*queue;
+
+	queue = get_numrooms(set_i, index);
+	num_lines = count_printed_lines(farm->num_ants, queue, index);
+	if (num_lines <= *min_num_lines)
+		return (1);
+	else
+		*min_num_lines = num_lines;
+	return (0);
+}
+
 t_list *get_paths(t_farm *farm, int option)
 {
 	t_list	*sets;
 	t_list	**set_i;
+	t_list	**prev_set;
 	size_t	i;
 	size_t	j;
-
+	int 	min_num_lines;
+	
 	i= 0;
+	prev_set = NULL;
+	min_num_lines = INT_MAX;
 	sets = NULL;
 	if (option == 2)
 		reset_all_flow(farm);
@@ -279,6 +297,14 @@ t_list *get_paths(t_farm *farm, int option)
 		if (j)
 			ft_lstappend(&sets, lstnew_pointer(set_i));
 		i++;
+		if (when_to_stop(&min_num_lines, set_i,	j, farm))
+		{
+			printf("YES\n");
+			send_ants(farm->num_ants, prev_set, j - 1);
+			exit(1);
+		}
+		//printf("YES\n");
+		prev_set = set_i;
 	}
 	return (sets);
 }

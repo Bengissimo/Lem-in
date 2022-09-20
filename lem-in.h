@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/20 13:41:15 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/20 15:36:34 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,8 @@ void	send_ants(int num_ants, t_list **paths, int size);
 void	ant_push(t_list *path_ptr, t_list **queue);
 void	ant_pop(t_list ***queue, t_list **moving_ants, int size, int *cur_ant_num);
 void	find_the_best_paths_and_send_ants(t_list *sets, t_farm *farm);
+int		*get_numrooms(t_list **paths, int size);
+int count_printed_lines(int num_ants, int *queue, int size);
 
 /* other */
 t_list	*lstnew_pointer(void *content);
