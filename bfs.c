@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/21 11:01:31 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/21 22:21:01 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -319,8 +319,8 @@ t_list *get_paths(t_farm *farm, int option)
 	{
 		update_res_flow(farm->end);
 		set_i = (t_list **)ft_memalloc((i + 1) * sizeof(t_list *));
-		if (i > 0)
-			reset_mark(farm);
+		//if (i > 0)
+			
 		j = 0;
 		while (j < i + 1 && bfs_path_search(farm, option))
 		{
@@ -330,6 +330,7 @@ t_list *get_paths(t_farm *farm, int option)
 		if (j)
 			ft_lstappend(&sets, lstnew_pointer(set_i));
 		i++;
+		reset_mark(farm);
 		//printf("YES\n");
 		if (when_to_stop(&min_num_lines, set_i, j, farm))
 		{
