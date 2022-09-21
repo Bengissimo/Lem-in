@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/21 09:57:53 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/21 11:01:31 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -330,12 +330,13 @@ t_list *get_paths(t_farm *farm, int option)
 		if (j)
 			ft_lstappend(&sets, lstnew_pointer(set_i));
 		i++;
-		/*if (when_to_stop(&min_num_lines, set_i, j, farm))
+		//printf("YES\n");
+		if (when_to_stop(&min_num_lines, set_i, j, farm))
 		{
 			send_ants(farm->num_ants, prev_set, j - 1);
 			exit(1);
 		}
-		prev_set = set_i;*/
+		prev_set = set_i;
 	}
 	return (sets);
 }

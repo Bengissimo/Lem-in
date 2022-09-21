@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:22:20 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/21 09:57:23 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/21 11:00:54 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,10 +111,11 @@ int	main(int argc, char **argv)
 		error(&farm, "Wrong arguments");
 	read_input(&farm);
 	print_farm(farm);
-	option1 = get_paths(&farm, 2);
+	option1 = get_paths(&farm, 2); // some maps are still better with option1
+
 	if (option1 == NULL)
 		error(&farm, "No path to end");
-	//print_path_sets(option1);
+	print_path_sets(option1);
 	find_the_best_paths_and_send_ants(option1, &farm);
 	free_farm(&farm);
 	free_paths(&option1);
