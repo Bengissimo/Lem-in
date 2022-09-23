@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:22:20 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/21 22:15:39 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/23 14:45:51 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ void	free_set_i(t_list **set_i, size_t size)
 		}
 		i++;
 	}
-	free(set_i);
+	//free(set_i);
 }
-
+/*
 void	free_paths(t_list **alst)
 {
 	t_list	*curr;
@@ -69,7 +69,7 @@ void	free_paths(t_list **alst)
 	}
 	*alst = NULL;
 }
-
+*/
 static void init_farm(t_farm *farm)
 {
 	ft_bzero(farm, sizeof(*farm));
@@ -104,21 +104,22 @@ static int	read_options(t_farm *farm, int argc, char **argv)
 int	main(int argc, char **argv)
 {
 	t_farm	farm;
-	t_list *option1;
+	t_list **option1;
+	t_list **option2;
 
 	init_farm(&farm);
 	if (read_options(&farm, argc, argv))
 		error(&farm, "Wrong arguments");
 	read_input(&farm);
 	print_farm(farm);
-	option1 = get_paths(&farm, 2); // some maps are still better with option1
-
+	option1 = get_paths(&farm, 1); // some maps are still better with option1
 	if (option1 == NULL)
 		error(&farm, "No path to end");
-	print_path_sets(option1);
-	find_the_best_paths_and_send_ants(option1, &farm);
+	option2 = get_paths(&farm, 2);
+	find_the_best_paths_and_send_ants(&farm, option1, option2);
+	free_set_i(option1, farm.index1);
+	free_set_i(option2, farm.index2);
 	free_farm(&farm);
-	free_paths(&option1);
 	//system("leaks lem-in >> leaks.txt"); //do not run this with make debug or with valgrind, if you do so, first call make fclean and call make re
 	return (0);
 }

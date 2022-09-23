@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem-in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/20 15:36:34 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/23 14:39:41 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,10 @@ typedef struct	s_farm
 	int rooms_done;
 	t_list	**hashmap;
 	t_flag	flag;
+	int read_lines;
+	int	no_errlines;
+	int	index1;
+	int index2;
 	//t_list	*comments;
 }				t_farm;
 
@@ -81,7 +85,7 @@ typedef struct s_hash
 
 /* read input */
 int		is_command(t_farm *farm, char **line);
-char	**get_room_lines(char *line);
+char	**get_room_lines(char **line, t_farm *farm);
 t_room	*create_room(char **str);
 int		append_room(t_farm *farm, t_room *room);
 int		get_link(t_farm *farm, char **line);
@@ -116,7 +120,7 @@ void	print_ant(t_ant ant);
 void	send_ants(int num_ants, t_list **paths, int size);
 void	ant_push(t_list *path_ptr, t_list **queue);
 void	ant_pop(t_list ***queue, t_list **moving_ants, int size, int *cur_ant_num);
-void	find_the_best_paths_and_send_ants(t_list *sets, t_farm *farm);
+void	find_the_best_paths_and_send_ants(t_farm *farm, t_list **option1, t_list **option2);
 int		*get_numrooms(t_list **paths, int size);
 int count_printed_lines(int num_ants, int *queue, int size);
 
@@ -133,7 +137,7 @@ void	update_res_flow(t_room *end);
 void	update_fwd_flow(t_farm *farm, int flow);
 int		bfs_path_search(t_farm *farm, int option);
 t_list *reset_graph_save_paths(t_farm *farm);
-t_list *get_paths(t_farm *farm, int option);
+t_list **get_paths(t_farm *farm, int option);
 
 
 //void del_fn(void *content);

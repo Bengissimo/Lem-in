@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bfs.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/21 22:21:01 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/23 15:27:27 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,7 +239,25 @@ void update_fwd_flow(t_farm *farm, int flow)
 		the_node = the_node->parent;
 	}
 }
+/*
+void update_fwd_flow(t_farm *farm, int flow)
+{
+	t_node	*the_node;
+	t_edge	*the_edge;
+	t_dblist	*edges;
 
+	the_node = farm->end->in;
+	edges = NULL;
+	the_edge = NULL;
+	while (the_node)
+	{
+		if (the_node->parent)
+			edges = the_node->parent->edges.head;
+		set_edge_flow(the_node, edges, the_edge, flow);
+		the_node = the_node->parent;
+	}
+}
+*/
 t_list *mark_and_save_path(t_farm *farm, int flow)
 {
 	t_node *the_node;
@@ -271,7 +289,7 @@ void reset_mark(t_farm *farm)
 	}
 }
 
-/*void reset_all_flow(t_farm *farm)
+void reset_all_flow(t_farm *farm)
 {
 	while (bfs(farm, 1))
 	{
@@ -281,7 +299,8 @@ void reset_mark(t_farm *farm)
 	{
 		update_fwd_flow(farm, 0);
 	}
-}*/
+}
+
 
 static int    when_to_stop(int     *min_num_lines, t_list    **set_i, int index, t_farm *farm)
 {
@@ -290,9 +309,9 @@ static int    when_to_stop(int     *min_num_lines, t_list    **set_i, int index,
 
     queue = get_numrooms(set_i, index);
     num_lines = count_printed_lines(farm->num_ants, queue, index);
-    for (int i = 0; i < index; i++)
+    /*for (int i = 0; i < index; i++)
         printf("%d\n", queue[i]);
-    printf("\n");
+    printf("\n");*/
     if (num_lines >= *min_num_lines)
         return (1);
     else
@@ -300,46 +319,46 @@ static int    when_to_stop(int     *min_num_lines, t_list    **set_i, int index,
     return (0);
 }
 
-t_list *get_paths(t_farm *farm, int option)
+t_list **get_paths(t_farm *farm, int option)
 {
-	t_list	*sets;
 	t_list	**set_i;
 	t_list	**prev_set;
 	size_t	i;
 	size_t	j;
 	int		min_num_lines;
 	
-	i= 0;
+	i = 0;
 	prev_set = NULL;
 	min_num_lines = INT_MAX;
-	sets = NULL;
-	/*if (option == 2)
-	    reset_all_flow(farm);*/
+	if (option == 2)
+	    reset_all_flow(farm);
 	while(bfs(farm, 0))
 	{
 		update_res_flow(farm->end);
 		set_i = (t_list **)ft_memalloc((i + 1) * sizeof(t_list *));
-		//if (i > 0)
-			
 		j = 0;
 		while (j < i + 1 && bfs_path_search(farm, option))
 		{
 			set_i[j] = mark_and_save_path(farm, 2); //set fwd edge to 2
 			j++;
 		}
-		if (j)
-			ft_lstappend(&sets, lstnew_pointer(set_i));
 		i++;
 		reset_mark(farm);
-		//printf("YES\n");
 		if (when_to_stop(&min_num_lines, set_i, j, farm))
 		{
-			send_ants(farm->num_ants, prev_set, j - 1);
-			exit(1);
+			if (option == 1)
+				farm->index1 = i - 1;
+			else
+				farm->index2 = i - 1;
+			return (prev_set);
 		}
 		prev_set = set_i;
 	}
-	return (sets);
+	if (option == 1)
+		farm->index1 = i;
+	else
+		farm->index2 = i;
+	return (set_i);
 }
 
 

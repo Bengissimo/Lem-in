@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   send_ants.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 17:40:39 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/21 09:15:47 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/23 15:30:30 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,9 +164,9 @@ static void	print_flag_p(t_list **the_set, int num_lines, int i)
 {
 	printf("set %d:\n", i);
 	printf("Number of lines to print: %d\n", num_lines - 1);
-	print_paths(the_set, i + 1);
+	print_paths(the_set, i);
 }
-
+/*
 static int	the_best_path(t_list *sets, int num_ants, int flag_p)
 {
 	t_list **the_set;
@@ -200,22 +200,28 @@ static int	the_best_path(t_list *sets, int num_ants, int flag_p)
 	}
 	return (best_path);
 }
+*/
 
-void	find_the_best_paths_and_send_ants(t_list *sets, t_farm *farm)
+void	find_the_best_paths_and_send_ants(t_farm *farm, t_list **option1, t_list **option2)
 {
-	int		best_set_num;
-	int		i;
-	t_list	**the_set;
-	t_list	*curr;		
+    int    	num_lines_1;
+	int    	num_lines_2;
+    int    	*queue;
 
-	best_set_num = the_best_path(sets, farm->num_ants, farm->flag.p);
-	i = 0;
-	curr = sets;
-	while (i <= best_set_num)
-	{
-		the_set = curr->content;
-		i++;
-		curr = curr->next;
-	}
-	send_ants(farm->num_ants, the_set, best_set_num + 1);
+	
+    queue = get_numrooms(option1, farm->index1);
+    num_lines_1 = count_printed_lines(farm->num_ants, queue, farm->index1);
+	//printf("%d\n", num_lines_1);
+	free(queue);
+	queue = get_numrooms(option2, farm->index2);
+    num_lines_2 = count_printed_lines(farm->num_ants, queue, farm->index2);
+	//printf("%d\n", num_lines_2);
+	free(queue);
+	//print_flag_p(option1, num_lines_1, farm->index1);
+	//printf("%p, %d, %d\n", option1, num_lines_1, farm->index1);
+	print_flag_p(option2, num_lines_2, farm->index2);
+    if (num_lines_1 < num_lines_2)
+		send_ants(farm->num_ants, option1, farm->index1);
+	else
+		send_ants(farm->num_ants, option2, farm->index2);
 }
