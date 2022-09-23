@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_rooms.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 10:00:16 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/20 13:05:52 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/23 11:42:39 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,24 +19,26 @@ static int	is_room_name_valid(char *line)
 	return (TRUE);
 }
 
-char	**get_room_lines(char *line)
+char	**get_room_lines(char **line, t_farm *farm)
 {
 	char	**str;
 
-	if (ft_strlen(line) == 0)
+	if (ft_strlen(*line) == 0)
 		return (NULL);
-	str = ft_strsplit(line, ' ');
+	str = ft_strsplit(*line, ' ');
 	if (str == NULL)
 		return (NULL);
 	if (!is_room_name_valid(str[0]))
-	{
-		free_split(&str);
-		return (NULL);
-	}
+		error_free_split_line(farm, NULL, line, "Room begins with L");
+	if ((check_int(str[0]) && str[1] == NULL))
+		error_free_split_line(farm, NULL, line, "Double ant number");
 	if (!(check_int(str[1]) && check_int(str[2]) && !str[3]))
 	{
-		free_split(&str);
-		return (NULL);
+		if (str[3])
+			error_free_split_line(farm, NULL, line, "Characters after coordinates");
+		if (check_int(str[0]) && str[1] == NULL)
+			error_free_split_line(farm, NULL, line, "Double ant number");
+		error_free_split_line(farm, NULL, line, "Coordinates are not integers");
 	}
 	return (str);
 }
@@ -84,7 +86,6 @@ int	append_room(t_farm *farm, t_room *room)
 	t_dblist	*new;
 
 	new = ft_dblstnew_pointer((void *)room);
-	//farm->hashmap = ft_memalloc(HASH * sizeof(t_list *));
 	if (!new)
 		return (0);
 	ft_dynlstappend(&farm->rooms, new);
@@ -96,6 +97,7 @@ int	append_room(t_farm *farm, t_room *room)
 t_node	*create_node(char **str, int in_out)  //if 1 in, if 0 out, start or end 2
 {
 	t_node *node;
+	
 	if (!str)
 		return (NULL);
 	node = ft_memalloc(sizeof(*node));
