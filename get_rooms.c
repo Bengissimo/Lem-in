@@ -6,7 +6,7 @@
 /*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 10:00:16 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/23 11:42:39 by ykot             ###   ########.fr       */
+/*   Updated: 2022/09/23 17:10:22 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,18 @@ static int	is_room_name_valid(char *line)
 		return (FALSE);
 	return (TRUE);
 }
+/*
+static int is_room_exist(t_farm *farm, char *str)
+{
+	t_dblist *temp;
+
+	temp = farm->rooms.head;
+	while (temp)
+	{
+		if (ft_strequ(str, temp->content))
+		temp = temp->next;
+	}
+}*/
 
 char	**get_room_lines(char **line, t_farm *farm)
 {
@@ -40,6 +52,8 @@ char	**get_room_lines(char **line, t_farm *farm)
 			error_free_split_line(farm, NULL, line, "Double ant number");
 		error_free_split_line(farm, NULL, line, "Coordinates are not integers");
 	}
+	/*if (is_room_exist(farm, str[0]))
+		error_free_split_line(farm, NULL, line, "Duplicate room");*/
 	return (str);
 }
 
