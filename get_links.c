@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_links.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 10:50:17 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/20 13:09:37 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/23 16:48:27 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,35 +51,6 @@ static int	make_adj_list(t_room *room1, t_room *room2) // modify this to put roo
 	return (TRUE);
 }
 
-/*int	parse_links(t_farm *farm, char *line)
-{
-	size_t	i;
-	char	*first;
-	char	*second;
-	t_room	*room1;
-	t_room	*room2;
-
-	i = 0;
-	while (line[i])
-	{
-		if (line[i] == '-')
-		{
-			first = ft_memalloc(i + 1);
-			if (!first)
-				return (FALSE);
-			ft_strncpy(first, line, i);
-			second = line + i + 1;
-			room1 = hashmap_get(farm, first);
-			room2 = hashmap_get(farm, second);
-			ft_strdel(&first);
-			if (room1 && room2 && make_adj_list(room1, room2))
-				return (TRUE);
-		}
-		i++;
-	}
-	return (FALSE);
-}*/
-
 void parse_links(t_farm *farm, char *line)
 {
 	char	*first;
@@ -89,6 +60,8 @@ void parse_links(t_farm *farm, char *line)
 	char **split_link;
 
 	split_link = ft_strsplit(line, '-');
+		if (split_link[0] && split_link[1] && split_link[2])
+		error_free_split_line(farm, &split_link, &line, "Wrong link");
 	if (!split_link[0] || !split_link[1] || split_link[2])
 		error_free_split_line(farm, &split_link, &line, "Memory allocation");
 	first = split_link[0];
@@ -96,7 +69,7 @@ void parse_links(t_farm *farm, char *line)
 	room1 = (t_room *)hashmap_get(farm->hashmap, first);
 	room2 = (t_room *)hashmap_get(farm->hashmap, second);
 	if (!room1 || !room2)
-		error_free_split_line(farm, &split_link, &line, "Memory allocation");
+		error_free_split_line(farm, &split_link, &line, "Wrong link");
 	if (!make_adj_list(room1, room2))
 		error_free_split_line(farm, &split_link, &line, "Memory allocation");
 	free_split(&split_link);
