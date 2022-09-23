@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/23 18:33:15 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/23 19:41:58 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct	s_node
 	struct		s_node *parent;
 	t_dynlist		edges; // dynlist
 	struct		s_room *source;
+	size_t level_end;
 }				t_node;
 
 typedef struct	s_room
@@ -149,6 +150,10 @@ t_list **get_paths(t_farm *farm, int option);
 t_list *mark_and_save_path(t_farm *farm, int flow);
 void reset_mark(t_farm *farm);
 
+int bfs_level_end(t_farm *farm);
+void bubblesort(t_dblist *edges);
+
+
 
 //void del_fn(void *content);
 
@@ -157,6 +162,9 @@ void reset_mark(t_farm *farm);
 //printing paths
 void print_paths(t_list **paths, size_t flow);
 void print_path_sets(t_list *sets);
+
+void print_adj_list(t_farm farm);
+
 
 
 #endif

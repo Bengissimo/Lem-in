@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_links.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 10:50:17 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/23 16:48:27 by ykot             ###   ########.fr       */
+/*   Updated: 2022/09/23 18:57:03 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	append_edge(t_node *node, t_edge *edge)  // rooms will be changed to nodes h
 	 ^							  |
 	 |							  |
 	  -----------------------------
-*/
+
 static int	make_adj_list(t_room *room1, t_room *room2) // modify this to put room_in room_out links
 {
 	t_edge *edge1_in;
@@ -48,6 +48,22 @@ static int	make_adj_list(t_room *room1, t_room *room2) // modify this to put roo
 		if (!append_edge(room2->out, edge1_in))
 			return (FALSE);
 	}
+	return (TRUE);
+}*/
+
+static int	make_adj_list(t_room *room1, t_room *room2)
+{
+	t_edge *edge1_in;
+	t_edge *edge2_in;
+
+	edge1_in = NULL;
+	edge2_in = NULL;
+	edge2_in = create_edge(room2->in);
+	if (!append_edge(room1->out, edge2_in))
+		return (FALSE);
+	edge1_in = create_edge(room1->in);
+	if (!append_edge(room2->out, edge1_in))
+		return (FALSE);
 	return (TRUE);
 }
 

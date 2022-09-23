@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_command.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 10:49:49 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/22 23:30:33 by ykot             ###   ########.fr       */
+/*   Updated: 2022/09/23 19:06:13 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // might be organised better, to do later
 
-static void	init_start_end_nodes(t_farm *farm, int start_flag, t_room *room, t_node *node)
+/*static void	init_start_end_nodes(t_farm *farm, int start_flag, t_room *room, t_node *node)
 {
 	if (start_flag)
 	{
@@ -28,9 +28,30 @@ static void	init_start_end_nodes(t_farm *farm, int start_flag, t_room *room, t_n
 		room->in = node; //end room has just in node
 		room->in->source = room;
 	}
+}*/
+
+static void	init_start_end_nodes(t_farm *farm, int start_flag, t_room *room, t_node *node_in, t_node *node_out)
+{
+	if (start_flag)
+	{
+		farm->start = room;
+		room->out = node_out;
+		room->in = node_in;
+		room->out->source = room;
+		room->in->source = room;
+	}
+	else
+	{
+		farm->end = room;
+		room->out = node_out;
+		room->in = node_in;
+		room->out->source = room;
+		room->in->source = room;
+	}
+	
 }
 
-static void	get_command(t_farm *farm, char **line, int start_flag)
+/*static void	get_command(t_farm *farm, char **line, int start_flag)
 {
 	char	**str;
 	t_room *room;
@@ -45,6 +66,27 @@ static void	get_command(t_farm *farm, char **line, int start_flag)
 	if (!room || !node)
 		error_free_split_line(farm, NULL, line, "Memory allocation");
 	init_start_end_nodes(farm, start_flag, room, node);
+	if (!append_room(farm, room))
+		error_free_split_line(farm, NULL, line, "Memory allocation");
+}*/
+
+static void	get_command(t_farm *farm, char **line, int start_flag)
+{
+	char	**str;
+	t_room *room;
+	t_node *node_in;
+	t_node *node_out;
+
+	str = get_room_lines(line, farm);  
+	if (!str)
+		error_free_split_line(farm, NULL, line, "Memory allocation");
+	room = create_room(str);
+	node_in = create_node(str, 1);
+	node_out = create_node(str, 0);
+	free_split(&str);
+	if (!room || !node_in || !node_out)
+		error_free_split_line(farm, NULL, line, "Memory allocation");
+	init_start_end_nodes(farm, start_flag, room, node_in, node_out);
 	if (!append_room(farm, room))
 		error_free_split_line(farm, NULL, line, "Memory allocation");
 }

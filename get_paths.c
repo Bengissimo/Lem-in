@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 16:52:36 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/23 18:25:57 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/23 19:33:59 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,14 @@ t_list	**get_paths(t_farm *farm, int option)
 	if (option == 2)
 		//reset_mark(farm);
 		reset_all_flow(farm);
+	/*if (option == 3)
+	{
+		reset_all_flow(farm);
+		bubblesort(edges);
+	}*/
 	while (bfs(farm, 0))
 	{
+		//if (option != 3)
 		update_res_flow(farm);
 		set_i = (t_list **)ft_memalloc((i + 1) * sizeof(t_list *));
 		j = 0;

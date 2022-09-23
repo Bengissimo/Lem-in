@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 13:05:24 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/23 18:32:43 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/23 19:13:12 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,46 @@
 		rooms = rooms->next;
 	}
 }*/
+
+void print_adj_list(t_farm farm) //just to see what we have in adj_list, will be removed later
+{
+	t_dblist *rooms;
+	t_room *the_room;
+	t_dblist	*edges;
+	t_edge	*the_edge;
+
+	rooms = farm.rooms.head;
+	while (rooms)
+	{
+		the_room = rooms->content;
+		printf("the room %s:\n", the_room->name);
+		if (the_room->in)
+		{
+			printf("%s (level_e: %d)-> ",the_room->in->name, (int)the_room->in->level_end);
+			edges = the_room->in->edges.head;
+			while (edges)
+			{
+				the_edge = edges->content;
+				printf("%s (flow: %d) - ", the_edge->to->name, the_edge->flow);
+				edges = edges->next;
+			}
+			printf("\n");
+		}
+		if (the_room->out)
+		{
+			printf("%s (level_e: %d)-> ", the_room->out->name, (int)the_room->out->level_end);
+			edges = the_room->out->edges.head;
+			while (edges)
+			{
+				the_edge = edges->content;
+				printf("%s (flow: %d) - ", the_edge->to->name, the_edge->flow);
+				edges = edges->next;
+			}
+			printf("\n");
+		}
+		rooms = rooms->next;
+	}
+}
 
 void	print_paths(t_list **paths, size_t flow)
 {
