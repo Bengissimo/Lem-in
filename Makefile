@@ -6,7 +6,7 @@
 #    By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/24 17:18:57 by bkandemi          #+#    #+#              #
-#    Updated: 2022/09/20 12:16:36 by bkandemi         ###   ########.fr        #
+#    Updated: 2022/09/23 17:37:11 by bkandemi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,6 @@ NAME = lem-in
 
 C_FILES = *.c
 		
-
 O_FILES = $(C_FILES:.c=.o)
 
 CC = gcc -g

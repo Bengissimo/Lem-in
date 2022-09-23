@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem-in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/23 14:39:41 by ykot             ###   ########.fr       */
+/*   Updated: 2022/09/23 18:33:15 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,16 +128,26 @@ int count_printed_lines(int num_ants, int *queue, int size);
 t_list	*lstnew_pointer(void *content);
 void	lstdel(t_list **alst);
 
+/* bfs utils */
+void q_push(t_list **queue, t_node *the_node);
+t_node *q_pop(t_list **queue);
+int	free_and_exit_bfs(t_list **queue, t_list **visited, int exit);
+
+/* bfs */
+int		bfs(t_farm *farm, int flow);
+int		bfs_path(t_farm *farm, int option);
+
 /* algo */
 t_node	*create_node(char **str, int in);
 t_edge	*create_edge(t_node *node);
 int		append_edge(t_node *node, t_edge *edge);
-int		bfs(t_farm *farm, int flow);
-void	update_res_flow(t_room *end);
+void	update_res_flow(t_farm *farm);
 void	update_fwd_flow(t_farm *farm, int flow);
-int		bfs_path_search(t_farm *farm, int option);
+
 t_list *reset_graph_save_paths(t_farm *farm);
 t_list **get_paths(t_farm *farm, int option);
+t_list *mark_and_save_path(t_farm *farm, int flow);
+void reset_mark(t_farm *farm);
 
 
 //void del_fn(void *content);
