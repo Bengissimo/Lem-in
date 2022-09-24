@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 17:07:05 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/23 18:21:06 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/23 23:49:26 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,9 @@ t_list	*mark_and_save_path(t_farm *farm, int flow)
 	edges = NULL;
 	the_path = NULL;
 	the_edge = NULL;
-	while (the_node)
+	while (the_node && the_node != farm->start->out)
 	{
+		printf("mark\n");
 		if (the_node->parent)
 			edges = the_node->parent->edges.head;
 		set_edge_flow(the_node, edges, the_edge, flow);

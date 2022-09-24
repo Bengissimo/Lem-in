@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   send_ants.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 17:40:39 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/23 15:30:30 by ykot             ###   ########.fr       */
+/*   Updated: 2022/09/23 22:33:23 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,10 +202,11 @@ static int	the_best_path(t_list *sets, int num_ants, int flag_p)
 }
 */
 
-void	find_the_best_paths_and_send_ants(t_farm *farm, t_list **option1, t_list **option2)
+void	find_the_best_paths_and_send_ants(t_farm *farm, t_list **option1, t_list **option2, t_list **option3)
 {
     int    	num_lines_1;
 	int    	num_lines_2;
+	int num_lines_3;
     int    	*queue;
 
 	
@@ -217,11 +218,22 @@ void	find_the_best_paths_and_send_ants(t_farm *farm, t_list **option1, t_list **
     num_lines_2 = count_printed_lines(farm->num_ants, queue, farm->index2);
 	//printf("%d\n", num_lines_2);
 	free(queue);
+	num_lines_3 = count_printed_lines(farm->num_ants, queue, farm->index3);
 	//print_flag_p(option1, num_lines_1, farm->index1);
 	//printf("%p, %d, %d\n", option1, num_lines_1, farm->index1);
+	print_flag_p(option1, num_lines_1, farm->index1);
 	print_flag_p(option2, num_lines_2, farm->index2);
-    if (num_lines_1 < num_lines_2)
+	print_flag_p(option3, num_lines_3, farm->index3);
+    if (num_lines_1 < num_lines_2 && num_lines_1 < num_lines_3)
+	{
 		send_ants(farm->num_ants, option1, farm->index1);
-	else
+	}
+	else if (num_lines_2 < num_lines_1 && num_lines_2 < num_lines_3)
+	{
 		send_ants(farm->num_ants, option2, farm->index2);
+	}
+	else
+	{
+		send_ants(farm->num_ants, option3, farm->index3);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:22:20 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/23 19:42:56 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/23 23:47:51 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ int	main(int argc, char **argv)
 	t_farm	farm;
 	t_list **option1;
 	t_list **option2;
+	t_list **option3;
 
 	init_farm(&farm);
 	if (read_options(&farm, argc, argv))
@@ -113,15 +114,21 @@ int	main(int argc, char **argv)
 	read_input(&farm);
 	print_farm(farm);
 	bfs_level_end(&farm);
+
+	option3 = last_option(&farm);
 	print_adj_list(farm);
-	
-	/*option1 = get_paths(&farm, 1); // some maps are still better with option1
+	reset_all_flow(&farm);
+	//print_adj_list(farm);
+	option1 = get_paths(&farm, 1); // some maps are still better with option1
 	if (option1 == NULL)
 		error(&farm, "No path to end");
 	option2 = get_paths(&farm, 2);
-	find_the_best_paths_and_send_ants(&farm, option1, option2);
+	
+	
+	find_the_best_paths_and_send_ants(&farm, option1, option2, option3);
 	free_set_i(option1, farm.index1);
-	free_set_i(option2, farm.index2);*/
+	free_set_i(option2, farm.index2);
+	free_set_i(option3, farm.index3);
 	free_farm(&farm);
 	//system("leaks lem-in >> leaks.txt"); //do not run this with make debug or with valgrind, if you do so, first call make fclean and call make re
 	return (0);

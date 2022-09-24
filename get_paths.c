@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 16:52:36 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/23 19:33:59 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/23 23:48:46 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,48 @@ void	update_fwd_flow(t_farm *farm, int flow)
 	}
 }
 
+static void	set_edge_flow(t_node *the_node, t_dblist *edges,
+	t_edge *the_edge, int flow)
+{
+	while (edges)
+	{
+		the_edge = edges->content;
+		if (the_edge->to == the_node)
+		{
+			the_edge->flow = flow;
+			break ;
+		}
+		edges = edges->next;
+	}
+}
+
+void reset_fwd_flow(t_farm *farm, int flow)
+{
+	t_node	*the_node;
+	t_edge	*the_edge;
+	t_dblist	*edges;
+
+	the_node = farm->end->in;
+	edges = NULL;
+	the_edge = NULL;
+	while (the_node)
+	{
+		if (the_node->parent)
+			edges = the_node->parent->edges.head;
+		set_edge_flow(the_node, edges, the_edge, flow);
+		the_node = the_node->parent;
+	}
+}
+
 void	reset_all_flow(t_farm *farm)
 {
 	while (bfs(farm, 1))
 	{
-		update_fwd_flow(farm, 0);
+		reset_fwd_flow(farm, 0);
 	}
 	while (bfs(farm, 2))
 	{
-		update_fwd_flow(farm, 0);
+		reset_fwd_flow(farm, 0);
 	}
 }
 
@@ -86,11 +119,6 @@ t_list	**get_paths(t_farm *farm, int option)
 	if (option == 2)
 		//reset_mark(farm);
 		reset_all_flow(farm);
-	/*if (option == 3)
-	{
-		reset_all_flow(farm);
-		bubblesort(edges);
-	}*/
 	while (bfs(farm, 0))
 	{
 		//if (option != 3)
@@ -119,4 +147,74 @@ t_list	**get_paths(t_farm *farm, int option)
 	else
 		farm->index2 = i;
 	return (set_i);
+}
+
+static int find_edge_new(t_node *the_node, t_list **visited, t_farm *farm)
+{
+	t_dblist	*edges;
+	t_edge	*the_edge;
+	t_node	*child;
+
+	edges = the_node->edges.head;
+	hashmap_set(visited, the_node->name, the_node);
+	//printf("visited: %s\n", the_node->name);
+	//print_adj_list(*farm);
+	bubblesort(edges);
+	//printf("after sort\n");
+	//print_adj_list(*farm);
+	while (edges)
+	{
+		//printf("fgfgfghf\n");
+		the_edge = edges->content;
+		child = the_edge->to;
+		child->parent = the_node;
+		//printf("child_name: %s\n", child->name);
+		if(child == farm->end->in)
+		{
+			//child->parent = the_node;
+			//printf("end parnet name: %s\n", child->parent->name);
+			//printf("dfs count\n");
+			return (1);
+		}
+		if (!is_in(visited, child->name) && the_edge->to->level_end && the_edge->flow == 0)
+		{
+			//child->parent = the_node;
+			//printf("parnet name: %s\n", child->parent->name);
+			if (find_edge_new(child, visited, farm))
+				return (1);
+		}
+		edges = edges->next;
+	}
+	return (0);
+}
+
+int dfs_path(t_farm *farm)
+{
+	t_list **visited;
+	
+	//printf("DFS\n");
+	visited = (t_list **)ft_memalloc(HASH * sizeof(t_list *));
+	hashmap_set(visited, farm->start->in->name, farm->start->in);
+	if (find_edge_new(farm->start->out, visited, farm))
+		return (1);
+	return (0);
+}
+
+t_list **last_option(t_farm *farm)
+{
+	t_list	**set;
+	size_t	i;
+
+	i = 0;
+	//reset_all_flow(farm);
+	set = (t_list **)ft_memalloc(farm->index1 * (sizeof(t_list *)));;
+	while (dfs_path(farm))
+	{
+		printf("BU BU\n");
+		set[i] = mark_and_save_path(farm, 2);
+		i++;
+	}
+	farm->index3 = i;
+	printf("index: %d\n", farm->index3);
+	return (set);
 }
