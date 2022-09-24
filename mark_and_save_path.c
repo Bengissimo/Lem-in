@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 17:07:05 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/23 18:21:06 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/24 08:55:31 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	reset_mark(t_farm *farm)
 	}
 }
 
-static void	set_edge_flow(t_node *the_node, t_dblist *edges,
+void	set_edge_flow(t_node *the_node, t_dblist *edges,
 	t_edge *the_edge, int flow)
 {
 	while (edges)

@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 16:52:36 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/23 18:25:57 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/24 08:56:07 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,33 @@ void	update_fwd_flow(t_farm *farm, int flow)
 	}
 }
 
+void reset_fwd_flow(t_farm *farm, int flow)
+{
+	t_node	*the_node;
+	t_edge	*the_edge;
+	t_dblist	*edges;
+
+	the_node = farm->end->in;
+	edges = NULL;
+	the_edge = NULL;
+	while (the_node)
+	{
+		if (the_node->parent)
+			edges = the_node->parent->edges.head;
+		set_edge_flow(the_node, edges, the_edge, flow);
+		the_node = the_node->parent;
+	}
+}
+
 void	reset_all_flow(t_farm *farm)
 {
 	while (bfs(farm, 1))
 	{
-		update_fwd_flow(farm, 0);
+		reset_fwd_flow(farm, 0);
 	}
 	while (bfs(farm, 2))
 	{
-		update_fwd_flow(farm, 0);
+		reset_fwd_flow(farm, 0);
 	}
 }
 
@@ -83,9 +101,9 @@ t_list	**get_paths(t_farm *farm, int option)
 	i = 0;
 	prev_set = NULL;
 	min_num_lines = INT_MAX;
-	if (option == 2)
+	//if (option == 2)
 		//reset_mark(farm);
-		reset_all_flow(farm);
+	reset_all_flow(farm);
 	while (bfs(farm, 0))
 	{
 		update_res_flow(farm);
@@ -113,4 +131,20 @@ t_list	**get_paths(t_farm *farm, int option)
 	else
 		farm->index2 = i;
 	return (set_i);
+}
+
+t_list **shortest(t_farm *farm)
+{
+	t_list **shortest_set;
+	size_t i;
+
+	i = 0;
+	shortest_set = (t_list **)ft_memalloc(farm->index1 * (sizeof(t_list *)));
+	while (bfs(farm, 0))
+	{
+		shortest_set[i] = mark_and_save_path(farm, 2);
+		i++;
+	}
+	farm->index3 = i;
+	return (shortest_set);
 }
