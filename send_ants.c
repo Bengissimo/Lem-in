@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   send_ants.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 17:40:39 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/23 15:30:30 by ykot             ###   ########.fr       */
+/*   Updated: 2022/09/26 11:12:32 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,11 +217,17 @@ void	find_the_best_paths_and_send_ants(t_farm *farm, t_list **option1, t_list **
     num_lines_2 = count_printed_lines(farm->num_ants, queue, farm->index2);
 	//printf("%d\n", num_lines_2);
 	free(queue);
-	//print_flag_p(option1, num_lines_1, farm->index1);
+	//
 	//printf("%p, %d, %d\n", option1, num_lines_1, farm->index1);
-	print_flag_p(option2, num_lines_2, farm->index2);
+	
     if (num_lines_1 < num_lines_2)
+	{
+		print_flag_p(option1, num_lines_1, farm->index1);
 		send_ants(farm->num_ants, option1, farm->index1);
+	}
 	else
+	{
+		print_flag_p(option2, num_lines_2, farm->index2);
 		send_ants(farm->num_ants, option2, farm->index2);
+	}
 }
