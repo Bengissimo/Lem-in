@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:22:20 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/23 14:45:51 by ykot             ###   ########.fr       */
+/*   Updated: 2022/09/27 11:16:25 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,13 +112,13 @@ int	main(int argc, char **argv)
 		error(&farm, "Wrong arguments");
 	read_input(&farm);
 	print_farm(farm);
-	option1 = get_paths(&farm, 1); // some maps are still better with option1
+	option1 = get_paths(&farm, 2); // some maps are still better with option1
 	if (option1 == NULL)
 		error(&farm, "No path to end");
-	option2 = get_paths(&farm, 2);
-	find_the_best_paths_and_send_ants(&farm, option1, option2);
+	//option2 = get_paths(&farm, 2);
+	//find_the_best_paths_and_send_ants(&farm, option1, option2);
 	free_set_i(option1, farm.index1);
-	free_set_i(option2, farm.index2);
+	//free_set_i(option2, farm.index2);
 	free_farm(&farm);
 	//system("leaks lem-in >> leaks.txt"); //do not run this with make debug or with valgrind, if you do so, first call make fclean and call make re
 	return (0);

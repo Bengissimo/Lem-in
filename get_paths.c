@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 16:52:36 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/26 11:22:01 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/27 11:19:00 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ static int	when_to_stop(int *min_num_lines, t_list **set_i,
 t_list	**get_paths(t_farm *farm, int option)
 {
 	t_list	**set_i;
+	t_list **alternative;
 	t_list	**prev_set;
 	size_t	i;
 	size_t	j;
@@ -108,15 +109,19 @@ t_list	**get_paths(t_farm *farm, int option)
 	{
 		update_res_flow(farm);
 		set_i = (t_list **)ft_memalloc((i + 1) * sizeof(t_list *));
+		alternative = (t_list **)ft_memalloc((i + 1) * sizeof(t_list *));
 		j = 0;
 		while (j < i + 1 && bfs_path(farm, option))
 		{
 			set_i[j] = mark_and_save_path(farm, 2);
 			j++;
 		}
+		
 		i++;
+		print_paths(set_i, j);
+		printf("-----\n");
 		reset_mark(farm);
-		if (when_to_stop(&min_num_lines, set_i, j, farm))
+		/*if (when_to_stop(&min_num_lines, set_i, j, farm))
 		{
 			if (option == 1)
 				farm->index1 = i - 1;
@@ -124,7 +129,7 @@ t_list	**get_paths(t_farm *farm, int option)
 				farm->index2 = i - 1;
 			return (prev_set);
 		}
-		prev_set = set_i;
+		prev_set = set_i;*/
 	}
 	if (option == 1)
 		farm->index1 = i;
