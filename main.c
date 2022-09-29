@@ -3,23 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:22:20 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/28 23:19:32 by ykot             ###   ########.fr       */
+/*   Updated: 2022/09/29 13:31:13 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "lem-in.h"
 
-static void init_farm(t_farm *farm)
+static void	init_farm(t_farm *farm)
 {
 	ft_bzero(farm, sizeof(*farm));
 	farm->hashmap = ft_memalloc(HASH * sizeof(t_list *));
 }
 
-static void print_help(t_farm *farm)
+static void	print_help(t_farm *farm)
 {
 	ft_putstr("Usage: ./lem-in [OPTION] < valid map\n\n");
 	ft_putstr(" -h\thelp\n");
