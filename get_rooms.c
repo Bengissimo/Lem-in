@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_rooms.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 10:00:16 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/23 17:10:22 by ykot             ###   ########.fr       */
+/*   Updated: 2022/09/29 13:10:23 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,9 +114,9 @@ t_node	*create_node(char **str, int in_out)  //if 1 in, if 0 out, start or end 2
 	
 	if (!str)
 		return (NULL);
-	node = ft_memalloc(sizeof(*node));
+	node = (t_node *)ft_memalloc(sizeof(*node));
 	if (in_out == 1)
-		node->name = ft_strjoin(str[0], "_in"); // TO DO: free
+		node->name = ft_strjoin(str[0], "_in");
 	else if (in_out == 0)
 		node->name = ft_strjoin(str[0], "_out");
 	else

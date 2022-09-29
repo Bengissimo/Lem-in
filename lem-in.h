@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/29 12:51:48 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/29 13:24:12 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,9 @@ int		bfs_path(t_farm *farm, int option);
 t_node	*create_node(char **str, int in);
 t_edge	*create_edge(t_node *node);
 int		append_edge(t_node *node, t_edge *edge);
+
+
+
 void	update_res_flow(t_farm *farm);
 void	update_fwd_flow(t_farm *farm, int flow);
 
