@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_paths.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 16:52:36 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/29 09:24:02 by ykot             ###   ########.fr       */
+/*   Updated: 2022/09/29 16:22:40 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ t_list	**get_paths(t_farm *farm, int option)
 
 	init_get_paths(&i, &min_num_lines, &set_i, &prev_set);
 	if (option == 2)
-		//reset_mark(farm);
 		reset_all_flow(farm);
 	while (bfs(farm, 0))
 	{

@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/29 13:24:12 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/29 16:18:25 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,29 @@
 
 # define HASH 1109
 # define INT_MAX 2147483647
+
+# define ERR_MEM_ALLOC "Memory allocation"
+# define ERR_INPUT "File is empty or no input"
+# define ERR_ANT_NOT_INT "The number of ants is not an integer"
+# define ERR_ANT_NB "The number of ants less or equal to zero"
+# define ERR_ROOM "No rooms"
+# define ERR_LINK "No links"
+# define ERR_MAP "Invalid map"
+# define ERR_EMP_LINE "Empty line"
+# define ERR_MLTP_ARGS "More than one argument"
+# define ERR_ARGS "Wrong arguments"
+# define ERR_NO_PATH "No path to end"
+
+# define USAGE "Usage: ./lem-in [OPTION] < valid map\n\n"
+# define HELP " -h\thelp\n"
+# define PRINT " -p\tprint sets of possible paths and number of lines to print\n"
+# define VISUAL " -v\tused with visualizer\n"
+# define VIS_USAGE "./lem-in -v < valid map | python3 visualizer.py [OPTION]\n\n"
+# define COORD " --coord\tto use coordinates, random nodes position by default\n"
+# define VIS_SLOW " --slow\tslow animation of moving ants\n"
+# define VIS_FAST " --fast\tfast animation of moving ants\n\n"
+# define VIS_INFO "Visualizer uses networkx, matplotlib, numpy, scipy. "
+# define WARNING "Be sure that you have these packages installed\n"
 
 typedef struct	s_coord
 {

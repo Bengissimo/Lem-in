@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_fwd_flow.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 14:09:13 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/25 14:09:24 by ykot             ###   ########.fr       */
+/*   Updated: 2022/09/29 16:21:24 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ void	reset_all_flow(t_farm *farm)
 {
 	while (bfs(farm, 1))
 	{
-		update_fwd_flow(farm, 0);
+		update_fwd_flow(farm, 0);  //this should be reset_fwd flow
 	}
 	while (bfs(farm, 2))
 	{
-		update_fwd_flow(farm, 0);
+		update_fwd_flow(farm, 0); //this should be reset_fwd flow
 	}
 }
