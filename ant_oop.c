@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ant_oop.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 15:57:05 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/24 10:09:09 by ykot             ###   ########.fr       */
+/*   Updated: 2022/09/29 12:49:08 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,12 @@ int	ant_push(t_list *path_ptr, t_list **queue)
 	return (0);
 }
 
-void   ant_pop(t_list ***queue, t_list **moving_ants, int size, int *cur_ant_num)
+void	ant_pop(t_list ***queue, t_list **moving_ants,
+	int size, int *cur_ant_num)
 {
 	t_list	*elem;
-	int i;
-	
+	int		i;
+
 	i = 0;
 	while (i < size)
 	{
