@@ -3,33 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 14:43:14 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/28 22:28:42 by ykot             ###   ########.fr       */
+/*   Updated: 2022/09/29 12:52:32 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem-in.h"
-
-/*void	lstdel(t_list **alst) //still need this to free hashmap list?!?!
-{
-	t_list	*curr;
-	t_list	*next;
-
-	if (!alst || !*alst)
-		return ;
-	curr = *alst;
-	while (curr)
-	{
-		next = curr->next;
-		if (curr->content_size)
-			free(curr->content);
-		free(curr);
-		curr = next;
-	}
-	*alst = NULL;
-}*/
 
 void	free_split(char ***str)
 {
@@ -61,7 +42,8 @@ void	error(t_farm *farm, char *er_str)
 	exit(1);
 }
 
-void	error_free_split_line(t_farm *farm, char ***str, char **line, char *er_str)
+void	error_free_split_line(t_farm *farm, char ***str,
+	char **line, char *er_str)
 {
 	free_split(str);
 	ft_strdel(line);

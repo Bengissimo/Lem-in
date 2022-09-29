@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem-in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/29 09:19:28 by ykot             ###   ########.fr       */
+/*   Updated: 2022/09/29 12:51:48 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,6 @@ int 	count_printed_lines(int num_ants, int *queue, int size);
 
 /* other */
 t_list	*lstnew_pointer(void *content);
-void	lstdel(t_list **alst);
 
 /* bfs utils */
 void q_push(t_list **queue, t_node *the_node);
