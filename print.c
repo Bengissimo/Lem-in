@@ -3,59 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 13:05:24 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/29 09:08:44 by ykot             ###   ########.fr       */
+/*   Updated: 2022/09/29 13:47:02 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem-in.h"
 
-/*static void print_adj_list(t_farm farm) //just to see what we have in adj_list, will be removed later
+static void	iterate_list_print_room(t_farm *farm, t_list *list)
 {
-	t_list *rooms;
-	t_room *the_room;
-	t_list	*edges;
-	t_edge	*the_edge;
+	char	*the_room;
 
-	rooms = farm.rooms;
-	while (rooms)
+	while (list)
 	{
-		the_room = rooms->content;
-		printf("the room %s:\n", the_room->name);
-		if (the_room->in)
-		{
-			printf("%s -> ",the_room->in->name);
-			edges = the_room->in->edges;
-			while (edges)
-			{
-				the_edge = edges->content;
-				printf("%s (flow: %d) - ", the_edge->to->name, the_edge->flow);
-				edges = edges->next;
-			}
-			printf("\n");
-		}
-		if (the_room->out)
-		{
-			printf("%s -> ", the_room->out->name);
-			edges = the_room->out->edges;
-			while (edges)
-			{
-				the_edge = edges->content;
-				printf("%s (flow: %d) - ", the_edge->to->name, the_edge->flow);
-				edges = edges->next;
-			}
-			printf("\n");
-		}
-		rooms = rooms->next;
+		the_room = list->content;
+		if (farm->flag.v)
+			ft_printf("%s ", the_room);
+		else
+			ft_printf("%s > ", the_room);
+		list = list->next;
 	}
-}*/
+}
 
 void	print_paths(t_farm *farm, t_list **paths, size_t flow)
 {
 	size_t	i;
-	char	*the_room;
 	t_list	*list;
 	size_t	len;
 
@@ -68,15 +42,7 @@ void	print_paths(t_farm *farm, t_list **paths, size_t flow)
 		len = ft_lstsize(paths[i]);
 		if (farm->flag.v)
 			ft_printf("%s ", farm->start->name);
-		while (list)
-		{
-			the_room = list->content;
-			if (farm->flag.v)
-				ft_printf("%s ", the_room);
-			else
-				ft_printf("%s > ", the_room);
-			list = list->next;
-		}
+		iterate_list_print_room(farm, list);
 		if (farm->flag.p)
 			ft_printf(" -path_len: %d- ", (int)len);
 		if (!farm->flag.v)
@@ -87,25 +53,6 @@ void	print_paths(t_farm *farm, t_list **paths, size_t flow)
 	ft_putendl("");
 }
 
-/*
-void	print_path_sets(t_list *sets)
-{
-	size_t	i;
-	t_list	**the_set;
-	t_list	*curr;
-
-	i = 0;
-	curr = sets;
-	while (curr)
-	{
-		the_set = curr->content;
-		printf("set %d:\n", (int)i);
-		print_paths(the_set, i + 1);
-		i++;
-		curr = curr->next;
-	}
-}
-*/
 static	void	print_input(t_farm farm)
 {
 	t_dblist	*tempptr;
@@ -119,8 +66,7 @@ static	void	print_input(t_farm farm)
 }
 
 void	print_farm(t_farm farm)
-{ 
+{
 	print_input(farm);
-	//ft_putendl("---");
 	ft_putendl("");
 }
