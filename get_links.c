@@ -6,7 +6,7 @@
 /*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 10:50:17 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/23 16:48:27 by ykot             ###   ########.fr       */
+/*   Updated: 2022/09/24 18:14:00 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,14 @@ void parse_links(t_farm *farm, char *line)
 	char **split_link;
 
 	split_link = ft_strsplit(line, '-');
-		if (split_link[0] && split_link[1] && split_link[2])
+	if (split_link[0] && split_link[1] && split_link[2])
 		error_free_split_line(farm, &split_link, &line, "Wrong link");
 	if (!split_link[0] || !split_link[1] || split_link[2])
 		error_free_split_line(farm, &split_link, &line, "Memory allocation");
 	first = split_link[0];
 	second = split_link[1];
+	if (ft_strequ(first, second))
+		error_free_split_line(farm, &split_link, &line, "Same room in the link");
 	room1 = (t_room *)hashmap_get(farm->hashmap, first);
 	room2 = (t_room *)hashmap_get(farm->hashmap, second);
 	if (!room1 || !room2)

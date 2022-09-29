@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 13:05:24 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/23 18:32:43 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/29 09:08:44 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@
 	}
 }*/
 
-void	print_paths(t_list **paths, size_t flow)
+void	print_paths(t_farm *farm, t_list **paths, size_t flow)
 {
 	size_t	i;
 	char	*the_room;
@@ -66,18 +66,28 @@ void	print_paths(t_list **paths, size_t flow)
 		if (!list)
 			break ;
 		len = ft_lstsize(paths[i]);
+		if (farm->flag.v)
+			ft_printf("%s ", farm->start->name);
 		while (list)
 		{
 			the_room = list->content;
-			printf("%s > ", the_room);
+			if (farm->flag.v)
+				ft_printf("%s ", the_room);
+			else
+				ft_printf("%s > ", the_room);
 			list = list->next;
 		}
-		printf(" -path_len: %d- ", (int)len);
-		printf("\n\n");
+		if (farm->flag.p)
+			ft_printf(" -path_len: %d- ", (int)len);
+		if (!farm->flag.v)
+			ft_putendl("");
+		ft_putendl("");
 		i++;
 	}
+	ft_putendl("");
 }
 
+/*
 void	print_path_sets(t_list *sets)
 {
 	size_t	i;
@@ -95,7 +105,7 @@ void	print_path_sets(t_list *sets)
 		curr = curr->next;
 	}
 }
-
+*/
 static	void	print_input(t_farm farm)
 {
 	t_dblist	*tempptr;
@@ -109,8 +119,8 @@ static	void	print_input(t_farm farm)
 }
 
 void	print_farm(t_farm farm)
-{
+{ 
 	print_input(farm);
-	ft_putendl("---");
+	//ft_putendl("---");
 	ft_putendl("");
 }

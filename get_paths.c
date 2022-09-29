@@ -3,91 +3,65 @@
 /*                                                        :::      ::::::::   */
 /*   get_paths.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 16:52:36 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/26 11:22:01 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/29 00:32:38 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem-in.h"
 
-void	update_fwd_flow(t_farm *farm, int flow)
-{
-	t_node		*the_node;
-	t_edge		*the_edge;
-	t_dblist	*edges;
-
-	the_node = farm->end->in;
-	edges = NULL;
-	the_edge = NULL;
-	while (the_node)
-	{
-		if (the_node->parent)
-			edges = the_node->parent->edges.head;
-		while (edges)
-		{
-			the_edge = edges->content;
-			if (the_edge->to == the_node)
-			{
-				if (the_edge->reverse)
-					the_edge->flow = flow;
-				if (!the_edge->reverse)
-					the_edge->flow = flow - 1;
-				break ;
-			}
-			edges = edges->next;
-		}
-		the_node = the_node->parent;
-	}
-}
-
-void reset_fwd_flow(t_farm *farm, int flow)
-{
-	t_node	*the_node;
-	t_edge	*the_edge;
-	t_dblist	*edges;
-
-	the_node = farm->end->in;
-	edges = NULL;
-	the_edge = NULL;
-	while (the_node)
-	{
-		if (the_node->parent)
-			edges = the_node->parent->edges.head;
-		set_edge_flow(the_node, edges, the_edge, flow);
-		the_node = the_node->parent;
-	}
-}
-
-void	reset_all_flow(t_farm *farm)
-{
-	while (bfs(farm, 1))
-	{
-		reset_fwd_flow(farm, 0);
-	}
-	while (bfs(farm, 2))
-	{
-		reset_fwd_flow(farm, 0);
-	}
-}
-
 static int	when_to_stop(int *min_num_lines, t_list **set_i,
-	int index, t_farm *farm)
+						int index, t_farm *farm)
 {
 	int	num_lines;
 	int	*queue;
 
 	queue = get_numrooms(set_i, index);
+	if (queue == NULL)
+		error(farm, "Memory allocation");
 	num_lines = count_printed_lines(farm->num_ants, queue, index);
-	/*for (int i = 0; i < index; i++)
-	    printf("%d\n", queue[i]);
-	printf("\n");*/
-	if (num_lines >= *min_num_lines)
+	//printf("Min\t%d\tCur\t%d\n", *min_num_lines, num_lines);
+	//print_paths(farm, set_i, index);
+	if (num_lines > *min_num_lines)
+	{
+		free(queue);
 		return (1);
+	}
 	else
 		*min_num_lines = num_lines;
+	free(queue);
 	return (0);
+}
+
+static t_list **return_prev_set(t_farm *farm, t_list	**prev_set,
+								int option, size_t i)
+{
+	if (option == 1)
+		farm->index.ind1 = i - 1;
+	else
+		farm->index.ind2 = i - 1;
+	return (prev_set);
+}
+
+static t_list **return_curr_set(t_farm *farm, t_list **set_i,
+								int option, size_t i)
+{
+	if (option == 1)
+		farm->index.ind1 = i;
+	else
+		farm->index.ind2 = i;
+	return (set_i);
+}
+
+static void	init_get_paths(size_t *i, int *min_num_lines, 
+					t_list ***set_i, t_list ***prev_set)
+{
+	*i = 0;
+	*set_i = NULL;
+	*prev_set = NULL;
+	*min_num_lines = INT_MAX;
 }
 
 t_list	**get_paths(t_farm *farm, int option)
@@ -97,10 +71,11 @@ t_list	**get_paths(t_farm *farm, int option)
 	size_t	i;
 	size_t	j;
 	int		min_num_lines;
+	t_list	*paths;
 
-	i = 0;
-	prev_set = NULL;
-	min_num_lines = INT_MAX;
+	
+	paths = NULL;
+	init_get_paths(&i, &min_num_lines, &set_i, &prev_set);
 	if (option == 2)
 		//reset_mark(farm);
 		reset_all_flow(farm);
@@ -112,23 +87,23 @@ t_list	**get_paths(t_farm *farm, int option)
 		while (j < i + 1 && bfs_path(farm, option))
 		{
 			set_i[j] = mark_and_save_path(farm, 2);
+			if (new_path(set_i[j], paths))
+			{
+				ft_lstadd(&paths, set_i[j]);
+			}
 			j++;
 		}
 		i++;
 		reset_mark(farm);
-		if (when_to_stop(&min_num_lines, set_i, j, farm))
+		if (when_to_stop(&min_num_lines, set_i, i, farm))
 		{
-			if (option == 1)
-				farm->index1 = i - 1;
-			else
-				farm->index2 = i - 1;
-			return (prev_set);
+			free_set_i(set_i, i);
+			print_all_paths(paths);
+			return (return_prev_set(farm, prev_set, option, i));
 		}
+		free_set_i(prev_set, i - 1);
 		prev_set = set_i;
 	}
-	if (option == 1)
-		farm->index1 = i;
-	else
-		farm->index2 = i;
-	return (set_i);
+	print_all_paths(paths);
+	return (return_curr_set(farm, set_i, option, i));
 }
