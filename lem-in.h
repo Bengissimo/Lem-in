@@ -6,7 +6,7 @@
 /*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/29 09:07:08 by ykot             ###   ########.fr       */
+/*   Updated: 2022/09/29 09:19:28 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ void reset_mark(t_farm *farm);
 void	reset_all_flow(t_farm *farm);
 
 //printing paths
-void print_paths(t_list **paths, size_t flow);
+void	print_paths(t_farm *farm, t_list **paths, size_t flow);
 void print_path_sets(t_list *sets);
 
 /* path_collector.c */

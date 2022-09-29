@@ -6,7 +6,7 @@
 /*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 16:52:36 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/29 00:32:38 by ykot             ###   ########.fr       */
+/*   Updated: 2022/09/29 09:24:02 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,7 @@ t_list	**get_paths(t_farm *farm, int option)
 	size_t	i;
 	size_t	j;
 	int		min_num_lines;
-	t_list	*paths;
 
-	
-	paths = NULL;
 	init_get_paths(&i, &min_num_lines, &set_i, &prev_set);
 	if (option == 2)
 		//reset_mark(farm);
@@ -87,10 +84,6 @@ t_list	**get_paths(t_farm *farm, int option)
 		while (j < i + 1 && bfs_path(farm, option))
 		{
 			set_i[j] = mark_and_save_path(farm, 2);
-			if (new_path(set_i[j], paths))
-			{
-				ft_lstadd(&paths, set_i[j]);
-			}
 			j++;
 		}
 		i++;
@@ -98,12 +91,10 @@ t_list	**get_paths(t_farm *farm, int option)
 		if (when_to_stop(&min_num_lines, set_i, i, farm))
 		{
 			free_set_i(set_i, i);
-			print_all_paths(paths);
 			return (return_prev_set(farm, prev_set, option, i));
 		}
 		free_set_i(prev_set, i - 1);
 		prev_set = set_i;
 	}
-	print_all_paths(paths);
 	return (return_curr_set(farm, set_i, option, i));
 }

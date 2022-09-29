@@ -3,20 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   bfs_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 16:43:58 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/23 18:17:50 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/29 09:20:56 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem-in.h"
-
-static void	null_fn(void *content, size_t size)
-{
-	content = NULL;
-	size = 0;
-}
 
 void	q_push(t_list **queue, t_node *the_node)
 {
