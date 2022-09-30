@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/30 22:23:37 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/30 22:54:29 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,7 +188,7 @@ int				*get_numrooms(t_list **paths, int size);
 int				count_printed_lines(int num_ants, int *queue, int size);
 
 /* other */
-t_list			*lstnew_pointer(void *content);
+//t_list			*ft_lstnew_pointer(void *content);
 
 /* bfs utils */
 void			q_push(t_list **queue, t_node *the_node);

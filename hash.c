@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 12:28:34 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/30 22:24:42 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/30 22:54:29 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	hashmap_set(t_list **hashmap, char *str, void *ptr)
 	value->name = str;
 	value->ptr = ptr;
 	key = hash(str, HASH);
-	new = lstnew_pointer((void *)value);
+	new = ft_lstnew_pointer((void *)value);
 	if (!new)
 		return (0);
 	ft_lstappend(&hashmap[key], new);

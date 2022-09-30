@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 20:10:34 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/20 13:01:09 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/30 22:53:39 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ size_t		ft_lstsize(t_list *begin_list);
 void		ft_lstdelelem(t_list **lst, size_t elem, \
 							void (*del)(void *, size_t));
 void		ft_lstaddelem(t_list **alst, t_list *new, size_t pos);
+t_list		*ft_lstnew_pointer(void *content);
 
 /*
 **	Display output

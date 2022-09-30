@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 10:00:16 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/30 22:24:42 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/30 22:54:29 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	**get_room_lines(char **line, t_farm *farm)
 	return (str);
 }
 
-t_list	*lstnew_pointer(void *content)
+/*t_list	*ft_lstnew_pointer(void *content)
 {
 	t_list	*lstnew;
 
@@ -77,7 +77,7 @@ t_list	*lstnew_pointer(void *content)
 		lstnew->next = NULL;
 	}
 	return (lstnew);
-}
+}*/
 
 t_room	*create_room(char **str)
 {

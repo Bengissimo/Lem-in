@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 15:57:05 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/30 22:24:42 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/30 22:54:29 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	ant_push(t_list *path_ptr, t_list **queue)
 	ant = new_ant(path_ptr);
 	if (ant == NULL)
 		return (1);
-	new = lstnew_pointer((void *)ant);
+	new = ft_lstnew_pointer((void *)ant);
 	if (new == NULL)
 	{
 		free(ant);

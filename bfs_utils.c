@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 16:43:58 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/30 22:24:42 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/30 22:54:29 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	q_push(t_list **queue, t_node *the_node)
 {
 	t_list	*to_push;
 
-	to_push = lstnew_pointer(the_node);
+	to_push = ft_lstnew_pointer(the_node);
 	if (!to_push)
 		return ;
 	ft_lstappend(queue, to_push);

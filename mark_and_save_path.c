@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 17:07:05 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/30 22:24:42 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/30 22:54:29 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ t_list	*mark_and_save_path(t_farm *farm, int flow)
 		set_edge_flow(the_node, edges, the_edge, flow);
 		if (the_node->source != farm->start
 			&& the_node->source != the_node->parent->source)
-			ft_lstadd(&the_path, lstnew_pointer(the_node->source->name));
+			ft_lstadd(&the_path, ft_lstnew_pointer(the_node->source->name));
 		the_node = the_node->parent;
 	}
 	return (the_path);
