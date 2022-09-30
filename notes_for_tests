@@ -1,4 +1,6 @@
 - empty line within links -> SEG FAULT
 - empty line within rooms  -> WRONG ERROR MSG Error: in line 18: No links
 - ./lem-in < mini_gauntlet/cases/augment_9.map -> Error: in line 35: Memory allocation see get_paths.c line: 24
+- I will check this reset vs update function thing!
 - 
+
