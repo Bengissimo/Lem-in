@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/30 15:51:32 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/30 17:42:04 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,21 @@
 # define ERR_ANT_NOT_INT "The number of ants is not an integer"
 # define ERR_ANT_NB "The number of ants less or equal to zero"
 # define ERR_ANT_CHAR "Characters after the number of ants"
+# define ERR_DBL_ANT "Double ant number"
 # define ERR_ROOM "No rooms"
+# define ERR_ROOM_L "Room begins with L"
 # define ERR_LINK "No links"
 # define ERR_MAP "Invalid map"
 # define ERR_EMP_LINE "Empty line"
 # define ERR_MLTP_ARGS "More than one argument"
 # define ERR_ARGS "Wrong arguments"
 # define ERR_NO_PATH "No path to end"
+# define ERR_COORD_CHAR "Characters after coordinates"
+# define ERR_COORD_INT "Coordinates are not integers"
+# define ERR_READ "Fail to read a line"
+# define ERR_START "No start"
+# define ERR_END "No end"
+# define ERR_START_END "No start and end"
 
 # define USAGE "Usage: ./lem-in [OPTION] < valid map\n\n"
 # define HELP " -h\thelp\n"
@@ -42,6 +50,7 @@
 # define VIS_INFO "Visualizer uses networkx, matplotlib, numpy, scipy. "
 # define WARNING "Be sure that you have these packages installed\n"
 
+
 typedef struct	s_coord
 {
 	int	x;
@@ -52,7 +61,7 @@ typedef struct	s_node
 {
 	char		*name;
 	struct		s_node *parent;
-	t_dynlist		edges;
+	t_dynlist	edges;
 	struct		s_room *source;
 }				t_node;
 
@@ -115,8 +124,10 @@ typedef struct s_hash
 }			t_hash;
 
 /* read input */
+int	is_comment(char *line);
 int		is_command(t_farm *farm, char **line);
 char	**get_room_lines(char **line, t_farm *farm);
+void	get_ant_num(t_farm *farm, char **line);
 t_room	*create_room(char **str);
 int		append_room(t_farm *farm, t_room *room);
 int		get_link(t_farm *farm, char **line);
@@ -132,10 +143,14 @@ int		check_int(const char *str);
 void	parse_links(t_farm *farm, char *line);
 int		is_char_in_str(char c, char *str);
 
+
 /* errors */
 void	error(t_farm *farm, char *str);
 void	free_split(char ***str);
 void	error_free_split_line(t_farm *farm, char ***str, char **line, char *er_str);
+void	err_nolines(t_farm *farm, char *str);
+void	err_empty_line(t_farm *farm);
+
 
 /* free_fn */
 void 	del_dblfn(void *content);
@@ -179,7 +194,7 @@ int		bfs(t_farm *farm, int flow);
 int		bfs_path(t_farm *farm, int option);
 
 /* algo */
-t_node	*create_node(char **str, int in);
+t_node	*create_node(char **str, int is_in_or_out);
 t_edge	*create_edge(t_node *node);
 int		append_edge(t_node *node, t_edge *edge);
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_rooms.c                                        :+:      :+:    :+:   */
+/*   parse_rooms.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 10:00:16 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/29 13:10:23 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/30 17:49:57 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,23 +41,23 @@ char	**get_room_lines(char **line, t_farm *farm)
 	if (str == NULL)
 		return (NULL);
 	if (!is_room_name_valid(str[0]))
-		error_free_split_line(farm, NULL, line, "Room begins with L");
+		error_free_split_line(farm, NULL, line, ERR_ROOM_L);
 	if ((check_int(str[0]) && str[1] == NULL))
-		error_free_split_line(farm, NULL, line, "Double ant number");
+		error_free_split_line(farm, NULL, line, ERR_DBL_ANT);
 	if (!(check_int(str[1]) && check_int(str[2]) && !str[3]))
 	{
 		if (str[3])
-			error_free_split_line(farm, NULL, line, "Characters after coordinates");
+			error_free_split_line(farm, NULL, line, ERR_COORD_CHAR);
 		if (check_int(str[0]) && str[1] == NULL)
-			error_free_split_line(farm, NULL, line, "Double ant number");
-		error_free_split_line(farm, NULL, line, "Coordinates are not integers");
+			error_free_split_line(farm, NULL, line, ERR_DBL_ANT);
+		error_free_split_line(farm, NULL, line, ERR_COORD_INT);
 	}
 	/*if (is_room_exist(farm, str[0]))
 		error_free_split_line(farm, NULL, line, "Duplicate room");*/
 	return (str);
 }
 
-t_list	*lstnew_pointer(void *content)  //where to put this fn, we are using this in checks.c get_rooms.c and hash.c and bfs.c
+t_list	*lstnew_pointer(void *content)
 {
 	t_list	*lstnew;
 
@@ -91,7 +91,6 @@ t_room	*create_room(char **str)
 	room->name = ft_strdup(str[0]);
 	room->coord.x = ft_atoi(str[1]);
 	room->coord.y = ft_atoi(str[2]);
-	//free_split(&str);
 	return (room);
 }
 
@@ -108,20 +107,24 @@ int	append_room(t_farm *farm, t_room *room)
 	return (1);
 }
 
-t_node	*create_node(char **str, int in_out)  //if 1 in, if 0 out, start or end 2
+/*
+*	if the node is in, is_in_or_out: 1,
+*	if the noode is out, is_in_or_out: 0,
+*	if the node is start or end, is_in_or_out: 2
+*/
+
+t_node	*create_node(char **str, int is_in_or_out)
 {
-	t_node *node;
-	
+	t_node	*node;
+
 	if (!str)
 		return (NULL);
 	node = (t_node *)ft_memalloc(sizeof(*node));
-	if (in_out == 1)
+	if (is_in_or_out == 1)
 		node->name = ft_strjoin(str[0], "_in");
-	else if (in_out == 0)
+	else if (is_in_or_out == 0)
 		node->name = ft_strjoin(str[0], "_out");
 	else
 		node->name = ft_strdup(str[0]);
-	//printf("node name %s\n", node->name);
-	//free_split(&str);
 	return (node);
 }
