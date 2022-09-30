@@ -6,50 +6,25 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 15:46:05 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/30 19:13:08 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/30 19:19:00 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem-in.h"
 
-void	del_dblfn(void *content)
+void	free_split(char ***str)
 {
-	if (content)
-		free(content);
-}
+	size_t	i;
 
-void	null_fn(void *content, size_t size)
-{
-	content = NULL;
-	size = 0;
-}
-
-void	del(void *content, size_t size)
-{
-	if (content)
-		free(content);
-	size = 0;
-}
-
-static void	del_rooms(void *content)
-{
-	t_room	*the_room;
-
-	the_room = content;
-	ft_strdel(&the_room->name);
-	if (the_room->in)
+	i = 0;
+	if (!str || !*str)
+		return ;
+	while ((*str)[i])
 	{
-		ft_strdel(&the_room->in->name);
-		ft_dblstdel(&the_room->in->edges, del_dblfn);
-		ft_memdel((void **)&the_room->in);
+		ft_strdel(&((*str)[i]));
+		i++;
 	}
-	if (the_room->out)
-	{
-		ft_strdel(&the_room->out->name);
-		ft_dblstdel(&the_room->out->edges, del_dblfn);
-		ft_memdel((void **)&the_room->out);
-	}
-	ft_memdel((void **)&the_room);
+	ft_memdel((void *)str);
 }
 
 void	free_path_set(t_list **path_set, size_t size)

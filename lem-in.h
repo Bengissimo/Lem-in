@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/30 19:13:08 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/30 19:20:24 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,11 @@ void	error_free_split_line(t_farm *farm, char ***str, char **line, char *er_str)
 void	err_nolines(t_farm *farm, char *str);
 void	err_empty_line(t_farm *farm);
 
+/* del */
+void	del_dblfn(void *content);
+void	null_fn(void *content, size_t size);
+void	del(void *content, size_t size);
+void	del_rooms(void *content);
 
 /* free_fn */
 void 	del_dblfn(void *content);

@@ -1,31 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.c                                           :+:      :+:    :+:   */
+/*   error_fn.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 14:43:14 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/30 16:25:10 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/30 19:20:07 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem-in.h"
-
-void	free_split(char ***str)
-{
-	size_t	i;
-
-	i = 0;
-	if (!str || !*str)
-		return ;
-	while ((*str)[i])
-	{
-		ft_strdel(&((*str)[i]));
-		i++;
-	}
-	ft_memdel((void *)str);
-}
 
 void	error(t_farm *farm, char *er_str)
 {
@@ -38,7 +23,6 @@ void	error(t_farm *farm, char *er_str)
 		ft_putstr_fd(": ", 2);
 	}
 	ft_putendl_fd(er_str, 2);
-	//system("leaks lem-in >> error_leaks.txt");
 	exit(1);
 }
 
