@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:22:20 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/29 13:31:13 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/30 19:29:44 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,15 @@ static void	init_farm(t_farm *farm)
 
 static void	print_help(t_farm *farm)
 {
-	ft_putstr("Usage: ./lem-in [OPTION] < valid map\n\n");
-	ft_putstr(" -h\thelp\n");
-	ft_putstr(" -p\tprint sets of possible paths and number of lines to print\n");
-	ft_putstr(" -v\tused with visualizer\n");
-	ft_putstr("\nVisualizer usage: ");
-	ft_putstr("./lem-in -v < valid map | python3 visualizer.py [OPTION]\n\n");
-	ft_putstr(" --coord\tto use coordinates, random nodes position by default\n");
-	ft_putstr(" --slow\tslow animation of moving ants\n");
-	ft_putstr(" --fast\tfast animation of moving ants\n\n");
-	ft_putstr("Visualizer uses networkx, matplotlib, numpy, scipy. ");
-	ft_putstr("Be sure that you have these packages installed\n");
+	ft_putstr(USAGE);
+	ft_putstr(HELP);
+	ft_putstr(PRINT);
+	ft_putstr(VISUAL);
+	ft_putstr(VIS_USAGE);
+	ft_putstr(COORD);
+	ft_putstr(VIS_SLOW);
+	ft_putstr(VIS_FAST);
+	ft_putstr(VIS_INFO);
 	free_farm(farm);
 	exit(0);
 }
@@ -38,7 +36,7 @@ static void	print_help(t_farm *farm)
 static int	read_options(t_farm *farm, int argc, char **argv)
 {
 	if (argc > 2)
-		err_nolines(farm, "More than one argument");
+		err_nolines(farm, ERR_MLTP_ARGS);
 	if (ft_strequ(argv[1], "-v"))
 		farm->flag.v = 1;
 	else if (ft_strequ(argv[1], "-h"))
@@ -56,12 +54,12 @@ int	main(int argc, char **argv)
 
 	init_farm(&farm);
 	if (read_options(&farm, argc, argv))
-		err_nolines(&farm, "Wrong arguments");
+		err_nolines(&farm, ERR_ARGS);
 	read_input(&farm);
 	print_farm(farm);
 	farm.option1 = get_paths(&farm, 1);
 	if (farm.option1 == NULL)
-		err_nolines(&farm, "No path to end");
+		err_nolines(&farm, ERR_NO_PATH);
 	farm.option2 = get_paths(&farm, 2);
 	find_the_best_paths_and_send_ants(&farm);
 	free_farm(&farm);
