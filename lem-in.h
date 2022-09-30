@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/29 16:18:25 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/30 15:51:32 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # define ERR_INPUT "File is empty or no input"
 # define ERR_ANT_NOT_INT "The number of ants is not an integer"
 # define ERR_ANT_NB "The number of ants less or equal to zero"
+# define ERR_ANT_CHAR "Characters after the number of ants"
 # define ERR_ROOM "No rooms"
 # define ERR_LINK "No links"
 # define ERR_MAP "Invalid map"
