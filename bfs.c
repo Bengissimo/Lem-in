@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:22:02 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/23 18:17:05 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/30 19:14:20 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,12 @@ static int	set_option(int option, t_list **visited,
 {
 	if (option == 1)
 		return (!is_in(visited, child->name)
-			&& the_edge->flow == 1 && the_edge->reverse && the_edge->reverse->flow == 0);
+			&& the_edge->flow == 1
+			&& the_edge->reverse && the_edge->reverse->flow == 0);
 	if (option == 2)
 		return (!is_in(visited, child->name)
-			&& ((the_edge->flow == 1 && the_edge->reverse && the_edge->reverse->flow == 0)
+			&& ((the_edge->flow == 1
+					&& the_edge->reverse && the_edge->reverse->flow == 0)
 				|| (the_edge->flow == 0 && !the_edge->reverse)));
 	return (0);
 }
