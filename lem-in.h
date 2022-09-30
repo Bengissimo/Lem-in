@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/30 17:42:04 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/30 18:01:41 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,6 +207,8 @@ t_list *reset_graph_save_paths(t_farm *farm);
 t_list **get_paths(t_farm *farm, int option);
 t_list *mark_and_save_path(t_farm *farm, int flow);
 void reset_mark(t_farm *farm);
+void	set_edge_flow(t_node *the_node, t_dblist *edges,
+	t_edge *the_edge, int flow);
 
 /* update_fwd_flow */
 void	reset_all_flow(t_farm *farm);
