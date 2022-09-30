@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 12:28:34 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/30 17:48:35 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/30 18:53:37 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,20 @@ int	is_in(t_list **hashmap, char *str)
 		curr = curr->next;
 	}
 	return (FALSE);
+}
+
+void	free_hashmap(t_list **hashmap)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < HASH)
+	{
+		if (hashmap[i])
+		{
+			ft_lstdel(&hashmap[i], del);
+		}
+		i++;
+	}
+	free(hashmap);
 }

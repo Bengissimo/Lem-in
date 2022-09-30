@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 15:46:05 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/29 12:55:34 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/30 18:53:07 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void	null_fn(void *content, size_t size)
 
 void	del(void *content, size_t size)
 {
-	free(content);
+	if (content)
+		free(content);
 	size = 0;
 }
 
