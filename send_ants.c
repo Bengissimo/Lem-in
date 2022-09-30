@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 17:40:39 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/30 22:24:19 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/30 22:41:00 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	*get_numrooms(t_list **paths, int size)
 {
 	int	*rooms;
 	int	i;
-	
+
 	rooms = (int *)ft_memalloc((size_t)(sizeof(int) * size));
 	if (rooms == NULL)
 		return (NULL);
@@ -31,49 +31,41 @@ int	*get_numrooms(t_list **paths, int size)
 	return (rooms);
 }
 
+static t_list	**exit_make_queue(t_list **queue, int *rooms)
+{
+	ft_lstdel(queue, del);
+	free(queue);
+	free(rooms);
+	return (NULL);
+}
+
 t_list	**make_queue(t_farm *farm, t_list **paths, int size)
 {
-	t_list	**queue;
+	t_list	**q;
 	int		*rooms;
 	int		j;
 
-	queue = (t_list **)ft_memalloc(sizeof(t_list *) * size);
-	if (queue == NULL)
+	q = (t_list **)ft_memalloc(sizeof(t_list *) * size);
+	if (q == NULL)
 		return (NULL);
 	rooms = get_numrooms(paths, size);
 	if (rooms == NULL)
 	{
-		free(queue);
+		free(q);
 		return (NULL);
 	}
 	j = 0;
 	while (farm->num_ants--)
 	{
-		if (j + 1 != size && rooms[j] + (int)(ft_lstsize(queue[j])) > rooms[j + 1])
-		{
+		if (j + 1 != size && rooms[j] + (int)(ft_lstsize(q[j])) > rooms[j + 1])
 			j++;
-			if (ant_push(paths[j], &queue[j]))
-			{
-				ft_lstdel(queue, del);
-				free(queue);
-				free(rooms);
-				return (NULL);
-			}
-		}
 		else
-		{
 			j = 0;
-			if (ant_push(paths[j], &queue[j]))
-			{
-				ft_lstdel(queue, del);
-				free(queue);
-				free(rooms);
-				return (NULL);
-			}
-		}
+		if (ant_push(paths[j], &q[j]))
+			exit_make_queue(q, rooms);
 	}
 	free(rooms);
-	return (queue);
+	return (q);
 }
 
 static void	move_all_ants(t_list **moving_ants)
@@ -124,11 +116,11 @@ void	send_ants(t_farm *farm, t_list **paths, int size)
 	free(queue);
 }
 
-int count_printed_lines(int num_ants, int *queue, int size)
+int	count_printed_lines(int num_ants, int *queue, int size)
 {
 	int	i;
 
-	i = 0;	
+	i = 0;
 	while (num_ants--)
 	{
 		if (i + 1 != size && queue[i] > queue[i + 1])
@@ -149,7 +141,6 @@ static void	print_flag_p(t_farm *farm, int nl1, int nl2)
 {
 	if (nl1 < nl2)
 	{
-		
 		print_paths(farm, farm->option1, farm->index.ind1);
 		if (!farm->flag.v)
 			ft_printf("Number of lines to print: %d\n", nl1 - 1);
@@ -164,19 +155,19 @@ static void	print_flag_p(t_farm *farm, int nl1, int nl2)
 
 void	find_the_best_paths_and_send_ants(t_farm *farm)
 {
-    int    	num_lines_1;
-	int    	num_lines_2;
-    int    	*queue;
+	int	num_lines_1;
+	int	num_lines_2;
+	int	*queue;
 
-    queue = get_numrooms(farm->option1, farm->index.ind1);
+	queue = get_numrooms(farm->option1, farm->index.ind1);
 	if (queue == NULL)
 		err_nolines(farm, "Memory allocation");
-    num_lines_1 = count_printed_lines(farm->num_ants, queue, farm->index.ind1);
+	num_lines_1 = count_printed_lines(farm->num_ants, queue, farm->index.ind1);
 	free(queue);
 	queue = get_numrooms(farm->option2, farm->index.ind2);
 	if (queue == NULL)
 		err_nolines(farm, "Memory allocation");
-    num_lines_2 = count_printed_lines(farm->num_ants, queue, farm->index.ind2);
+	num_lines_2 = count_printed_lines(farm->num_ants, queue, farm->index.ind2);
 	free(queue);
 	if (farm->flag.p || farm->flag.v)
 		print_flag_p(farm, num_lines_1, num_lines_2);
