@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 16:52:36 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/29 16:22:40 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/30 19:07:47 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ static int	when_to_stop(int *min_num_lines, t_list **set_i,
 
 	queue = get_numrooms(set_i, index);
 	if (queue == NULL)
+	{
+		printf("aug_9 TEST\n");
 		error(farm, "Memory allocation");
+	}
 	num_lines = count_printed_lines(farm->num_ants, queue, index);
 	//printf("Min\t%d\tCur\t%d\n", *min_num_lines, num_lines);
 	//print_paths(farm, set_i, index);
