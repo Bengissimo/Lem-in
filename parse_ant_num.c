@@ -6,11 +6,11 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 17:39:46 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/30 17:51:03 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/30 22:24:42 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem-in.h"
+#include "lem_in.h"
 
 static void	ant_num_checks(t_farm *farm, char **line, int *num)
 {

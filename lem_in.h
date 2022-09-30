@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lem-in.h                                           :+:      :+:    :+:   */
+/*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/30 19:53:01 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/30 22:23:37 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,13 @@
 # define HELP " -h\thelp\n"
 # define PRINT " -p\tprint sets of possible paths and number of lines to print\n"
 # define VISUAL " -v\tused with visualizer\n"
-# define VIS_USAGE " \nVisualizer usage: ./lem-in -v < valid map | python3 visualizer.py [OPTION]\n\n"
+# define VIS_USAGE " \nVisualizer usage: \
+./lem-in -v < valid map | python3 visualizer.py [OPTION]\n\n"
 # define COORD " --coord\tto use coordinates, random nodes position by default\n"
 # define VIS_SLOW " --slow\t\tslow animation of moving ants\n"
 # define VIS_FAST " --fast\t\tfast animation of moving ants\n\n"
-# define VIS_INFO "Visualizer uses networkx, matplotlib, numpy, scipy. Be sure that you have these packages installed\n"
+# define VIS_INFO "Visualizer uses networkx, matplotlib, numpy, scipy. \
+Be sure that you have these packages installed\n"
 
 typedef struct s_coord
 {
