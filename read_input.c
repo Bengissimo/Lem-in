@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:25:04 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/30 22:24:42 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/30 22:58:46 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	enough_data(t_farm *farm, char **line)
 		return (1);
 	}
 	else if (farm->flag.is_links == 0)
-		error(farm, ERR_LINK);
+		error(farm, ERR_NO_LINK);
 	else
 	{
 		farm->flag.no_errlines = 1;

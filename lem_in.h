@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/30 22:54:29 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/30 22:59:31 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define ERR_DBL_ANT "Double ant number"
 # define ERR_ROOM "No rooms"
 # define ERR_ROOM_L "Room begins with L"
-# define ERR_LINK "No links"
+# define ERR_NO_LINK "No links"
 # define ERR_MAP "Invalid map"
 # define ERR_EMP_LINE "Empty line"
 # define ERR_MLTP_ARGS "More than one argument"
@@ -38,6 +38,8 @@
 # define ERR_START "No start"
 # define ERR_END "No end"
 # define ERR_START_END "No start and end"
+# define ERR_LINK "Wrong link"
+# define ERR_LINK_SAME "Same room in the link"
 
 # define USAGE "Usage: ./lem-in [OPTION] < valid map\n\n"
 # define HELP " -h\thelp\n"

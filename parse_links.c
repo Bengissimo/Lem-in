@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 10:50:17 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/30 22:24:42 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/30 22:59:40 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,19 +57,19 @@ void	parse_links(t_farm *farm, char *line)
 
 	split_link = ft_strsplit(line, '-');
 	if (split_link[0] && split_link[1] && split_link[2])
-		error_free_split_line(farm, &split_link, &line, "Wrong link");
+		error_free_split_line(farm, &split_link, &line, ERR_LINK);
 	if (!split_link[0] || !split_link[1] || split_link[2])
-		error_free_split_line(farm, &split_link, &line, "Memory allocation");
+		error_free_split_line(farm, &split_link, &line, ERR_MEM_ALLOC);
 	first = split_link[0];
 	second = split_link[1];
 	if (ft_strequ(first, second))
-		error_free_split_line(farm, &split_link, &line, "Same room in the link");
+		error_free_split_line(farm, &split_link, &line, ERR_LINK_SAME);
 	room1 = (t_room *)hashmap_get(farm->hashmap, first);
 	room2 = (t_room *)hashmap_get(farm->hashmap, second);
 	if (!room1 || !room2)
-		error_free_split_line(farm, &split_link, &line, "Wrong link");
+		error_free_split_line(farm, &split_link, &line, ERR_LINK);
 	if (!make_adj_list(room1, room2))
-		error_free_split_line(farm, &split_link, &line, "Memory allocation");
+		error_free_split_line(farm, &split_link, &line, ERR_MEM_ALLOC);
 	free_split(&split_link);
 }
 
