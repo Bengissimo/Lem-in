@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 17:40:39 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/30 22:41:00 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/30 22:44:25 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	send_ants(t_farm *farm, t_list **paths, int size)
 	cur_ant_num = 1;
 	queue = make_queue(farm, paths, size);
 	if (queue == NULL)
-		error(farm, "Memory allocation");
+		error(farm, ERR_MEM_ALLOC);
 	ant_pop(&queue, &moving_ants, size, &cur_ant_num);
 	while (moving_ants)
 	{
@@ -161,12 +161,12 @@ void	find_the_best_paths_and_send_ants(t_farm *farm)
 
 	queue = get_numrooms(farm->option1, farm->index.ind1);
 	if (queue == NULL)
-		err_nolines(farm, "Memory allocation");
+		err_nolines(farm, ERR_MEM_ALLOC);
 	num_lines_1 = count_printed_lines(farm->num_ants, queue, farm->index.ind1);
 	free(queue);
 	queue = get_numrooms(farm->option2, farm->index.ind2);
 	if (queue == NULL)
-		err_nolines(farm, "Memory allocation");
+		err_nolines(farm, ERR_MEM_ALLOC);
 	num_lines_2 = count_printed_lines(farm->num_ants, queue, farm->index.ind2);
 	free(queue);
 	if (farm->flag.p || farm->flag.v)
