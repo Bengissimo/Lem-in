@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/30 18:01:41 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/30 19:13:08 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,7 @@ void	err_empty_line(t_farm *farm);
 void 	del_dblfn(void *content);
 void	free_farm(t_farm *farm);
 void	del(void  *content, size_t size);
-void	free_set_i(t_list **set_i, size_t size);
+void	free_path_set(t_list **path_set, size_t size);
 void	null_fn(void *content, size_t size);
 
 /* print */

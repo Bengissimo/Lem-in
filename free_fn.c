@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 15:46:05 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/30 18:53:07 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/09/30 19:13:08 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,27 +52,27 @@ static void	del_rooms(void *content)
 	ft_memdel((void **)&the_room);
 }
 
-void	free_set_i(t_list **set_i, size_t size)
+void	free_path_set(t_list **path_set, size_t size)
 {
 	size_t	i;
 
 	i = 0;
 	while (i < size)
 	{
-		if (set_i[i])
+		if (path_set[i])
 		{
-			ft_lstdel(&set_i[i], null_fn);
+			ft_lstdel(&path_set[i], null_fn);
 		}
 		i++;
 	}
-	free(set_i);
+	free(path_set);
 }
 
 void	free_farm(t_farm *farm)
 {
 	ft_dblstdel(&farm->rooms, del_rooms);
 	ft_dblstdel(&farm->input_lines, del_dblfn);
-	free_set_i(farm->option1, farm->index.ind1);
-	free_set_i(farm->option2, farm->index.ind2);
+	free_path_set(farm->option1, farm->index.ind1);
+	free_path_set(farm->option2, farm->index.ind2);
 	free_hashmap(farm->hashmap);
 }
