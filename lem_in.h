@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/30 23:09:20 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/03 14:17:15 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@
 # define ERR_START_END "No start and end"
 # define ERR_LINK "Wrong link"
 # define ERR_LINK_SAME "Same room in the link"
+# define ERR_ROOM_AFT_LINK "Room after link"
 
 # define USAGE "Usage: ./lem-in [OPTION] < valid map\n\n"
 # define HELP " -h\thelp\n"

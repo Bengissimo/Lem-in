@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 17:33:40 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/30 22:24:42 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/03 14:17:40 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ static int	get_links(t_farm *farm, char *line)
 			return (1);
 		}
 	}
+	if (farm->flag.rooms_done == 1 && get_room_lines(&line, farm))
+		error_free_split_line(farm, NULL, &line, ERR_ROOM_AFT_LINK);
 	return (0);
 }
 

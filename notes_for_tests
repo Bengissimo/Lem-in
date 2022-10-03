@@ -17,7 +17,7 @@
 - error/link_among_rooms -> no error msg
 - error/mixed_room_edge -> wrong error ?? Error: No path to end
 - error/no_links -> wrong error ?? Error: No path to end
-- error/room_among_links  -> wrong error ?? Error: No path to end
+DONE - error/room_among_links  -> wrong error ?? Error: No path to end
 - error/start_after_end - >wrong error msg
 - error/start_after_start -> wrong error msg
 - error/two_ends_in_row -> wrong error msg
