@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/10/03 14:17:15 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/04 12:43:39 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,8 @@ t_room			*create_room(char **str);
 int				append_room(t_farm *farm, t_room *room);
 int				get_link(t_farm *farm, char **line);
 int				get_rooms_links(t_farm *farm, char *line);
+int				make_adj_list(t_room *room1, t_room *room2);
+
 void			read_input(t_farm *farm);
 void			save_input(t_farm *farm, char **line);
 void			err_empty_line(t_farm *farm);
@@ -145,6 +147,8 @@ void			err_nolines(t_farm *farm, char *str);
 int				check_int(const char *str);
 void			parse_links(t_farm *farm, char *line);
 int				is_char_in_str(char c, char *str);
+int				has_single_dash(char *line);
+
 
 /* errors */
 void			error(t_farm *farm, char *str);

@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 15:17:15 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/30 22:24:42 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/04 10:57:44 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,22 @@ int	is_char_in_str(char c, char *str)
 		i++;
 	}
 	return (found);
+}
+
+int has_single_dash(char *line)
+{
+	int i;
+	int dash_seen;
+	
+	i = 0;
+	dash_seen = FALSE;
+	while (line[i] != '\0')
+	{
+		if (line[i] == '-' && dash_seen == FALSE)
+			dash_seen = TRUE;
+		else if (line[i] == '-' && dash_seen == TRUE)
+			return (FALSE);
+		i++;
+	}
+	return (dash_seen);
 }

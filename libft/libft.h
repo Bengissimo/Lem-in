@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 20:10:34 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/30 22:53:39 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/03 14:58:42 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # define MAX_FD 10
 # define TRUE 1
 # define FALSE 0
+
+# define FD_MAX		4096
 
 typedef struct s_list
 {

@@ -6,45 +6,29 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 10:50:17 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/30 22:59:40 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/04 12:45:14 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int	append_edge(t_node *node, t_edge *edge)
+static void	split_link(char *line, t_farm *farm, char **first, char **second)
 {
-	t_dblist	*new;
+	int	i;
+	int	j;
 
-	if (!node || !edge)
-		return (0);
-	new = ft_dblstnew_pointer(edge);
-	if (!new)
-		return (0);
-	ft_dynlstappend(&node->edges, new);
-	return (1);
-}
-
-static int	make_adj_list(t_room *room1, t_room *room2)
-{
-	t_edge	*edge1_in;
-	t_edge	*edge2_in;
-
-	edge1_in = NULL;
-	edge2_in = NULL;
-	if (room1->out && room2->in)
-	{
-		edge2_in = create_edge(room2->in);
-		if (!append_edge(room1->out, edge2_in))
-			return (FALSE);
-	}
-	if (room2->out && room1->in)
-	{
-		edge1_in = create_edge(room1->in);
-		if (!append_edge(room2->out, edge1_in))
-			return (FALSE);
-	}
-	return (TRUE);
+	if (!line)
+		return ;
+	if (has_single_dash(line) == FALSE)
+		error_free_split_line(farm, NULL, &line, "Wrong dash number in the link");
+	i = 0;
+	while (line[i] != '-')
+		i++;
+	j = i;
+	*first = ft_strsub(line, 0, i);
+	while (line[i] != '\0')
+		i++;
+	*second = ft_strsub(line, j + 1, i - j - 1);
 }
 
 void	parse_links(t_farm *farm, char *line)
@@ -53,41 +37,24 @@ void	parse_links(t_farm *farm, char *line)
 	char	*second;
 	t_room	*room1;
 	t_room	*room2;
-	char	**split_link;
 
-	split_link = ft_strsplit(line, '-');
-	if (split_link[0] && split_link[1] && split_link[2])
-		error_free_split_line(farm, &split_link, &line, ERR_LINK);
-	if (!split_link[0] || !split_link[1] || split_link[2])
-		error_free_split_line(farm, &split_link, &line, ERR_MEM_ALLOC);
-	first = split_link[0];
-	second = split_link[1];
+	first = NULL;
+	second = NULL;
+	split_link(line, farm, &first, &second);
+	if (!first || !second)
+		error_free_split_line(farm, NULL, &line, ERR_MEM_ALLOC);
 	if (ft_strequ(first, second))
-		error_free_split_line(farm, &split_link, &line, ERR_LINK_SAME);
+		error_free_split_line(farm, NULL, &line, ERR_LINK_SAME);
 	room1 = (t_room *)hashmap_get(farm->hashmap, first);
 	room2 = (t_room *)hashmap_get(farm->hashmap, second);
 	if (!room1 || !room2)
-		error_free_split_line(farm, &split_link, &line, ERR_LINK);
+		error_free_split_line(farm, NULL, &line, ERR_LINK);
 	if (!make_adj_list(room1, room2))
-		error_free_split_line(farm, &split_link, &line, ERR_MEM_ALLOC);
-	free_split(&split_link);
+		error_free_split_line(farm, NULL, &line, ERR_MEM_ALLOC);
 }
 
 int	get_link(t_farm *farm, char **line)
 {
 	parse_links(farm, *line);
 	return (1);
-}
-
-t_edge	*create_edge(t_node *node)
-{
-	t_edge	*edge;
-
-	if (!node)
-		return (NULL);
-	edge = (t_edge *)ft_memalloc(sizeof(t_edge));
-	if (!edge)
-		return (NULL);
-	edge->to = node;
-	return (edge);
 }
