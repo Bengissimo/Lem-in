@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checks.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 15:17:15 by ykot              #+#    #+#             */
-/*   Updated: 2022/10/04 13:47:54 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/04 18:20:07 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,18 @@ int has_single_dash(char *line)
 		i++;
 	}
 	return (dash_seen);
+}
+
+int	check_path_size(int *rooms, int size)
+{
+	int	i;
+
+	i = 0;
+	while (i < size)
+	{
+		if (rooms[i] == 0)
+			return (1);
+		++i;
+	}
+	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/10/04 14:46:49 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/04 18:22:34 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,7 @@ int				check_int(const char *str);
 void			parse_links(t_farm *farm, char *line);
 int				is_char_in_str(char c, char *str);
 int				has_single_dash(char *line);
-
+int				check_path_size(int *rooms, int size);
 
 /* errors */
 void			error(t_farm *farm, char *str);
@@ -187,16 +187,21 @@ int				is_in(t_list **hashmap, char *str);
 void			free_hashmap(t_list **hashmap);
 
 /* send_ants */
-t_ant			*new_ant(t_list *pathptr);
-void			move_ant(t_ant *ant);
-void			print_ant(t_ant ant);
+t_list			**make_queue(t_farm *farm, t_list **paths, int size);
 void			send_ants(t_farm *farm, t_list **paths, int size);
-int				ant_push(t_list *path_ptr, t_list **queue);
-void			ant_pop(t_list ***queue, t_list **moving_ants,
-					int size, int *cur_ant_num);
+
+/* best_paths */
 void			find_the_best_paths_and_send_ants(t_farm *farm);
 int				*get_numrooms(t_list **paths, int size);
 int				count_printed_lines(int num_ants, int *queue, int size);
+
+/* ant_oop */
+t_ant			*new_ant(t_list *pathptr);
+void			move_ant(t_ant *ant);
+void			print_ant(t_ant ant);
+int				ant_push(t_list *path_ptr, t_list **queue);
+void			ant_pop(t_list ***queue, t_list **moving_ants,
+					int size, int *cur_ant_num);
 
 /* bfs utils */
 void			q_push(t_list **queue, t_node *the_node);
