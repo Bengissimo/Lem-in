@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 15:17:15 by ykot              #+#    #+#             */
-/*   Updated: 2022/10/04 15:22:26 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/04 20:39:26 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,18 @@ int has_single_dash(char *line)
 int has_double_space(char *line)
 {
 	return (count_char(line, ' ') == 2);
+}
+
+int	check_path_size(int *rooms, int size)
+{
+	int	i;
+
+	i = 0;
+	while (i < size)
+	{
+		if (rooms[i] == 0)
+			return (1);
+		++i;
+	}
+	return (0);
 }
