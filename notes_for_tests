@@ -5,7 +5,7 @@ DONE - ./lem-in < mini_gauntlet/cases/augment_9.map -> Error: in line 35: Memory
 - Same link twice? Is this an error or OK? I think it should be OK
 DONE - cchen test maps: basic/subject.map SEG FAULT, there are 3 empty lines in this map
 DONE - cchen test maps: error/corrupted_command Error: No end. No line number here
-- cchen test maps: error/duplicate_room no error, solves the map
+DONE - cchen test maps: error/duplicate_room no error, solves the map
 DONE- cchen test maps: error/empty_line_after_ants, wrong error message: "Error: in line 1: No links"
 DONE - cchen test maps: error/empty_line_between_rooms_and_links "Error: in line 9: No links"
 DONE - cchen test maps: error/empty_line_in_links  SEG FAULT
