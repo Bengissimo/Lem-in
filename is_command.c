@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 10:49:49 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/10/04 14:47:04 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/04 14:49:52 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	is_command(t_farm *farm, char **line)
 	farm->flag.read_lines++;
 	if (get_next_line(0, line) != 1)
 		error_free_split_line(farm, NULL, line, ERR_READ);
-	if (*line[0] == '#')
+	if (*line[0] == '#' || is_char_in_str('-', *line))
 		error_free_split_line(farm, NULL, line, ERR_AFT_COMMAND);
 	if (ft_strlen(*line) == 0 && enough_data(farm, line))
 		err_empty_line(farm);
