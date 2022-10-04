@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 10:49:49 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/10/04 14:49:52 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/04 15:08:22 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ int	is_command(t_farm *farm, char **line)
 	start_flag = 0;
 	if (!(ft_strequ("##start", *line) || ft_strequ("##end", *line)))
 		return (0);
+	if (farm->flag.rooms_done == 1)
+		error_free_split_line(farm, NULL, line, ERR_ROOM_AFT_LINK);
 	if (ft_strequ("##start", *line) && farm->start)
 		error_free_split_line(farm, NULL, line, ERR_EXT_START);
 	if (ft_strequ("##end", *line) && farm->end)
