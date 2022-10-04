@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 10:50:17 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/10/04 12:45:14 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/04 13:02:56 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	split_link(char *line, t_farm *farm, char **first, char **second)
 	if (!line)
 		return ;
 	if (has_single_dash(line) == FALSE)
-		error_free_split_line(farm, NULL, &line, "Wrong dash number in the link");
+		error_free_split_line(farm, NULL, &line, ERR_LINK_DASH);
 	i = 0;
 	while (line[i] != '-')
 		i++;
