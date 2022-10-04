@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/10/04 14:46:49 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/04 20:32:19 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define ERR_ANT_CHAR "Characters after the number of ants"
 # define ERR_DBL_ANT "Double ant number"
 # define ERR_ROOM "No rooms"
+# define ERR_DBL_ROOM "Duplicate room name"
 # define ERR_ROOM_L "Room begins with L"
 # define ERR_NO_LINK "No links"
 # define ERR_MAP "Invalid map"
@@ -45,6 +46,7 @@
 # define ERR_AFT_COMMAND "No room after command"
 # define ERR_EXT_START "More than one start"
 # define ERR_EXT_END "More than one end"
+# define ERR_SPACE "Invalid space count in the room line"
 
 # define USAGE "Usage: ./lem-in [OPTION] < valid map\n\n"
 # define HELP " -h\thelp\n"
@@ -152,6 +154,8 @@ int				check_int(const char *str);
 void			parse_links(t_farm *farm, char *line);
 int				is_char_in_str(char c, char *str);
 int				has_single_dash(char *line);
+int				has_double_space(char *line);
+
 
 
 /* errors */

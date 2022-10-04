@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 15:17:15 by ykot              #+#    #+#             */
-/*   Updated: 2022/10/04 13:47:54 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/04 15:22:26 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,20 +58,28 @@ int	is_char_in_str(char c, char *str)
 	return (found);
 }
 
-int has_single_dash(char *line)
+static int count_char(char *line, char c)
 {
 	int i;
-	int dash_seen;
+	int count;
 	
 	i = 0;
-	dash_seen = FALSE;
+	count = 0;
 	while (line[i] != '\0')
 	{
-		if (line[i] == '-' && dash_seen == FALSE)
-			dash_seen = TRUE;
-		else if (line[i] == '-' && dash_seen == TRUE)
-			return (FALSE);
+		if (line[i] == c)
+			count++;
 		i++;
 	}
-	return (dash_seen);
+	return (count);
+}
+
+int has_single_dash(char *line)
+{
+	return (count_char(line, '-') == 1);
+}
+
+int has_double_space(char *line)
+{
+	return (count_char(line, ' ') == 2);
 }

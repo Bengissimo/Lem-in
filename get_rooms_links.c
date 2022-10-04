@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 17:33:40 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/10/04 15:08:41 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/04 20:32:26 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ static int	get_rooms(t_farm *farm, char *line)
 		room_lines = get_room_lines(&line, farm);
 		if (room_lines == NULL)
 			error_free_split_line(farm, NULL, &line, ERR_MEM_ALLOC);
+		if (is_in(farm->hashmap, room_lines[0]))
+			error_free_split_line(farm, NULL, &line, ERR_DBL_ROOM);
 		room = create_room(room_lines);
 		append_room(farm, room);
 		set_nodes(room_lines, room);

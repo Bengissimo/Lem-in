@@ -11,7 +11,7 @@ DONE - cchen test maps: error/empty_line_between_rooms_and_links "Error: in line
 DONE - cchen test maps: error/empty_line_in_links  SEG FAULT
 DONE - cchen test maps: error/empty_line_in_rooms "Error: in line 5: No links"
 DONE - cchen test maps: error/invalid_room_name_1 wrong error msg ?? "Error: in line 6: Wrong link"
-- cchen test maps: error/invalid_room_spaces no error
+DOEN - cchen test maps: error/invalid_room_spaces no error
 DONE - error/link_after_end -> wrong msg ?? Error: in line 9: Characters after coordinates  -> make it "wrong room"
 DONE - error/link_after_start -> wrong msg ?? Error: in line 9: Characters after coordinates
 DONE - error/link_among_rooms -> no error msg
