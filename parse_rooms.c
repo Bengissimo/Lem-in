@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 10:00:16 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/30 22:54:29 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/04 14:41:19 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ char	**get_room_lines(char **line, t_farm *farm)
 {
 	char	**str;
 
-	if (ft_strlen(*line) == 0)
-		return (NULL);
+	/*if (ft_strlen(*line) == 0)
+		return (NULL);*/
 	str = ft_strsplit(*line, ' ');
 	if (str == NULL)
 		return (NULL);

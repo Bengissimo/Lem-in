@@ -1,29 +1,29 @@
-- empty line within links -> SEG FAULT
-- empty line within rooms  -> WRONG ERROR MSG Error: in line 18: No links
-- ./lem-in < mini_gauntlet/cases/augment_9.map -> Error: in line 35: Memory allocation see get_paths.c line: 24
+DONE - empty line within links -> SEG FAULT
+DONE - empty line within rooms  -> WRONG ERROR MSG Error: in line 18: No links
+DONE - ./lem-in < mini_gauntlet/cases/augment_9.map -> Error: in line 35: Memory allocation see get_paths.c line: 24
 - I will check this reset vs update function thing!
 - Same link twice? Is this an error or OK? I think it should be OK
-- cchen test maps: basic/subject.map SEG FAULT, there are 3 empty lines in this map
-- cchen test maps: error/corrupted_command Error: No end. No line number here
+DONE - cchen test maps: basic/subject.map SEG FAULT, there are 3 empty lines in this map
+DONE - cchen test maps: error/corrupted_command Error: No end. No line number here
 - cchen test maps: error/duplicate_room no error, solves the map
-- cchen test maps: error/empty_line_after_ants, wrong error message: "Error: in line 1: No links"
-- cchen test maps: error/empty_line_between_rooms_and_links "Error: in line 9: No links"
-- cchen test maps: error/empty_line_in_links  SEG FAULT
-- cchen test maps: error/empty_line_in_rooms "Error: in line 5: No links"
-- cchen test maps: error/invalid_room_name_1 wrong error msg ?? "Error: in line 6: Wrong link"
+DONE- cchen test maps: error/empty_line_after_ants, wrong error message: "Error: in line 1: No links"
+DONE - cchen test maps: error/empty_line_between_rooms_and_links "Error: in line 9: No links"
+DONE - cchen test maps: error/empty_line_in_links  SEG FAULT
+DONE - cchen test maps: error/empty_line_in_rooms "Error: in line 5: No links"
+DONE - cchen test maps: error/invalid_room_name_1 wrong error msg ?? "Error: in line 6: Wrong link"
 - cchen test maps: error/invalid_room_spaces no error
-- error/link_after_end -> wrong msg ?? Error: in line 9: Characters after coordinates
+- error/link_after_end -> wrong msg ?? Error: in line 9: Characters after coordinates  -> make it "wrong room"
 - error/link_after_start -> wrong msg ?? Error: in line 9: Characters after coordinates
 - error/link_among_rooms -> no error msg
-- error/mixed_room_edge -> wrong error ?? Error: No path to end
+DONE - error/mixed_room_edge -> wrong error ?? Error: No path to end
 - error/no_links -> wrong error ?? Error: No path to end
 DONE - error/room_among_links  -> wrong error ?? Error: No path to end
-- error/start_after_end - >wrong error msg
-- error/start_after_start -> wrong error msg
-- error/two_ends_in_row -> wrong error msg
-- parse_edge_cases/comment_after_end -> wrong error msg
-- parse_edge_cases/comment_after_start -> wrong error msg
-- see the case undefined/extended_link
+DONE- error/start_after_end - >wrong error msg
+DONE- error/start_after_start -> wrong error msg
+DONE- error/two_ends_in_row -> wrong error msg
+DONE- parse_edge_cases/comment_after_end -> wrong error msg
+DONE- parse_edge_cases/comment_after_start -> wrong error msg
+DONE - see the case undefined/extended_link
 
 
 

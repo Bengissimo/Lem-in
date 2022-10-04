@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 10:49:49 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/30 22:24:42 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/04 14:47:04 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,15 @@ static void	get_command(t_farm *farm, char **line, int start_flag)
 
 	str = get_room_lines(line, farm);
 	if (!str)
-		error_free_split_line(farm, NULL, line, "Memory allocation");
+		error_free_split_line(farm, NULL, line, ERR_MEM_ALLOC);
 	room = create_room(str);
 	node = create_node(str, 2);
 	free_split(&str);
 	if (!room || !node)
-		error_free_split_line(farm, NULL, line, "Memory allocation");
+		error_free_split_line(farm, NULL, line, ERR_MEM_ALLOC);
 	init_start_end_nodes(farm, start_flag, room, node);
 	if (!append_room(farm, room))
-		error_free_split_line(farm, NULL, line, "Memory allocation");
+		error_free_split_line(farm, NULL, line, ERR_MEM_ALLOC);
 }
 
 int	is_command(t_farm *farm, char **line)
@@ -56,15 +56,17 @@ int	is_command(t_farm *farm, char **line)
 	if (!(ft_strequ("##start", *line) || ft_strequ("##end", *line)))
 		return (0);
 	if (ft_strequ("##start", *line) && farm->start)
-		error_free_split_line(farm, NULL, line, "More than one start");
+		error_free_split_line(farm, NULL, line, ERR_EXT_START);
 	if (ft_strequ("##end", *line) && farm->end)
-		error_free_split_line(farm, NULL, line, "More than one end");
+		error_free_split_line(farm, NULL, line, ERR_EXT_END);
 	if (ft_strequ("##start", *line))
 		start_flag = 1;
 	ft_strdel(line);
 	farm->flag.read_lines++;
 	if (get_next_line(0, line) != 1)
-		error_free_split_line(farm, NULL, line, "Fail to read a line");
+		error_free_split_line(farm, NULL, line, ERR_READ);
+	if (*line[0] == '#')
+		error_free_split_line(farm, NULL, line, ERR_AFT_COMMAND);
 	if (ft_strlen(*line) == 0 && enough_data(farm, line))
 		err_empty_line(farm);
 	get_command(farm, line, start_flag);

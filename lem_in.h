@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/10/04 13:02:48 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/04 14:46:49 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@
 # define ERR_LINK_SAME "Same room in the link"
 # define ERR_ROOM_AFT_LINK "Room after link"
 # define ERR_LINK_DASH "Zero or excess dash in the link"
+# define ERR_AFT_COMMAND "No room after command"
+# define ERR_EXT_START "More than one start"
+# define ERR_EXT_END "More than one end"
 
 # define USAGE "Usage: ./lem-in [OPTION] < valid map\n\n"
 # define HELP " -h\thelp\n"
