@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 12:42:01 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/10/04 12:42:56 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/05 23:16:06 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_edge	*create_edge(t_node *node)
 	if (!edge)
 		return (NULL);
 	edge->to = node;
+	edge->flow = 0;
 	return (edge);
 }
 
