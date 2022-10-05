@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 20:10:34 by ykot              #+#    #+#             */
-/*   Updated: 2022/10/03 14:58:42 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/05 23:57:02 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
-# define BUFF_SIZE 1024
+# define BUFF_SIZE 1024 // check this gives error with one map
 # define MAX_FD 10
 # define TRUE 1
 # define FALSE 0
