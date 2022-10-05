@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/10/04 20:43:35 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/05 22:39:36 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,5 +240,12 @@ void			print_path_sets(t_list *sets);
 /* path_collector.c */
 int				new_path(t_list *path, t_list *all_paths);
 void			print_all_paths(t_list *all_paths);
+
+
+
+
+
+int bfs_reset(t_farm *farm);
+
 
 #endif

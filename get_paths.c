@@ -3,14 +3,54 @@
 /*                                                        :::      ::::::::   */
 /*   get_paths.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 16:52:36 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/10/04 18:17:25 by ykot             ###   ########.fr       */
+/*   Updated: 2022/10/05 23:06:57 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+void print_adj_list(t_farm farm)
+{
+	t_dblist *rooms;
+	t_room *the_room;
+	t_dblist	*edges;
+	t_edge	*the_edge;
+
+	rooms = farm.rooms.head;
+	while (rooms)
+	{
+		the_room = rooms->content;
+		printf("the room %s:\n", the_room->name);
+		if (the_room->in)
+		{
+			printf("%s -> ",the_room->in->name);
+			edges = the_room->in->edges.head;
+			while (edges)
+			{
+				the_edge = edges->content;
+				printf("%s (flow: %d) - ", the_edge->to->name, the_edge->flow);
+				edges = edges->next;
+			}
+			printf("\n");
+		}
+		if (the_room->out)
+		{
+			printf("%s -> ", the_room->out->name);
+			edges = the_room->out->edges.head;
+			while (edges)
+			{
+				the_edge = edges->content;
+				printf("%s (flow: %d) - ", the_edge->to->name, the_edge->flow);
+				edges = edges->next;
+			}
+			printf("\n");
+		}
+		rooms = rooms->next;
+	}
+}
 
 static int	when_to_stop(int *min_num_lines, t_list **path_set,
 						int index, t_farm *farm)
@@ -89,7 +129,7 @@ t_list	**get_paths(t_farm *farm, int option)
 	all_paths = NULL;
 	init_get_paths(&i, &min_num_lines, &path_set, &prev_set);
 	if (option == 2)
-		reset_all_flow(farm);
+		bfs_reset(farm);
 	while (bfs(farm, 0))
 	{
 		update_res_flow(farm);
@@ -102,7 +142,7 @@ t_list	**get_paths(t_farm *farm, int option)
 			{
 				temp = ft_lstnew_pointer(path_set[j]);
 				ft_lstadd(&all_paths, temp);
-				//print_all_paths(all_paths);
+				print_all_paths(all_paths);
 			}*/
 			j++;
 		}

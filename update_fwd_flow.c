@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 14:09:13 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/30 23:19:46 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/05 23:09:16 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	set_fwd_flow(t_dblist *edges, t_node *the_node, int flow)
 		the_edge = edges->content;
 		if (the_edge->to == the_node)
 		{
-			if (the_edge->reverse)
+			if (the_edge->reverse && the_edge->reverse->flow == 0)
 				the_edge->flow = flow;
 			if (!the_edge->reverse)
 				the_edge->flow = flow - 1;
@@ -48,7 +48,7 @@ void	update_fwd_flow(t_farm *farm, int flow)
 	}
 }
 
-void	reset_fwd_flow(t_farm *farm, int flow)
+/*void	reset_fwd_flow(t_farm *farm, int flow)
 {
 	t_node		*the_node;
 	t_edge		*the_edge;
@@ -64,9 +64,9 @@ void	reset_fwd_flow(t_farm *farm, int flow)
 		set_edge_flow(the_node, edges, the_edge, flow);
 		the_node = the_node->parent;
 	}
-}
+}*/
 
-void	reset_all_flow(t_farm *farm)
+/*void	reset_all_flow(t_farm *farm)
 {
 	while (bfs(farm, 1))
 	{
@@ -76,4 +76,4 @@ void	reset_all_flow(t_farm *farm)
 	{
 		reset_fwd_flow(farm, 0);
 	}
-}
+}*/

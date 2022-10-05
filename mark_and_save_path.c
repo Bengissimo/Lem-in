@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 17:07:05 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/30 22:54:29 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/05 23:07:46 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	reset_mark(t_farm *farm)
 	while (bfs(farm, 2))
 	{
 		update_fwd_flow(farm, 1);
-		//reset_fwd_flow(farm, 1); CHECK LATER
 	}
 }
 
