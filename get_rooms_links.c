@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 17:33:40 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/10/04 20:32:26 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/06 16:31:15 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	get_rooms(t_farm *farm, char *line)
 		if (room_lines == NULL)
 			error_free_split_line(farm, NULL, &line, ERR_MEM_ALLOC);
 		if (is_in(farm->hashmap, room_lines[0]))
-			error_free_split_line(farm, NULL, &line, ERR_DBL_ROOM);
+			error_free_split_line(farm, &room_lines, &line, ERR_DBL_ROOM);
 		room = create_room(room_lines);
 		append_room(farm, room);
 		set_nodes(room_lines, room);
@@ -44,6 +44,8 @@ static int	get_rooms(t_farm *farm, char *line)
 
 static int	get_links(t_farm *farm, char *line)
 {
+	char	**room_lines;
+
 	if (is_char_in_str('-', line))
 	{
 		farm->flag.rooms_done = 1;
@@ -55,8 +57,9 @@ static int	get_links(t_farm *farm, char *line)
 			return (1);
 		}
 	}
-	if (farm->flag.rooms_done == 1 && get_room_lines(&line, farm))
-		error_free_split_line(farm, NULL, &line, ERR_ROOM_AFT_LINK);
+	room_lines = get_room_lines(&line, farm);
+	if (farm->flag.rooms_done == 1 && room_lines)
+		error_free_split_line(farm, &room_lines, &line, ERR_ROOM_AFT_LINK);
 	return (0);
 }
 

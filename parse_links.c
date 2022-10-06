@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 10:50:17 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/10/04 13:02:56 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/06 16:07:42 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	parse_links(t_farm *farm, char *line)
 		error_free_split_line(farm, NULL, &line, ERR_LINK_SAME);
 	room1 = (t_room *)hashmap_get(farm->hashmap, first);
 	room2 = (t_room *)hashmap_get(farm->hashmap, second);
+	ft_strdel(&first);
+	ft_strdel(&second);
 	if (!room1 || !room2)
 		error_free_split_line(farm, NULL, &line, ERR_LINK);
 	if (!make_adj_list(room1, room2))

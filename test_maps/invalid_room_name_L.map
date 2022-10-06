@@ -4,10 +4,10 @@ a 1 0
 ##end
 b 5 0
 #if there are two integers following, it is a room name
-a-b 9 0
+ab 9 0
 #this room starts with L WRONG
 L3 13 0
 #this is gonna be tricky!
-a-a-b
-a-b-L3
+a-ab
+ab-L3
 L3-a
