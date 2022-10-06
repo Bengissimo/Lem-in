@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/10/05 22:39:36 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/06 15:16:48 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,14 @@ typedef struct s_hash
 	void	*ptr;
 }			t_hash;
 
+typedef struct s_pathsets
+{
+	t_list	**path_set;
+	t_list	**prev_set;
+	int		min_num_lines;
+	int		option;
+}			t_pathsets;
+
 /* read input */
 int				is_comment(char *line);
 int				is_command(t_farm *farm, char **line);
@@ -222,8 +230,17 @@ int				append_edge(t_node *node, t_edge *edge);
 
 void			update_res_flow(t_farm *farm);
 void			update_fwd_flow(t_farm *farm, int flow);
-
+/* get_paths */
 t_list			**get_paths(t_farm *farm, int option);
+
+/* get_paths_subfunctions */
+int				when_to_stop(t_pathsets *pathsets, int index, t_farm *farm);
+void			free_sets(t_pathsets *pathsets, int i);
+t_list			**return_prev_set(t_farm *farm, t_pathsets *pathsets,
+					int option, size_t i);
+t_list			**return_curr_set(t_farm *farm, t_list **path_set,
+					int option, size_t i);
+
 t_list			*mark_and_save_path(t_farm *farm, int flow);
 void			reset_mark(t_farm *farm);
 t_list			*reset_graph_save_paths(t_farm *farm);
@@ -236,16 +253,6 @@ void			reset_all_flow(t_farm *farm);
 //printing paths
 void			print_paths(t_farm *farm, t_list **paths, size_t flow);
 void			print_path_sets(t_list *sets);
-
-/* path_collector.c */
-int				new_path(t_list *path, t_list *all_paths);
-void			print_all_paths(t_list *all_paths);
-
-
-
-
-
-int bfs_reset(t_farm *farm);
-
+int				bfs_reset(t_farm *farm);
 
 #endif
