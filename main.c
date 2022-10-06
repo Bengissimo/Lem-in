@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:22:20 by ykot              #+#    #+#             */
-/*   Updated: 2022/10/06 16:10:11 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/06 16:56:26 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,5 @@ int	main(int argc, char **argv)
 	farm.option2 = get_paths(&farm, 2);
 	find_the_best_paths_and_send_ants(&farm);
 	free_farm(&farm);
-	//system("leaks lem-in"); //do not run this with make debug or with valgrind, if you do so, first call make fclean and call make re
 	return (0);
 }
