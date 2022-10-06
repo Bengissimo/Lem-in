@@ -6,7 +6,7 @@
 /*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 16:46:55 by ykot              #+#    #+#             */
-/*   Updated: 2022/10/06 16:49:14 by ykot             ###   ########.fr       */
+/*   Updated: 2022/10/06 16:58:35 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static void	del_head(t_dynlist *alst, void (*del)(void *))
 {
 	t_dblist	*temp;
 	t_dblist	*next;
-	t_dblist	*prev;
 
 	temp = alst->head;
 	next = temp->next;
@@ -29,7 +28,6 @@ static void	del_head(t_dynlist *alst, void (*del)(void *))
 static void	del_tail(t_dynlist *alst, void (*del)(void *))
 {
 	t_dblist	*temp;
-	t_dblist	*next;
 	t_dblist	*prev;
 
 	temp = alst->tail;
