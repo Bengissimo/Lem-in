@@ -1,12 +1,12 @@
 DONE - empty line within links -> SEG FAULT
 DONE - empty line within rooms  -> WRONG ERROR MSG Error: in line 18: No links
 DONE - ./lem-in < mini_gauntlet/cases/augment_9.map -> Error: in line 35: Memory allocation see get_paths.c line: 24
-- I will check this reset vs update function thing!
-- Same link twice? Is this an error or OK? I think it should be OK
+DONE- I will check this reset vs update function thing!
+DONE - Same link twice? Is this an error or OK? I think it should be OK
 DONE - cchen test maps: basic/subject.map SEG FAULT, there are 3 empty lines in this map
 DONE - cchen test maps: error/corrupted_command Error: No end. No line number here
 DONE - cchen test maps: error/duplicate_room no error, solves the map
-DONE- cchen test maps: error/empty_line_after_ants, wrong error message: "Error: in line 1: No links"
+DONE - cchen test maps: error/empty_line_after_ants, wrong error message: "Error: in line 1: No links"
 DONE - cchen test maps: error/empty_line_between_rooms_and_links "Error: in line 9: No links"
 DONE - cchen test maps: error/empty_line_in_links  SEG FAULT
 DONE - cchen test maps: error/empty_line_in_rooms "Error: in line 5: No links"
@@ -16,7 +16,7 @@ DONE - error/link_after_end -> wrong msg ?? Error: in line 9: Characters after c
 DONE - error/link_after_start -> wrong msg ?? Error: in line 9: Characters after coordinates
 DONE - error/link_among_rooms -> no error msg
 DONE - error/mixed_room_edge -> wrong error ?? Error: No path to end
-- error/no_links -> wrong error ?? Error: No path to end
+DONE - error/no_links -> wrong error ?? Error: No path to end
 DONE - error/room_among_links  -> wrong error ?? Error: No path to end
 DONE- error/start_after_end - >wrong error msg
 DONE- error/start_after_start -> wrong error msg

@@ -4,14 +4,14 @@
 # Generated maps are saved
 # The number of lines required is compared with the line number obtained from the lem-in's output
 
-#for i in {1..5}; do
-#	./generator --flow-one > flow_1_$i.txt
-#	./generator --flow-ten > flow_10_$i.txt
-#	./generator --flow-thousand > flow_1000_$i.txt
-#	./generator --big > big_$i.txt
-#	./generator --big-superposition > big_sup_$i.txt
-#	sleep 1
-#done
+for i in {1..5}; do
+	./generator --flow-one > flow_1_$i.txt
+	./generator --flow-ten > flow_10_$i.txt
+	./generator --flow-thousand > flow_1000_$i.txt
+	./generator --big > big_$i.txt
+	./generator --big-superposition > big_sup_$i.txt
+	sleep 1
+done
 
 wait
 
