@@ -7,15 +7,15 @@ import matplotlib.animation
 
 # The function to animate moving ants
 def update(frame):
-    global colors, edge_colors, width, lines, length, i, pos, start, end
+    global colors, edge_colors, width, lines, length, i, pos, start, end, node_colors
     fig.clear()
-    if i >= length - 1:
+    if i >= length:
         if kamada_kawai:
-            nx.draw_kamada_kawai(g, font_color='white', edge_color=edge_colors, with_labels=True,
-                                 width=list(weights), node_size=50)
+            nx.draw_kamada_kawai(g, font_color='#95B9C7', edge_color=edge_colors, with_labels=True,
+                                 width=list(weights), node_size=50, node_color=node_colors)
         else:
-            nx.draw(g, pos=pos, font_color='white', edge_color=edge_colors, with_labels=True,
-                    width=list(weights), node_size=50)
+            nx.draw(g, pos=pos, font_color='#95B9C7', edge_color=edge_colors, with_labels=True,
+                    width=list(weights), node_size=50, node_color=node_colors)
         fig.set_facecolor("#00000F")
         return
 
@@ -24,19 +24,19 @@ def update(frame):
     for x in j:
         x = x.split('-')
         nodes_colored.append(x[1])
-        if g.nodes[x[1]]['color'] == 'red':
+        if g.nodes[x[1]]['color'] == 'orange':
             g.nodes[x[1]]['color'] = 'yellow'
         else:
-            g.nodes[x[1]]['color'] = 'red'
+            g.nodes[x[1]]['color'] = 'orange'
 
     for n in g.nodes():
         if n in nodes_colored:
             continue
-        g.nodes[n]['color'] = 'blue'
+        g.nodes[n]['color'] = '#151B8D'
     i += 1
 
-    g.nodes[start]['color'] = 'purple'
-    g.nodes[end]['color'] = 'purple'
+    g.nodes[start]['color'] = '#48D1CC'
+    g.nodes[end]['color'] = 'red'
 
     node_colors = nx.get_node_attributes(g, 'color').values()
     pos = nx.get_node_attributes(g, 'pos')
@@ -65,11 +65,6 @@ if '--fast' in sys.argv:
     speed = 0.1
 if '--slow' in sys.argv:
     speed = 10
-# check if there is no error in main program
-x = input()
-if 'Error:' in x:
-    print("Error")
-    exit(0)
 
 # skip number of ants
 while len(x) != 0:
@@ -77,7 +72,7 @@ while len(x) != 0:
         break
     x = input()
 
-# open and read default nodes and edges
+#read default nodes and edges
 x = input()
 while len(x) != 0:
     # x = x.strip()
@@ -86,13 +81,13 @@ while len(x) != 0:
         continue
     elif '-' in x:
         x = x.split('-')
-        g.add_edge(x[0], x[1], color='yellow', weight=1)
+        g.add_edge(x[0], x[1], color='#151B8D', weight=1)
     else:
         x = x.split(' ')
-        g.add_node(x[0], pos=(int(x[1]), int(x[2])), color='blue')
+        g.add_node(x[0], pos=(int(x[1]), int(x[2])), color='#151B8D')
     x = input()
 
-# open and read the found paths
+#read the found paths
 x = input()
 while len(x) != 0:
     x = x.strip()
@@ -100,12 +95,12 @@ while len(x) != 0:
     i = len(x)
     j = 0
     while i - 1:
-        g.edges[x[j], x[j + 1]]['color'] = 'green'
-        g.edges[x[j], x[j + 1]]['weight'] = 4
+        g.edges[x[j], x[j + 1]]['color'] = '#48D1CC'
+        g.edges[x[j], x[j + 1]]['weight'] = 2
         i -= 1
         j += 1
-    g.nodes[x[0]]['color'] = 'purple'
-    g.nodes[x[-1]]['color'] = 'purple'
+    g.nodes[x[0]]['color'] = '#48D1CC'
+    g.nodes[x[-1]]['color'] = 'red'
     start = x[0]
     end = x[-1]
     x = input()
@@ -125,9 +120,6 @@ else:
 fig.set_facecolor("#00000F")
 
 # read data from moving ants
-# with open('send_ants_carl') as f:
-#    lines = [line.rstrip() for line in f]
-# f.close()
 x = input()
 lines = []
 while len(x) != 0:
