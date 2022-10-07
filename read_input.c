@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:25:04 by ykot              #+#    #+#             */
-/*   Updated: 2022/10/04 15:28:00 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/07 12:44:46 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,11 @@ static int	check_gnl(t_farm *farm, int gnl, char **line)
 {
 	if (gnl == -1)
 		error(farm, ERR_READ);
+	if (gnl == 0 && farm->start && farm->end && farm->flag.is_links == 0)
+	{
+		ft_strdel(line);
+		error(farm, ERR_NO_LINK);
+	}
 	if (gnl == 0 && farm->start && farm->end)
 	{
 		ft_strdel(line);
