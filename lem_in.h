@@ -6,17 +6,13 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/10/07 12:53:07 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/07 15:58:38 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEM_IN_H
 # define LEM_IN_H
 # include "libft/libft.h"
-
-
-
-#include <stdio.h>
 
 # define HASH 1109
 # define INT_MAX 2147483647
@@ -142,55 +138,37 @@ typedef struct s_pathsets
 	int		option;
 }			t_pathsets;
 
-/* read input */
+/* read_input */
 int				is_comment(char *line);
-int				is_command(t_farm *farm, char **line);
-char			**get_room_lines(char **line, t_farm *farm);
-void			get_ant_num(t_farm *farm, char **line);
-t_room			*create_room(char **str);
-int				append_room(t_farm *farm, t_room *room);
-int				get_link(t_farm *farm, char **line);
-int				get_rooms_links(t_farm *farm, char *line);
-int				make_adj_list(t_room *room1, t_room *room2);
-
-void			read_input(t_farm *farm);
 void			save_input(t_farm *farm, char **line);
-void			err_empty_line(t_farm *farm);
 int				enough_data(t_farm *farm, char **line);
-void			err_nolines(t_farm *farm, char *str);
+void			read_input(t_farm *farm);
 
 /* checks */
 int				check_int(const char *str);
-void			parse_links(t_farm *farm, char *line);
 int				is_char_in_str(char c, char *str);
 int				has_single_dash(char *line);
 int				has_double_space(char *line);
 int				check_path_size(int *rooms, int size);
 
-/* errors */
-void			error(t_farm *farm, char *str);
-void			free_split(char ***str);
-void			error_free_split_line(t_farm *farm, char ***str,
-					char **line, char *er_str);
-void			err_nolines(t_farm *farm, char *str);
-void			err_empty_line(t_farm *farm);
+/* is_command */
+int				is_command(t_farm *farm, char **line);
 
-/* del */
-void			del_dblfn(void *content);
-void			null_fn(void *content, size_t size);
-void			del(void *content, size_t size);
-void			del_rooms(void *content);
+/* parse_ant_num */
+void			get_ant_num(t_farm *farm, char **line);
 
-/* free_fn */
-void			del_dblfn(void *content);
-void			free_farm(t_farm *farm);
-void			del(void *content, size_t size);
-void			free_path_set(t_list **path_set, size_t size);
-void			null_fn(void *content, size_t size);
+/* get_rooms_links */
+int				get_rooms_links(t_farm *farm, char *line);
 
-/* print */
-void			print_farm(t_farm farm);
-void			print_paths(t_farm *farm, t_list **paths, size_t flow);
+/* parse_rooms */
+char			**get_room_lines(char **line, t_farm *farm);
+t_room			*create_room(char **str);
+int				append_room(t_farm *farm, t_room *room);
+t_node			*create_node(char **str, int is_in_or_out);
+
+/* parse_links */
+void			parse_links(t_farm *farm, char *line);
+int				get_link(t_farm *farm, char **line);
 
 /* hashmap */
 unsigned long	hash(const char *s, unsigned long m);
@@ -199,9 +177,49 @@ int				hashmap_set(t_list **hashmap, char *str, void *ptr);
 int				is_in(t_list **hashmap, char *str);
 void			free_hashmap(t_list **hashmap);
 
-/* send_ants */
-t_list			**make_queue(t_farm *farm, t_list **paths, int size);
-void			send_ants(t_farm *farm, t_list **paths, int size);
+/* make_adj_list */
+t_edge			*create_edge(t_node *node);
+int				append_edge(t_node *node, t_edge *edge);
+int				make_adj_list(t_room *room1, t_room *room2);
+
+/* get_paths */
+t_list			**get_paths(t_farm *farm, int option);
+
+/* get_paths_subfunctions */
+int				when_to_stop(t_pathsets *pathsets, int index, t_farm *farm);
+void			free_sets(t_pathsets *pathsets, int i);
+t_list			**return_prev_set(t_farm *farm, t_pathsets *pathsets,
+					int option, size_t i);
+t_list			**return_curr_set(t_farm *farm, t_list **path_set,
+					int option, size_t i);
+
+/* bfs_utils */
+void			q_push(t_list **queue, t_node *the_node);
+t_node			*q_pop(t_list **queue);
+int				free_and_exit_bfs(t_list **queue, t_list **visited, int exit);
+
+/* bfs */
+int				bfs(t_farm *farm, int flow);
+int				bfs_reset(t_farm *farm);
+
+/* update_residual_flow */
+void			update_res_flow(t_farm *farm);
+
+/* bfs_path */
+int				bfs_path(t_farm *farm, int option);
+
+/* update_fwd_flow */
+void			update_fwd_flow(t_farm *farm, int flow);
+
+/* mark_and_save_path */
+void			reset_mark(t_farm *farm);
+void			set_edge_flow(t_node *the_node, t_dblist *edges,
+					t_edge *the_edge, int flow);
+t_list			*mark_and_save_path(t_farm *farm, int flow);
+
+/* print */
+void			print_farm(t_farm farm);
+void			print_paths(t_farm *farm, t_list **paths, size_t flow);
 
 /* best_paths */
 void			find_the_best_paths_and_send_ants(t_farm *farm);
@@ -216,45 +234,26 @@ int				ant_push(t_list *path_ptr, t_list **queue);
 void			ant_pop(t_list ***queue, t_list **moving_ants,
 					int size, int *cur_ant_num);
 
-/* bfs utils */
-void			q_push(t_list **queue, t_node *the_node);
-t_node			*q_pop(t_list **queue);
-int				free_and_exit_bfs(t_list **queue, t_list **visited, int exit);
+/* send_ants */
+t_list			**make_queue(t_farm *farm, t_list **paths, int size);
+void			send_ants(t_farm *farm, t_list **paths, int size);
 
-/* bfs */
-int				bfs(t_farm *farm, int flow);
-int				bfs_path(t_farm *farm, int option);
+/* free_fn */
+void			free_farm(t_farm *farm);
+void			free_path_set(t_list **path_set, size_t size);
+void			free_split(char ***str);
 
-/* algo */
-t_node			*create_node(char **str, int is_in_or_out);
-t_edge			*create_edge(t_node *node);
-int				append_edge(t_node *node, t_edge *edge);
+/* del_fn */
+void			del_dblfn(void *content);
+void			null_fn(void *content, size_t size);
+void			del(void *content, size_t size);
+void			del_rooms(void *content);
 
-void			update_res_flow(t_farm *farm);
-void			update_fwd_flow(t_farm *farm, int flow);
-/* get_paths */
-t_list			**get_paths(t_farm *farm, int option);
-
-/* get_paths_subfunctions */
-int				when_to_stop(t_pathsets *pathsets, int index, t_farm *farm);
-void			free_sets(t_pathsets *pathsets, int i);
-t_list			**return_prev_set(t_farm *farm, t_pathsets *pathsets,
-					int option, size_t i);
-t_list			**return_curr_set(t_farm *farm, t_list **path_set,
-					int option, size_t i);
-
-t_list			*mark_and_save_path(t_farm *farm, int flow);
-void			reset_mark(t_farm *farm);
-t_list			*reset_graph_save_paths(t_farm *farm);
-void			set_edge_flow(t_node *the_node, t_dblist *edges,
-					t_edge *the_edge, int flow);
-
-/* update_fwd_flow */
-void			reset_all_flow(t_farm *farm);
-
-//printing paths
-void			print_paths(t_farm *farm, t_list **paths, size_t flow);
-void			print_path_sets(t_list *sets);
-int				bfs_reset(t_farm *farm);
+/* error_fn */
+void			error(t_farm *farm, char *str);
+void			error_free_split_line(t_farm *farm, char ***str,
+					char **line, char *er_str);
+void			err_nolines(t_farm *farm, char *str);
+void			err_empty_line(t_farm *farm);
 
 #endif
