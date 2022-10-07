@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 10:00:16 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/10/07 12:38:58 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/07 12:54:55 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,8 @@ char	**get_room_lines(char **line, t_farm *farm)
 		error_free_split_line(farm, &room_lines, line, ERR_ROOM_L);
 	if ((check_int(room_lines[0]) && room_lines[1] == NULL))
 		error_free_split_line(farm, &room_lines, line, ERR_DBL_ANT);
-	if (!(check_int(room_lines[1]) && check_int(room_lines[2])
-			&& !room_lines[3]))
+	if (!(check_int(room_lines[1]) && check_int(room_lines[2])))
 	{
-		if (room_lines[3])
-			error_free_split_line(farm, &room_lines, line, ERR_COORD_CHAR);
 		if (check_int(room_lines[0]) && room_lines[1] == NULL)
 			error_free_split_line(farm, &room_lines, line, ERR_DBL_ANT);
 		error_free_split_line(farm, &room_lines, line, ERR_COORD_INT);
