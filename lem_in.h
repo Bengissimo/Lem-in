@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/10/06 17:02:09 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/07 12:52:23 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@
 # define ERR_MLTP_ARGS "More than one argument"
 # define ERR_ARGS "Wrong arguments"
 # define ERR_NO_PATH "No path to end"
-# define ERR_COORD_CHAR "Characters after coordinates"
 # define ERR_COORD_INT "Coordinates are not integers"
 # define ERR_READ "Fail to read a line"
 # define ERR_START "No start"
@@ -41,7 +40,7 @@
 # define ERR_LINK "Wrong link"
 # define ERR_LINK_SAME "Same room in the link"
 # define ERR_ROOM_AFT_LINK "Room after link"
-# define ERR_LINK_DASH "Zero or excess dash in the link"
+# define ERR_LINK_DASH "Excess dash in the link"
 # define ERR_AFT_COMMAND "No room after command"
 # define ERR_EXT_START "More than one start"
 # define ERR_EXT_END "More than one end"
