@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 15:17:15 by ykot              #+#    #+#             */
-/*   Updated: 2022/10/05 22:00:05 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/06 17:02:52 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,30 +58,14 @@ int	is_char_in_str(char c, char *str)
 	return (found);
 }
 
-static int	count_char(char *line, char c)
-{
-	int	i;
-	int	count;
-
-	i = 0;
-	count = 0;
-	while (line[i] != '\0')
-	{
-		if (line[i] == c)
-			count++;
-		i++;
-	}
-	return (count);
-}
-
 int	has_single_dash(char *line)
 {
-	return (count_char(line, '-') == 1);
+	return (ft_char_count(line, '-') == 1);
 }
 
 int	has_double_space(char *line)
 {
-	return (count_char(line, ' ') == 2);
+	return (ft_char_count(line, ' ') == 2);
 }
 
 int	check_path_size(int *rooms, int size)
