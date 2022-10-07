@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 17:33:40 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/10/07 12:43:26 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/07 14:25:48 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	get_rooms(t_farm *farm, char *line)
 	char	**room_lines;
 	t_room	*room;
 
-	if (!farm->flag.rooms_done && !is_char_in_str('-', line))
+	if (!farm->flag.rooms_done && has_double_space(line))
 	{
 		room_lines = get_room_lines(&line, farm);
 		if (room_lines == NULL)

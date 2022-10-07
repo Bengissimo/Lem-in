@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:22:20 by ykot              #+#    #+#             */
-/*   Updated: 2022/10/06 17:00:00 by ykot             ###   ########.fr       */
+/*   Updated: 2022/10/07 14:26:03 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,11 @@ int	main(int argc, char **argv)
 	if (read_options(&farm, argc, argv))
 		err_nolines(&farm, ERR_ARGS);
 	read_input(&farm);
-	print_farm(farm);
 	farm.option1 = get_paths(&farm, 1);
 	if (farm.option1 == NULL)
 		err_nolines(&farm, ERR_NO_PATH);
 	farm.option2 = get_paths(&farm, 2);
+	print_farm(farm);
 	find_the_best_paths_and_send_ants(&farm);
 	free_farm(&farm);
 	//system("Leaks lem-in");
