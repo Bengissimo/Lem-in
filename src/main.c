@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:22:20 by ykot              #+#    #+#             */
-/*   Updated: 2022/10/07 14:26:03 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/07 18:17:43 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,7 @@ int	main(int argc, char **argv)
 	if (farm.option1 == NULL)
 		err_nolines(&farm, ERR_NO_PATH);
 	farm.option2 = get_paths(&farm, 2);
-	print_farm(farm);
 	find_the_best_paths_and_send_ants(&farm);
 	free_farm(&farm);
-	//system("Leaks lem-in");
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_rooms.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 10:00:16 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/10/07 12:54:55 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/07 17:49:40 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ char	**get_room_lines(char **line, t_farm *farm)
 	if (!has_double_space(*line))
 		error_free_split_line(farm, NULL, line, ERR_SPACE);
 	room_lines = ft_strsplit(*line, ' ');
+	if (room_lines == NULL)
+		error_free_split_line(farm, NULL, line, ERR_MEM_ALLOC);
 	if (!is_room_name_valid(room_lines[0]))
 		error_free_split_line(farm, &room_lines, line, ERR_ROOM_L);
 	if ((check_int(room_lines[0]) && room_lines[1] == NULL))
@@ -80,6 +82,8 @@ t_node	*create_node(char **str, int is_in_or_out)
 	if (!str)
 		return (NULL);
 	node = (t_node *)ft_memalloc(sizeof(*node));
+	if (node == NULL)
+		return (NULL);
 	if (is_in_or_out == 1)
 		node->name = ft_strjoin(str[0], "_in");
 	else if (is_in_or_out == 0)

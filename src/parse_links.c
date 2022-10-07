@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 10:50:17 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/10/06 16:07:42 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/07 18:16:20 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,16 @@ static void	split_link(char *line, t_farm *farm, char **first, char **second)
 		i++;
 	j = i;
 	*first = ft_strsub(line, 0, i);
+	if (!first)
+		error_free_split_line(farm, NULL, &line, ERR_MEM_ALLOC);
 	while (line[i] != '\0')
 		i++;
 	*second = ft_strsub(line, j + 1, i - j - 1);
+	if (!second)
+	{
+		ft_strdel(first);
+		error_free_split_line(farm, NULL, &line, ERR_MEM_ALLOC);
+	}
 }
 
 void	parse_links(t_farm *farm, char *line)
@@ -41,10 +48,12 @@ void	parse_links(t_farm *farm, char *line)
 	first = NULL;
 	second = NULL;
 	split_link(line, farm, &first, &second);
-	if (!first || !second)
-		error_free_split_line(farm, NULL, &line, ERR_MEM_ALLOC);
 	if (ft_strequ(first, second))
+	{
+		ft_strdel(&first);
+		ft_strdel(&second);
 		error_free_split_line(farm, NULL, &line, ERR_LINK_SAME);
+	}
 	room1 = (t_room *)hashmap_get(farm->hashmap, first);
 	room2 = (t_room *)hashmap_get(farm->hashmap, second);
 	ft_strdel(&first);
