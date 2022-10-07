@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 18:49:37 by ykot              #+#    #+#             */
-/*   Updated: 2022/10/03 14:38:59 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/07 12:16:26 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*ft_strnew(size_t size)
 	char	*strnew;
 	size_t	i;
 
-	if (!size)
+	if (size < 0)
 		return (NULL);
 	strnew = (char *)malloc(sizeof(char) * (size + 1));
 	if (!strnew)
