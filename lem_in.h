@@ -6,13 +6,17 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/10/07 12:52:23 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/07 12:53:07 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEM_IN_H
 # define LEM_IN_H
 # include "libft/libft.h"
+
+
+
+#include <stdio.h>
 
 # define HASH 1109
 # define INT_MAX 2147483647
