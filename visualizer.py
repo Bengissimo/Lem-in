@@ -66,6 +66,7 @@ if '--fast' in sys.argv:
 if '--slow' in sys.argv:
     speed = 10
 
+x = input()
 # skip number of ants
 while len(x) != 0:
     if x[0].isdigit():
