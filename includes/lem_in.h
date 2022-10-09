@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/10/07 16:17:23 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/10 00:47:06 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,9 +194,10 @@ t_list			**return_curr_set(t_farm *farm, t_list **path_set,
 					int option, size_t i);
 
 /* bfs_utils */
-void			q_push(t_list **queue, t_node *the_node);
+int				q_push(t_list **queue, t_node *the_node);
 t_node			*q_pop(t_list **queue);
 int				free_and_exit_bfs(t_list **queue, t_list **visited, int exit);
+void			free_err_hashmap(t_farm *farm, t_list	**queue, t_list **visited);
 
 /* bfs */
 int				bfs(t_farm *farm, int flow);

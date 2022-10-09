@@ -3,22 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   get_rooms_links.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 17:33:40 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/10/07 14:25:48 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/10 01:14:41 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static void	set_nodes(char **room_lines, t_room *room)
+static int	set_nodes(char **room_lines, t_room *room)
 {
+	t_edge	*edge;
+
 	room->in = create_node(room_lines, 1);
 	room->out = create_node(room_lines, 0);
+	if (room->in == NULL || room->out == NULL)
+	{
+		del_rooms(room);
+		return (0);
+	}
 	room->in->source = room;
 	room->out->source = room;
-	append_edge(room->in, create_edge(room->out));
+	edge = create_edge(room->out);
+	if (edge == NULL)
+	{
+		del_rooms(room);
+		return (0);
+	}
+	if (append_edge(room->in, edge) == 0)
+	{
+		del_rooms(room);
+		free(edge);
+		return (0);
+	}
+	return (1);
 }
 
 static int	get_rooms(t_farm *farm, char *line)
@@ -35,7 +54,8 @@ static int	get_rooms(t_farm *farm, char *line)
 			error_free_split_line(farm, &room_lines, &line, ERR_DBL_ROOM);
 		room = create_room(room_lines);
 		append_room(farm, room);
-		set_nodes(room_lines, room);
+		if (set_nodes(room_lines, room) == 0)
+			error_free_split_line(farm, NULL, &line, ERR_MEM_ALLOC);
 		free_split(&room_lines);
 		return (1);
 	}

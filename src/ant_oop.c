@@ -6,7 +6,7 @@
 /*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 15:57:05 by ykot              #+#    #+#             */
-/*   Updated: 2022/10/04 17:34:19 by ykot             ###   ########.fr       */
+/*   Updated: 2022/10/10 00:44:51 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	print_ant(t_ant ant)
 	ft_putstr((char *)(ant.pathptr->content));
 }
 
+/* Add ant to the list queue */
 int	ant_push(t_list *path_ptr, t_list **queue)
 {
 	t_list	*new;
@@ -54,6 +55,7 @@ int	ant_push(t_list *path_ptr, t_list **queue)
 	return (0);
 }
 
+/* Get ant from the list queue */
 void	ant_pop(t_list ***queue, t_list **moving_ants,
 	int size, int *cur_ant_num)
 {

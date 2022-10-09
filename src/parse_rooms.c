@@ -6,7 +6,7 @@
 /*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 10:00:16 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/10/07 17:49:40 by ykot             ###   ########.fr       */
+/*   Updated: 2022/10/09 23:06:54 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ t_room	*create_room(char **str)
 	if (!room)
 		return (NULL);
 	room->name = ft_strdup(str[0]);
+	if (room->name == NULL)
+		return (NULL);
 	room->coord.x = ft_atoi(str[1]);
 	room->coord.y = ft_atoi(str[2]);
 	return (room);

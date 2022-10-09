@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   del_fn.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 19:16:18 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/30 22:24:42 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/09 23:01:32 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ void	del_dblfn(void *content)
 void	null_fn(void *content, size_t size)
 {
 	content = NULL;
-	size = 0;
+	size++;
 }
 
 void	del(void *content, size_t size)
 {
 	if (content)
 		free(content);
-	size = 0;
+	size++;
 }
 
 void	del_rooms(void *content)

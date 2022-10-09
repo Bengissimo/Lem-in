@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_fn.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 14:43:14 by ykot              #+#    #+#             */
-/*   Updated: 2022/10/07 18:17:41 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/09 23:33:54 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,11 @@ void	error_free_split_line(t_farm *farm, char ***str,
 
 void	err_nolines(t_farm *farm, char *str)
 {
+	if (farm == NULL)
+	{
+		ft_putendl_fd(str, 2);
+		exit(1);
+	}
 	farm->flag.no_errlines = 1;
 	error(farm, str);
 }

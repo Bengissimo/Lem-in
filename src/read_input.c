@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_input.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:25:04 by ykot              #+#    #+#             */
-/*   Updated: 2022/10/07 15:36:49 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/09 23:04:22 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ void	save_input(t_farm *farm, char **line)
 		error_free_split_line(farm, NULL, line, ERR_MEM_ALLOC);
 	tempptr = ft_dblstnew_pointer(str);
 	if (tempptr == NULL)
+	{
+		free(str);
 		error_free_split_line(farm, NULL, line, ERR_MEM_ALLOC);
+	}
 	ft_dynlstappend(&(farm->input_lines), tempptr);
 	farm->flag.read_lines++;
 }

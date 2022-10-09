@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_command.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 10:49:49 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/10/04 15:08:22 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/09 23:39:15 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,16 @@ static void	get_command(t_farm *farm, char **line, int start_flag)
 	if (!str)
 		error_free_split_line(farm, NULL, line, ERR_MEM_ALLOC);
 	room = create_room(str);
+	if (room == NULL)
+		error_free_split_line(farm, &str, line, ERR_MEM_ALLOC);
 	node = create_node(str, 2);
+	if (node == NULL)
+	{
+		free(room->name);
+		free(room);
+		error_free_split_line(farm, &str, line, ERR_MEM_ALLOC);
+	}
 	free_split(&str);
-	if (!room || !node)
-		error_free_split_line(farm, NULL, line, ERR_MEM_ALLOC);
 	init_start_end_nodes(farm, start_flag, room, node);
 	if (!append_room(farm, room))
 		error_free_split_line(farm, NULL, line, ERR_MEM_ALLOC);

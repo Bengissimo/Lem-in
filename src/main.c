@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:22:20 by ykot              #+#    #+#             */
-/*   Updated: 2022/10/07 18:17:43 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/09 23:34:23 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static void	init_farm(t_farm *farm)
 	farm->option1 = NULL;
 	farm->option2 = NULL;
 	farm->hashmap = ft_memalloc(HASH * sizeof(t_list *));
+	if (farm->hashmap == NULL)
+		err_nolines(NULL, ERR_MEM_ALLOC);
 }
 
 static void	print_help(t_farm *farm)
