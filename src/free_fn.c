@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_fn.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 15:46:05 by ykot              #+#    #+#             */
-/*   Updated: 2022/09/30 22:24:42 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/10 11:51:00 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,12 @@ void	free_path_set(t_list **path_set, size_t size)
 
 void	free_farm(t_farm *farm)
 {
-	ft_dblstdel(&farm->rooms, del_rooms);
-	ft_dblstdel(&farm->input_lines, del_dblfn);
+	if (farm->rooms.head)
+		ft_dblstdel(&farm->rooms, del_rooms);
+	if (farm->input_lines.head)
+		ft_dblstdel(&farm->input_lines, del_dblfn);
 	free_path_set(farm->option1, farm->index.ind1);
 	free_path_set(farm->option2, farm->index.ind2);
-	free_hashmap(farm->hashmap);
+	if (farm->hashmap)
+		free_hashmap(farm->hashmap);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_residual_flow.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 17:15:37 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/10/06 11:43:35 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/10 12:45:52 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@ static void	create_rev_flow(t_node *the_node, t_dblist *edges,
 			if (!the_edge->reverse)
 			{
 				the_edge->reverse = create_edge(the_node->parent);
+				if (the_edge->reverse == NULL)
+					err_nolines(farm, ERR_MEM_ALLOC);
 				if (!append_edge(the_node, the_edge->reverse))
-					error(farm, "Memory allocation");
+					err_nolines(farm, ERR_MEM_ALLOC);
 				the_edge->reverse->reverse = the_edge;
 			}
 			break ;

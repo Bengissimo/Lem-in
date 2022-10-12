@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_paths.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 16:52:36 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/10/06 15:15:39 by ykot             ###   ########.fr       */
+/*   Updated: 2022/10/10 14:08:18 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,15 @@ static t_list	**exit_get_paths(t_farm *farm, t_pathsets *pathsets,
 	return (free_sets_null(pathsets, i));
 }
 
+/*
+	When the flow is zero find the shortest node-disjoint path
+	and create the reverse edges for that path.
+	Call the bfs_path with the given option, 
+	mark the edge flow of the found path with 2 and save the path-set.
+	Check if the previous path-set provides less lines than 
+	the current path-set for the given ant number,
+	if so return the previous path-set
+*/
 t_list	**get_paths(t_farm *farm, int option)
 {
 	t_pathsets	pathsets;

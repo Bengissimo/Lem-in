@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 14:43:14 by ykot              #+#    #+#             */
-/*   Updated: 2022/10/06 16:51:53 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/10 11:49:58 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,11 @@ void	error_free_split_line(t_farm *farm, char ***str,
 
 void	err_nolines(t_farm *farm, char *str)
 {
+	if (farm == NULL)
+	{
+		ft_putendl_fd(str, 2);
+		exit(1);
+	}
 	farm->flag.no_errlines = 1;
 	error(farm, str);
 }

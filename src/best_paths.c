@@ -6,7 +6,7 @@
 /*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 14:13:13 by ykot              #+#    #+#             */
-/*   Updated: 2022/10/04 17:59:57 by ykot             ###   ########.fr       */
+/*   Updated: 2022/10/10 14:37:56 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	*get_numrooms(t_list **paths, int size)
 	return (rooms);
 }
 
-/* How many lines is going to be printed using these paths */
+/* How many lines are going to be printed using these paths */
 int	count_printed_lines(int num_ants, int *queue, int size)
 {
 	int	i;
@@ -58,14 +58,12 @@ static void	print_flag_p(t_farm *farm, int nl1, int nl2)
 	if (nl1 < nl2)
 	{
 		print_paths(farm, farm->option1, farm->index.ind1);
-		if (!farm->flag.v)
-			ft_printf("Number of lines to print: %d\n", nl1 - 1);
+		ft_printf("Number of lines to print: %d\n", nl1 - 1);
 	}
 	else
 	{
 		print_paths(farm, farm->option2, farm->index.ind2);
-		if (!farm->flag.v)
-			ft_printf("Number of lines to print: %d\n", nl2 - 1);
+		ft_printf("Number of lines to print: %d\n", nl2 - 1);
 	}
 }
 
@@ -95,7 +93,7 @@ void	find_the_best_paths_and_send_ants(t_farm *farm)
 	}
 	num_lines_1 = lines_to_print(farm, farm->option1, farm->index.ind1);
 	num_lines_2 = lines_to_print(farm, farm->option2, farm->index.ind2);
-	if (farm->flag.p || farm->flag.v)
+	if (farm->flag.p)
 		print_flag_p(farm, num_lines_1, num_lines_2);
 	if (!farm->flag.p)
 	{

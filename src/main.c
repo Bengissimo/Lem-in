@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:22:20 by ykot              #+#    #+#             */
-/*   Updated: 2022/10/07 14:26:03 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/10 13:32:23 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ static void	init_farm(t_farm *farm)
 	ft_bzero(farm, sizeof(*farm));
 	farm->option1 = NULL;
 	farm->option2 = NULL;
-	farm->hashmap = ft_memalloc(HASH * sizeof(t_list *));
+	farm->hashmap = (t_list **)ft_memalloc(HASH * sizeof(t_list *));
+	if (farm->hashmap == NULL)
+		err_nolines(NULL, ERR_MEM_ALLOC);
 }
 
 static void	print_help(t_farm *farm)
@@ -62,9 +64,7 @@ int	main(int argc, char **argv)
 	if (farm.option1 == NULL)
 		err_nolines(&farm, ERR_NO_PATH);
 	farm.option2 = get_paths(&farm, 2);
-	print_farm(farm);
 	find_the_best_paths_and_send_ants(&farm);
 	free_farm(&farm);
-	//system("Leaks lem-in");
 	return (0);
 }

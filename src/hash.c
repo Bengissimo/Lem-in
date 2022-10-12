@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hash.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 12:28:34 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/09/30 22:54:29 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/10 12:02:34 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,17 @@ int	hashmap_set(t_list **hashmap, char *str, void *ptr)
 	unsigned long	key;
 
 	value = (t_hash *)ft_memalloc(sizeof(t_hash));
+	if (value == NULL)
+		return (0);
 	value->name = str;
 	value->ptr = ptr;
 	key = hash(str, HASH);
 	new = ft_lstnew_pointer((void *)value);
 	if (!new)
+	{
+		free(value);
 		return (0);
+	}
 	ft_lstappend(&hashmap[key], new);
 	return (1);
 }

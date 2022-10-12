@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mark_and_save_path.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 17:07:05 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/10/05 23:07:46 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/09 23:27:16 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,24 @@ void	set_edge_flow(t_node *the_node, t_dblist *edges,
 	}
 }
 
+static void	init_mark_save_path(t_edge **the_edge, t_dblist **edges,
+								t_list **the_path)
+{
+	*edges = NULL;
+	*the_path = NULL;
+	*the_edge = NULL;
+}
+
 t_list	*mark_and_save_path(t_farm *farm, int flow)
 {
 	t_node		*the_node;
 	t_edge		*the_edge;
 	t_dblist	*edges;
 	t_list		*the_path;
+	t_list		*temp;
 
+	init_mark_save_path(&the_edge, &edges, &the_path);
 	the_node = farm->end->in;
-	edges = NULL;
-	the_path = NULL;
-	the_edge = NULL;
 	while (the_node)
 	{
 		if (the_node->parent)
@@ -53,7 +60,12 @@ t_list	*mark_and_save_path(t_farm *farm, int flow)
 		set_edge_flow(the_node, edges, the_edge, flow);
 		if (the_node->source != farm->start
 			&& the_node->source != the_node->parent->source)
-			ft_lstadd(&the_path, ft_lstnew_pointer(the_node->source->name));
+		{
+			temp = ft_lstnew_pointer(the_node->source->name);
+			if (temp == NULL)
+				err_nolines(farm, ERR_MEM_ALLOC);
+			ft_lstadd(&the_path, temp);
+		}
 		the_node = the_node->parent;
 	}
 	return (the_path);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_ant_num.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 17:39:46 by bkandemi          #+#    #+#             */
-/*   Updated: 2022/10/06 14:46:28 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/10 12:15:59 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ void	get_ant_num(t_farm *farm, char **line)
 			else
 				err_empty_line(farm);
 		}
+		save_input(farm, line);
 		if (ft_strlen(*line) == 0)
 			err_empty_line(farm);
-		save_input(farm, line);
 		if (is_comment(*line))
 			continue ;
 		ant_num_checks(farm, line, &num);

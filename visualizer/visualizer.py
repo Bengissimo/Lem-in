@@ -76,16 +76,16 @@ while len(x) != 0:
 #read default nodes and edges
 x = input()
 while len(x) != 0:
-    # x = x.strip()
+    x = x.strip()
     if x[0] == '#':
         x = input()
         continue
-    elif '-' in x:
-        x = x.split('-')
-        g.add_edge(x[0], x[1], color='#151B8D', weight=1)
-    else:
+    elif x.count(' ') == 2:
         x = x.split(' ')
         g.add_node(x[0], pos=(int(x[1]), int(x[2])), color='#151B8D')
+    else:
+        x = x.split('-')
+        g.add_edge(x[0], x[1], color='#151B8D', weight=1)    
     x = input()
 
 #read the found paths

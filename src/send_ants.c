@@ -6,7 +6,7 @@
 /*   By: ykot <ykot@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 17:40:39 by ykot              #+#    #+#             */
-/*   Updated: 2022/10/04 17:35:52 by ykot             ###   ########.fr       */
+/*   Updated: 2022/10/10 14:39:18 by ykot             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,9 @@ void	send_ants(t_farm *farm, t_list **paths, int size)
 	if (queue == NULL)
 		err_nolines(farm, ERR_MEM_ALLOC);
 	ant_pop(&queue, &moving_ants, size, &cur_ant_num);
+	print_farm(*farm);
+	if (farm->flag.v)
+		print_paths(farm, paths, size);
 	while (moving_ants)
 	{
 		move_all_ants(&moving_ants);

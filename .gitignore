@@ -1,8 +1,11 @@
 *.a
-a.out
-*.o
-sandbox/
+*old.c
+*old.h
 lem-in
+*.o
+error_leaks.txt
+leaks.txt
 generator
-notes
 *.txt
+mymalloc.c
+lib_mymalloc.dylib
