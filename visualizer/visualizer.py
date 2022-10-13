@@ -3,7 +3,12 @@ import sys
 import networkx as nx
 import matplotlib.pyplot as plt
 import matplotlib.animation
+import time
 
+color_baby_blue = '#95B9C7'
+color_dark_blue = '#151B8D'
+color_turq = '#48D1CC'
+color_start_node = '#32CD32'
 
 # The function to animate moving ants
 def update(frame):
@@ -11,11 +16,11 @@ def update(frame):
     fig.clear()
     if i >= length:
         if kamada_kawai:
-            nx.draw_kamada_kawai(g, font_color='#95B9C7', edge_color=edge_colors, with_labels=True,
-                                 width=list(weights), node_size=50, node_color=node_colors)
+            nx.draw_kamada_kawai(g, font_color=color_baby_blue, edge_color=edge_colors, with_labels=True,
+                                 width=list(weights), node_size=300, node_color=node_colors)
         else:
-            nx.draw(g, pos=pos, font_color='#95B9C7', edge_color=edge_colors, with_labels=True,
-                    width=list(weights), node_size=50, node_color=node_colors)
+            nx.draw(g, pos=pos, font_color=color_baby_blue, edge_color=edge_colors, with_labels=True,
+                    width=list(weights), node_size=300, node_color=node_colors)
         fig.set_facecolor("#00000F")
         return
 
@@ -32,20 +37,20 @@ def update(frame):
     for n in g.nodes():
         if n in nodes_colored:
             continue
-        g.nodes[n]['color'] = '#151B8D'
+        g.nodes[n]['color'] = color_dark_blue
     i += 1
 
-    g.nodes[start]['color'] = '#48D1CC'
-    g.nodes[end]['color'] = 'red'
+    g.nodes[start]['color'] = color_dark_blue
+    g.nodes[end]['color'] = color_dark_blue
 
     node_colors = nx.get_node_attributes(g, 'color').values()
     pos = nx.get_node_attributes(g, 'pos')
     if kamada_kawai:
         nx.draw_kamada_kawai(g, font_color='white', edge_color=edge_colors, node_color=node_colors,
-                             width=list(weights), node_size=50)
+                             width=list(weights), node_size=300)
     else:
         nx.draw(g, pos=pos, font_color='white', edge_color=edge_colors, node_color=node_colors,
-                width=list(weights), node_size=50)
+                width=list(weights), node_size=300)
 
     fig.set_facecolor("#00000F")
 
@@ -82,11 +87,12 @@ while len(x) != 0:
         continue
     elif x.count(' ') == 2:
         x = x.split(' ')
-        g.add_node(x[0], pos=(int(x[1]), int(x[2])), color='#151B8D')
+        g.add_node(x[0], pos=(int(x[1]), int(x[2])), color=color_dark_blue)
     else:
         x = x.split('-')
-        g.add_edge(x[0], x[1], color='#151B8D', weight=1)    
+        g.add_edge(x[0], x[1], color=color_dark_blue, weight=1)    
     x = input()
+
 
 #read the found paths
 x = input()
@@ -96,11 +102,11 @@ while len(x) != 0:
     i = len(x)
     j = 0
     while i - 1:
-        g.edges[x[j], x[j + 1]]['color'] = '#48D1CC'
+        g.edges[x[j], x[j + 1]]['color'] = color_turq
         g.edges[x[j], x[j + 1]]['weight'] = 2
         i -= 1
         j += 1
-    g.nodes[x[0]]['color'] = '#48D1CC'
+    g.nodes[x[0]]['color'] = color_start_node
     g.nodes[x[-1]]['color'] = 'red'
     start = x[0]
     end = x[-1]
@@ -114,9 +120,9 @@ pos = nx.get_node_attributes(g, 'pos')
 
 # draw the first plot
 if kamada_kawai:
-    nx.draw_kamada_kawai(g, edge_color=edge_colors, node_color=node_colors, width=list(weights), node_size=50)
+    nx.draw_kamada_kawai(g, edge_color=edge_colors, node_color=node_colors, width=list(weights), node_size=300)
 else:
-    nx.draw(g, pos=pos, edge_color=edge_colors, node_color=node_colors, width=list(weights), node_size=50)
+    nx.draw(g, pos=pos, edge_color=edge_colors, node_color=node_colors, width=list(weights), node_size=300)
 
 fig.set_facecolor("#00000F")
 
