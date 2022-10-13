@@ -6,12 +6,14 @@ import matplotlib.animation
 import time
 
 color_baby_blue = '#95B9C7'
-color_dark_blue = '#151B8D'
+color_bright_blue = '#0909FF'
 color_turq = '#48D1CC'
 color_start_node = '#32CD32'
 
 # The function to animate moving ants
 def update(frame):
+    if frame < 1:
+        time.sleep(2)
     global colors, edge_colors, width, lines, length, i, pos, start, end, node_colors
     fig.clear()
     if i >= length:
@@ -37,11 +39,11 @@ def update(frame):
     for n in g.nodes():
         if n in nodes_colored:
             continue
-        g.nodes[n]['color'] = color_dark_blue
+        g.nodes[n]['color'] = color_bright_blue
     i += 1
 
-    g.nodes[start]['color'] = color_dark_blue
-    g.nodes[end]['color'] = color_dark_blue
+    g.nodes[start]['color'] = color_bright_blue
+    g.nodes[end]['color'] = color_bright_blue
 
     node_colors = nx.get_node_attributes(g, 'color').values()
     pos = nx.get_node_attributes(g, 'pos')
@@ -87,10 +89,10 @@ while len(x) != 0:
         continue
     elif x.count(' ') == 2:
         x = x.split(' ')
-        g.add_node(x[0], pos=(int(x[1]), int(x[2])), color=color_dark_blue)
+        g.add_node(x[0], pos=(int(x[1]), int(x[2])), color=color_bright_blue)
     else:
         x = x.split('-')
-        g.add_edge(x[0], x[1], color=color_dark_blue, weight=1)    
+        g.add_edge(x[0], x[1], color=color_bright_blue, weight=1)    
     x = input()
 
 
