@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/10/10 14:14:52 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/13 09:20:06 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,17 @@
 # define ERR_SPACE "Invalid space count in the room line"
 
 /* usage */
-# define USAGE "Usage: ./lem-in [OPTION] < valid map\n\n"
+# define USAGE "Usage: ./lem-in [OPTION] < valid_map\n\n"
 # define HELP " -h\thelp\n"
 # define PRINT " -p\tprint sets of possible paths and number of lines to print\n"
 # define VISUAL " -v\tused with visualizer\n"
 # define VIS_USAGE " \nVisualizer usage: \
-./lem-in -v < valid map | python3 visualizer.py [OPTION]\n\n"
+./lem-in -v < valid_map | python3 visualizer/visualizer.py [OPTION]\n\n"
 # define COORD " --coord\tto use coordinates, random nodes position by default\n"
 # define VIS_SLOW " --slow\t\tslow animation of moving ants\n"
 # define VIS_FAST " --fast\t\tfast animation of moving ants\n\n"
 # define VIS_INFO "Visualizer uses networkx, matplotlib, numpy, scipy. \
-Be sure that you have these packages installed\n\n \
+Be sure that you have these packages installed\n\n\
 pip3 install networkx matplotlib numpy scipy\n"
 
 /* structs */
