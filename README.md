@@ -87,6 +87,7 @@ Visualizer usage: ./lem-in -v < valid_map | python3 visualizer/visualizer.py [OP
  --coord        to use coordinates, random nodes position by default
  --slow         slow animation of moving ants
  --fast         fast animation of moving ants
+ --big          good for big maps with small node size
 
 Visualizer uses networkx, matplotlib, numpy, scipy. Be sure that you have these packages installed
 
