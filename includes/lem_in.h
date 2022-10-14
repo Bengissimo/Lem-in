@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/10/13 09:20:06 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/14 10:34:43 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@
 # define USAGE "Usage: ./lem-in [OPTION] < valid_map\n\n"
 # define HELP " -h\thelp\n"
 # define PRINT " -p\tprint sets of possible paths and number of lines to print\n"
-# define VISUAL " -v\tused with visualizer\n"
+# define VISUAL " -v\tenable visualizer\n"
 # define VIS_USAGE " \nVisualizer usage: \
 ./lem-in -v < valid_map | python3 visualizer/visualizer.py [OPTION]\n\n"
 # define COORD " --coord\tto use coordinates, random nodes position by default\n"
