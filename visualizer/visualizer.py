@@ -9,20 +9,25 @@ color_baby_blue = '#95B9C7'
 color_bright_blue = '#0909FF'
 color_turq = '#48D1CC'
 color_start_node = '#32CD32'
+nodesize = 300
 
 # The function to animate moving ants
 def update(frame):
     if frame < 1:
         time.sleep(2)
-    global colors, edge_colors, width, lines, length, i, pos, start, end, node_colors
+    global colors, edge_colors, width, lines, length, i, pos, start, end, node_colors, big_map
     fig.clear()
+    if big_map:
+        labels = False
+    else:
+        labels = True
     if i >= length:
         if kamada_kawai:
-            nx.draw_kamada_kawai(g, font_color=color_baby_blue, edge_color=edge_colors, with_labels=True,
-                                 width=list(weights), node_size=300, node_color=node_colors)
+            nx.draw_kamada_kawai(g, font_color=color_baby_blue, edge_color=edge_colors, with_labels=labels,
+                                 width=list(weights), node_size=nodesize, node_color=node_colors)
         else:
-            nx.draw(g, pos=pos, font_color=color_baby_blue, edge_color=edge_colors, with_labels=True,
-                    width=list(weights), node_size=300, node_color=node_colors)
+            nx.draw(g, pos=pos, font_color=color_baby_blue, edge_color=edge_colors, with_labels=labels,
+                    width=list(weights), node_size=nodesize, node_color=node_colors)
         fig.set_facecolor("#00000F")
         return
 
@@ -49,10 +54,10 @@ def update(frame):
     pos = nx.get_node_attributes(g, 'pos')
     if kamada_kawai:
         nx.draw_kamada_kawai(g, font_color='white', edge_color=edge_colors, node_color=node_colors,
-                             width=list(weights), node_size=300)
+                             width=list(weights), node_size=nodesize)
     else:
         nx.draw(g, pos=pos, font_color='white', edge_color=edge_colors, node_color=node_colors,
-                width=list(weights), node_size=300)
+                width=list(weights), node_size=nodesize)
 
     fig.set_facecolor("#00000F")
 
@@ -64,7 +69,7 @@ g = nx.Graph()
 # variables initalization
 kamada_kawai = True
 speed = 1
-
+big_map = False
 # read arguments
 if '--coord' in sys.argv:
     kamada_kawai = False
@@ -72,6 +77,9 @@ if '--fast' in sys.argv:
     speed = 0.1
 if '--slow' in sys.argv:
     speed = 10
+if '--big' in sys.argv:
+    big_map = True
+    nodesize = 3
 
 x = input()
 # skip number of ants
@@ -122,9 +130,9 @@ pos = nx.get_node_attributes(g, 'pos')
 
 # draw the first plot
 if kamada_kawai:
-    nx.draw_kamada_kawai(g, edge_color=edge_colors, node_color=node_colors, width=list(weights), node_size=300)
+    nx.draw_kamada_kawai(g, edge_color=edge_colors, node_color=node_colors, width=list(weights), node_size=nodesize)
 else:
-    nx.draw(g, pos=pos, edge_color=edge_colors, node_color=node_colors, width=list(weights), node_size=300)
+    nx.draw(g, pos=pos, edge_color=edge_colors, node_color=node_colors, width=list(weights), node_size=nodesize)
 
 fig.set_facecolor("#00000F")
 

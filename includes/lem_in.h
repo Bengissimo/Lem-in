@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:20:47 by ykot              #+#    #+#             */
-/*   Updated: 2022/10/14 10:34:43 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/14 17:02:42 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@
 ./lem-in -v < valid_map | python3 visualizer/visualizer.py [OPTION]\n\n"
 # define COORD " --coord\tto use coordinates, random nodes position by default\n"
 # define VIS_SLOW " --slow\t\tslow animation of moving ants\n"
-# define VIS_FAST " --fast\t\tfast animation of moving ants\n\n"
+# define VIS_FAST " --fast\t\tfast animation of moving ants\n"
+# define VIS_BIG " --big\t\tuse with big maps\n\n"
 # define VIS_INFO "Visualizer uses networkx, matplotlib, numpy, scipy. \
 Be sure that you have these packages installed\n\n\
 pip3 install networkx matplotlib numpy scipy\n"

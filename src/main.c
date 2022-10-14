@@ -6,7 +6,7 @@
 /*   By: bkandemi <bkandemi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:22:20 by ykot              #+#    #+#             */
-/*   Updated: 2022/10/10 13:32:23 by bkandemi         ###   ########.fr       */
+/*   Updated: 2022/10/14 16:59:34 by bkandemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static void	print_help(t_farm *farm)
 	ft_putstr(COORD);
 	ft_putstr(VIS_SLOW);
 	ft_putstr(VIS_FAST);
+	ft_putstr(VIS_BIG);
 	ft_putstr(VIS_INFO);
 	free_farm(farm);
 	exit(0);
