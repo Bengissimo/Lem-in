@@ -96,6 +96,24 @@ We aim to find the optimal combinations of node-disjoint paths for the given amo
 </p>
 
 ## Error management
+- If the input file has faulty lines, the program displays a specific error message pointing to the faulty line and exits.
+- If there is no possible solution, the program prints "Error: No end" and exits.
+
+
+Some example outputs in case of an error:
+```
+test_maps/error/invalid_double_end.map:
+Error: in line 7: More than one end
+--------------
+test_maps/error/invalid_double_start.map:
+Error: in line 7: More than one start
+--------------
+test_maps/error/invalid_empty_line.map:
+Error: in line 8: Empty line
+--------------
+test_maps/error/invalid_end.map:
+Error: No end
+```
 
 ## Installation
 ```
