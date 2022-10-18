@@ -155,6 +155,11 @@ Visualizer uses networkx, matplotlib, numpy, scipy. Be sure that you have these 
 pip3 install networkx matplotlib numpy scipy
 ```
 
+<p align="center">
+  <img src="readme_visuals/bigger_map.gif" alt="animated" />
+  <figcaption align = "center"><b>Visualizer running with --big and --coord options</b></figcaption>
+</p>
+
 ## Test scripts
 1. test.sh
 	- This script generates 5 different random maps for flow one, flow ten, flow thousand, big maps and big superposition maps
