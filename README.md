@@ -147,6 +147,20 @@ pip3 install networkx matplotlib numpy scipy
 ```
 
 ## Test scripts
+1. test.sh
+	- This script generates 5 different random maps for flow one, flow ten, flow thousand, big maps and big superposition maps
+	- The number of lines required is compared with the line number obtained from the lem-in's output and printed to the stdout
+2. error.sh
+	- This scripts runs the program with many different error cases
+3. leaks.sh
+	- This script runs the leaks command at exit with one correct map and with all error cases
+	
+```
+cd test/
+./test.sh
+./error.sh
+./leaks.sh
+```
 
 
 

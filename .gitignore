@@ -5,7 +5,6 @@ lem-in
 *.o
 error_leaks.txt
 leaks.txt
-generator
 *.txt
 mymalloc.c
 lib_mymalloc.dylib
