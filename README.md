@@ -7,7 +7,7 @@ With this project, we gained hands-on experience in graph theory, maximum flow a
 For detailed instructions, refer to [the subject](subject.pdf).
 
 <p align="center">
-  <img src="sample_map.gif" alt="animated" />
+  <img src="readme_visuals/sample_map.gif" alt="animated" />
 </p>
 
 
@@ -89,6 +89,10 @@ We aim to find the optimal combinations of node-disjoint paths for the given amo
 		- If the previous path set provides fewer lines than the current one for the given ant number, we return the previous one and stop the path-finding algorithm. 
 4. Compare the two options and send ants using the best option
     - Once we know which path set to use, we create a queue to send ants. We send the ants one by one and print the lines.
+
+<p align="center">
+	<img src="readme_visuals/option1_vs_option2.png"/>
+</p>
 
 ## Error management
 
