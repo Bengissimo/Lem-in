@@ -92,6 +92,7 @@ We aim to find the optimal combinations of node-disjoint paths for the given amo
 
 <p align="center">
 	<img src="readme_visuals/option1_vs_option2.png"/>
+	<figcaption align = "center"><b>An example graph showing how Option 2 finds a shorter path compared to Edmonds-Karp algorithm</b></figcaption>
 </p>
 
 ## Error management
