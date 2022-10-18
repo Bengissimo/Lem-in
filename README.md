@@ -65,7 +65,7 @@ L3-end
 We aim to find the optimal combinations of node-disjoint paths for the given amount of ants. We find the paths using a modified version of the Edmonds-Karp maximum flow algorithm.
 
 1. Parse rooms and create nodes
-    - Since the edges provided are undirected, to make it a directed graph, we split the rooms into two nodes: node_in and node_out.
+    - Since the edges provided are undirected, to make it a directed graph, we split the rooms into two nodes: node<sub>in</sub> and node<sub>out</sub>.
 2. Parse links and create an adjacency list
     - Rooms A and B are connected like this:
         ```
