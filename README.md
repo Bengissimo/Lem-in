@@ -63,6 +63,7 @@ L3-end
 
 ## Strategy
 We aim to find the optimal combinations of node-disjoint paths for the given amount of ants. We find the paths using a modified version of the Edmonds-Karp maximum flow algorithm.
+
 1. Parse rooms and create nodes
     - Since the edges provided are undirected, to make it a directed graph, we split the rooms into two nodes: node_in and node_out.
 2. Parse links and create an adjacency list
@@ -76,11 +77,16 @@ We aim to find the optimal combinations of node-disjoint paths for the given amo
 3. Get paths and decide when to stop finding more paths
     - While a flow is possible, run a breadth-first search (BFS) to find the shortest path from start to end
     - Create the residual flow for this path
-    - Run another BFS to save the path. Here, we use two options and keep two different path sets called option1 and option2. 
+    - Run another BFS to save the path. Here, we use two options and keep two different path sets: 
         - Option 1: Finds the paths following the edges only found with the Edmonds-Karp algorithm (the ones with the residual flow)
-        - Option 2: Explores the edges found with the Edmonds-Karp OR the edges that are not visited during the Edmonds-Karp algorithm. If the unvisited edge leads to a shorter path, we save it.
-        - Here is how we save our augmenting path sets: In the first iteration of the BFS, we save our first path set, which consists of only one path; in the second iteration, we save two paths; in the third iteration, we save three paths and so on...
-    - When to stop: We calculate the number of lines to be printed for the previous path set and the current path set. If the previous path set provides fewer lines than the current one for the given ant number, we return the previous one and stop the path-finding algorithm. 
+        - Option 2: Explores the edges found with the Edmonds-Karp and the edges that are not visited during the Edmonds-Karp algorithm. If the unvisited edge leads to a shorter path, we save it.
+    - Here is how we save our augmenting path sets:
+		- In the first iteration of the BFS, we save our first path set, which consists of only one path
+		- In the second iteration, we save two paths
+		- In the third iteration, we save three paths and so on...
+    - When to stop:
+		- We calculate the number of lines to be printed for the previous path set and the current path set.
+		- If the previous path set provides fewer lines than the current one for the given ant number, we return the previous one and stop the path-finding algorithm. 
 4. Compare the two options and send ants using the best option
     - Once we know which path set to use, we create a queue to send ants. We send the ants one by one and print the lines.
 
