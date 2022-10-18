@@ -10,6 +10,15 @@ For detailed instructions, refer to [the subject](subject.pdf).
   <img src="readme_visuals/sample_map.gif" alt="animated" />
 </p>
 
+# Table of Contents
+1. [Input](#input)
+2. [Output](#output)
+3. [Strategy](#strategy)
+4. [Error management](#error-management)
+5. [Installation](#installation)
+6. [Usage](#usage)
+7. [Visualizer](#visualizer)
+8. [Test scripts](#test-scripts)
 
 ## Input
 Our program receives data in the following format from stdin:
