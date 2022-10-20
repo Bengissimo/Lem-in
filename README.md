@@ -101,7 +101,7 @@ We aim to find the optimal combinations of node-disjoint paths for the given amo
 
 <p align="center">
 	<img src="readme_visuals/option1_vs_option2.png"/>
-	<figcaption align = "center"><b>An example graph showing how Option 2 finds a shorter path compared to Edmonds-Karp algorithm</b></figcaption>
+	<p align="center"><b>An example graph showing how Option 2 finds a shorter path compared to Edmonds-Karp algorithm</b></p>
 </p>
 
 ## Error management
@@ -157,7 +157,7 @@ pip3 install networkx matplotlib numpy scipy
 
 <p align="center">
   <img src="readme_visuals/bigger_map.gif" alt="animated" />
-  <figcaption align = "center"><b>Visualizer running with --big and --coord options</b></figcaption>
+  <p align = "center"><b>Visualizer running with --big and --coord options</b></p>
 </p>
 
 ## Test scripts
