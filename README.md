@@ -24,10 +24,10 @@ For detailed instructions, refer to [the subject](subject.pdf).
 Our program receives data in the following format from stdin:
 - Number of ants (positive integers)
 - Rooms (name coord_x coord_y)
-- ##start command followed by the start rooms information
-- ##end command followed by the end room information
+- `##start` command followed by the start rooms information
+- `##end` command followed by the end room information
 - Links (name1-name2)
-- Comments can be anywhere; they start with a '#'
+- Comments can be anywhere; they start with a `#`
 
 An example input:
 ```
